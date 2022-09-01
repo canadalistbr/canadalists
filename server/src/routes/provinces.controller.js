@@ -1,7 +1,8 @@
-const { provinces } = require("../models/provinces.model");
+const { Provinces } = require("../models/provinces.model");
 
 function getAllProvinces(req, res) {
-  return res.status(200).json(provinces);
+  const allProvinces = Provinces.getAllProvinces()
+  return res.status(200).json(allProvinces);
 }
 
 module.exports = {
