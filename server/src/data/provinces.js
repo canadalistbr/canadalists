@@ -41,7 +41,7 @@ const provinces = [
     name: "Nova Scotia",
     capital: "Halifax",
     languages: ["en"],
-    minimumWage: 12.55,
+    minimumWage: 13.60,
   },
   {
     id: "7",
