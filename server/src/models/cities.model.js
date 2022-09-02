@@ -1,16 +1,16 @@
 const cities = require('../data/cities')
 
 const Cities = class {
-  constructor(id){
-    this.id = id
+  constructor(name){
+    this.name = name
   }
 
   static getAllCities() {
     return cities
   }
 
-  static getCityById() {
-    return cities.find(({id}) => id === this.id)
+  static getCityByName() {
+    return cities.find(({name}) => name === this.id)
   }
 
 }
