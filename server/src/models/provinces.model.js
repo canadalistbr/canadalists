@@ -1,20 +1,21 @@
-const provinces = require('../data/provinces')
+const provinces = require("../data/provinces");
+const { removeAccents } = require("../utils/removeAccents");
 
 const Provinces = class {
-  constructor(name){
-    this.name = name
+  constructor(name) {
+    this.name = name;
   }
 
   static getAllProvinces() {
-    return provinces
+    return provinces;
   }
 
-  static getProvinceByName() {
-    return provinces.find(({name}) => name === this.name)
+  static getProvinceByName(name) {
+    const lowerCaseName = name.toLowerCase();
+    const nameWithNoAccents = removeAccents(lowerCaseName);
+    return provinces.find((province) => province.id === nameWithNoAccents);
   }
-
-}
-
+};
 
 module.exports = {
   Provinces,
