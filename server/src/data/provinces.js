@@ -48,7 +48,7 @@ const provinces = [
     name: "Ontario",
     capital: "Ottawa",
     languages: ["en"],
-    minimumWage: 14,
+    minimumWage: 15.50,
   },
   {
     id: "8",
