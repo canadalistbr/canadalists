@@ -20,7 +20,7 @@ const provinces = [
     name: "Manitoba",
     capital: "Winnipeg",
     languages: ["en", "fr"],
-    minimumWage: 11.65,
+    minimumWage: 13.50,
   },
   {
     id: "4",
