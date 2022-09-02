@@ -69,7 +69,7 @@ const provinces = [
     name: "Saskatchewan",
     capital: "Regina",
     languages: ["en"],
-    minimumWage: 11.32,
+    minimumWage: 13.00,
   },
 ];
 
