@@ -6,7 +6,13 @@ function getAllProvinces(req, res) {
 }
 
 function getProvinceByName(req, res) {
-  const province = Provinces.getProvinceByName(req.body.name);
+  const province = Provinces.getProvinceByName(req.params.provinceName)
+  if (!province) {
+    res.status(404).json({
+      error:"Sorry, this province does not exist"
+    })
+    return res.redirect("/provinces")
+  }
   return res.status(200).json(province);
 }
 
