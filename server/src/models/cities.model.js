@@ -1,4 +1,5 @@
 const cities = require('../data/cities')
+const { removeAccents } = require('../utils/removeAccents')
 
 const Cities = class {
   constructor(name){
@@ -10,7 +11,9 @@ const Cities = class {
   }
 
   static getCityByName(name) {
-    return cities.find(city => city.id === name)
+    const lowercaseName = name.toLowerCase()
+    const nameWithNoAccents = removeAccents(lowercaseName)
+    return cities.find(city => city.id === nameWithNoAccents)
   }
 
 }
