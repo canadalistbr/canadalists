@@ -5,12 +5,12 @@ function getAllProvinces(req, res) {
   return res.status(200).json(allProvinces);
 }
 
-function getProvinceById(req, res) {
-  const province = Provinces.getProvinceById(req.body.id);
+function getProvinceByName(req, res) {
+  const province = Provinces.getProvinceByName(req.body.name);
   return res.status(200).json(province);
 }
 
 module.exports = {
   getAllProvinces,
-  getProvinceById
+  getProvinceByName
 };
