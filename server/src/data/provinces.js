@@ -55,7 +55,7 @@ const provinces = [
     name: "Prince Edward Island",
     capital: "Charlottetown",
     languages: ["en"],
-    minimumWage: 12.85,
+    minimumWage: 13.70,
   },
   {
     id: "9",
