@@ -8,7 +8,7 @@ const app = express();
 
 app.get("/", getAllProvinces)
 app.use(express.json())
-app.use(provincesRoutes)
-app.use(citiesRoutes)
+app.use("/provinces",provincesRoutes)
+app.use("/cities",citiesRoutes)
 
 module.exports = app
