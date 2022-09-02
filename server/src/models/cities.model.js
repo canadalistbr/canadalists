@@ -9,8 +9,8 @@ const Cities = class {
     return cities
   }
 
-  static getCityByName() {
-    return cities.find(({name}) => name === this.id)
+  static getCityByName(name) {
+    return cities.find(city => city.id === name)
   }
 
 }
