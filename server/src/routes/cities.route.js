@@ -4,6 +4,6 @@ const {getAllCities}  = require("./cities.controller");
 
 const citiesRoutes = express.Router();
 
-citiesRoutes.get("/cities", getAllCities);
+citiesRoutes.get("/", getAllCities);
 
 module.exports = citiesRoutes;
