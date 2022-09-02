@@ -1,16 +1,16 @@
 const provinces = require('../data/provinces')
 
 const Provinces = class {
-  constructor(id){
-    this.id = id
+  constructor(name){
+    this.name = name
   }
 
   static getAllProvinces() {
     return provinces
   }
 
-  static getProvinceById() {
-    return provinces.find(({id}) => id === this.id)
+  static getProvinceByName() {
+    return provinces.find(({name}) => name === this.name)
   }
 
 }
