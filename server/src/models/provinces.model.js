@@ -1,13 +1,21 @@
-//TODO: Add rest of provinces and move it into DB later on
-const provinces = [
-  {
-    id: "1",
-    name: "Quebec",
-    capital: "Quebec City",
-    languages: ["fr"],
-  },
-];
+const provinces = require('../data/provinces')
+
+const Provinces = class {
+  constructor(id){
+    this.id = id
+  }
+
+  static getAllProvinces() {
+    return provinces
+  }
+
+  static getProvinceById() {
+    return provinces.find(({id}) => id === this.id)
+  }
+
+}
+
 
 module.exports = {
-  provinces,
+  Provinces,
 };
