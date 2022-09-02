@@ -27,7 +27,7 @@ const provinces = [
     name: "New Brunswick",
     capital: "Fredericton",
     languages: ["en", "fr"],
-    minimumWage: 11.7,
+    minimumWage: 13.75,
   },
   {
     id: "5",
