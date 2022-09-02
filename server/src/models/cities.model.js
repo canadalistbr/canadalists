@@ -1,5 +1,5 @@
 const cities = require('../data/cities')
-const { removeAccents } = require('../utils/removeAccents')
+const { normalizeEntityName } = require('../utils/removeAccents')
 
 const Cities = class {
   constructor(name){
@@ -11,9 +11,7 @@ const Cities = class {
   }
 
   static getCityByName(name) {
-    const lowercaseName = name.toLowerCase()
-    const nameWithNoAccents = removeAccents(lowercaseName)
-    return cities.find(city => city.id === nameWithNoAccents)
+    return cities.find(city => city.id === normalizeEntityName(name))
   }
 
 }

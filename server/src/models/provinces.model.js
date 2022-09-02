@@ -1,5 +1,5 @@
 const provinces = require("../data/provinces");
-const { removeAccents } = require("../utils/removeAccents");
+const { normalizeEntityName } = require("../utils/removeAccents");
 
 const Provinces = class {
   constructor(name) {
@@ -11,9 +11,7 @@ const Provinces = class {
   }
 
   static getProvinceByName(name) {
-    const lowerCaseName = name.toLowerCase();
-    const nameWithNoAccents = removeAccents(lowerCaseName);
-    return provinces.find((province) => province.id === nameWithNoAccents);
+    return provinces.find((province) => province.id === normalizeEntityName(name));
   }
 };
 
