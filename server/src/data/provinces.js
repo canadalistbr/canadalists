@@ -13,7 +13,7 @@ const provinces = [
     name: "British Columbia",
     capital: "Victoria",
     languages: ["en"],
-    minimumWage: 13.85,
+    minimumWage: 15.65,
   },
   {
     id: "3",
