@@ -62,7 +62,7 @@ const provinces = [
     name: "Quebec",
     capital: "Quebec City",
     languages: ["fr"],
-    minimumWage: 13.1,
+    minimumWage: 14.25,
   },
   {
     id: "10",
