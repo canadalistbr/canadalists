@@ -34,7 +34,7 @@ const provinces = [
     name: "Newfoundland & Labrador",
     capital: "Saint John's",
     languages: ["en"],
-    minimumWage: 11.65,
+    minimumWage: 13.70,
   },
   {
     id: "6",
