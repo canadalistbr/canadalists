@@ -1,16 +1,14 @@
-import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
 
-const Home: NextPage = () => {
+const Home = ({title = "Canada Lists"}) => {
   return (
     <div>
       <Head>
         <title>
-          Canada Lists
+          {title}
         </title>
       </Head>
-      Canada lists
+      {title}
     </div>
   )
 }
