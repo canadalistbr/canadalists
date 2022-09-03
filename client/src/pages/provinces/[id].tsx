@@ -1,8 +1,7 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 
-import type { NextPage } from 'next'
-const ProvincePage: NextPage = () => {
+const ProvincePage = ({title = "Province Page"}) => {
   const router = useRouter();
 
   //TODO: fetches an id of router.query.provinceId
@@ -11,10 +10,10 @@ const ProvincePage: NextPage = () => {
     <div>
       <Head>
         <title>
-          Province page
+          {title}
         </title>
       </Head>
-      Province page
+      {title}
     </div>
   )
 }

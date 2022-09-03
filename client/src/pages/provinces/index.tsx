@@ -1,15 +1,14 @@
 import Head from 'next/head'
 
-import type { NextPage } from 'next'
-const Provinces: NextPage = () => {
+const Provinces = ({title = "Provinces List"}) => {
   return (
     <div>
       <Head>
         <title>
-          Provinces List
+          {title}
         </title>
       </Head>
-      Provinces List
+      {title}
     </div>
   )
 }
