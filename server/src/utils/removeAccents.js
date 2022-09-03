@@ -3,7 +3,7 @@ function removeAccents(string) {
 }
 
 function normalizeEntityName(string) {
-  return removeAccents(string).toLowerCase();
+  return removeSpaces(removeAccents(string)).toLowerCase();
 }
 
 function removeSpaces(string) {
