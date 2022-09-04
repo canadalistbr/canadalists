@@ -1,20 +1,19 @@
-const provinces = require('../data/provinces')
+const provinces = require("../data/provinces");
+const { normalizeEntityName } = require("../utils/removeAccents");
 
 const Provinces = class {
-  constructor(name){
-    this.name = name
+  constructor(name) {
+    this.name = name;
   }
 
   static getAllProvinces() {
-    return provinces
+    return provinces;
   }
 
-  static getProvinceByName() {
-    return provinces.find(({name}) => name === this.name)
+  static getProvinceByName(name) {
+    return provinces.find((province) => province.id === normalizeEntityName(name));
   }
-
-}
-
+};
 
 module.exports = {
   Provinces,

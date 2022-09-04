@@ -6,8 +6,9 @@ const citiesRoutes = require("./routes/cities.route");
 
 const app = express();
 
-app.get("/", getAllProvinces)
 app.use(express.json())
+
+app.get("/", getAllProvinces)
 app.use("/provinces",provincesRoutes)
 app.use("/cities",citiesRoutes)
 

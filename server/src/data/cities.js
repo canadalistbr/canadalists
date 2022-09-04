@@ -1,6 +1,6 @@
 //TODO: Add rest of provinces and move it into DB later on
 const cities =[{
-  id:"1",
+  id:"montreal",
   name: "Montréal",
   province: "Quebec"
 }];
