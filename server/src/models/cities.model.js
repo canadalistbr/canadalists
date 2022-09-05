@@ -1,5 +1,5 @@
 const cities = require('../data/cities')
-const { normalizeEntityName } = require('../utils/removeAccents')
+const { normalizeEntityName } = require('../utils/normalizeEntityName')
 
 const Cities = class {
   constructor(name){
