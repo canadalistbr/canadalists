@@ -1,6 +1,4 @@
-const provinces = require("../data/provinces");
 const db = require("../utils/database");
-const { normalizeEntityName } = require("../utils/normalizeEntityName");
 
 const Provinces = class {
   constructor(name) {
