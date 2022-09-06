@@ -1,5 +1,4 @@
-const provinces = require("../data/provinces");
-const { normalizeEntityName } = require("../utils/removeAccents");
+const db = require("../utils/database");
 
 const Provinces = class {
   constructor(name) {
@@ -7,11 +6,11 @@ const Provinces = class {
   }
 
   static getAllProvinces() {
-    return provinces;
+    return db.execute("SELECT * FROM provinces");
   }
 
   static getProvinceByName(name) {
-    return provinces.find((province) => province.id === normalizeEntityName(name));
+    return db.execute(`SELECT * FROM provinces WHERE provinces.id = ?`, [name]);
   }
 };
 
