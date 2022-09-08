@@ -1,3 +1,6 @@
+//TODO: get data from backend
+import { ProvincesData } from 'components/data'
+import { ProvinceList } from 'components/ProvinceList'
 import Head from 'next/head'
 
 const Provinces = ({title = "Provinces List"}) => {
@@ -8,7 +11,8 @@ const Provinces = ({title = "Provinces List"}) => {
           {title}
         </title>
       </Head>
-      {title}
+      <h1>{title}</h1>
+      <ProvinceList provincesData={ProvincesData}/>
     </div>
   )
 }
