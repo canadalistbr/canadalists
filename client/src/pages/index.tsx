@@ -1,9 +1,11 @@
+import TopHeader from 'components/TopHeader'
 import Head from 'next/head'
 import Image from 'next/image'
 
 import * as S from './styles'
 
 const Home = ({title = "Canada Lists"}) => {
+  //TODO: change <S.Header>{title}</S.Header> to the logo
   return (
     <>
       <Head>
@@ -13,9 +15,7 @@ const Home = ({title = "Canada Lists"}) => {
       </Head>
       <S.Container>
         <Image src="/img/canada_bg.jpg" alt="Canada flag background" layout='fill'/>
-        <S.Wrapper>
-          <S.Header>{title}</S.Header>
-        </S.Wrapper>
+        <TopHeader/>
       </S.Container>
     </>
   )
