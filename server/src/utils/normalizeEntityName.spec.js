@@ -1,4 +1,4 @@
-const { removeAccents, removeSpaces, normalizeEntityName } = require("./removeAccents");
+const { removeAccents, removeSpaces, normalizeEntityName } = require("./normalizeEntityName");
 
 describe("removeAccents", () => {
   it("removes all accents from a string", () => {
