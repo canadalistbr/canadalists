@@ -1,4 +1,4 @@
-import { ok } from "../../helpers/http-helper";
+import { ok, serverError } from "../../helpers/http-helper";
 import { LoadProvincesController } from "./load-provinces-controller";
 import {
   LoadProvinces,
@@ -59,5 +59,12 @@ describe("LoadProvincesController", () => {
     const { sut } = makeSut();
     const httpResponse = await sut.handle({});
     expect(httpResponse.statusCode).toEqual(ok(makeFakeProvinces()).statusCode);
+  });
+
+  it("should return 500 if LoadProvinces throw", async () => {
+    const { sut, loadProvincesStub } = makeSut();
+    jest.spyOn(loadProvincesStub, 'load').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error)))
+    const httpResponse = await sut.handle({});
+    expect(httpResponse).toEqual(serverError(new Error));
   });
 });
