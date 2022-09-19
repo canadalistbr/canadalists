@@ -1,3 +1,4 @@
+import { ok } from "../../helpers/http-helper";
 import { LoadProvincesController } from "./load-provinces-controller";
 import {
   LoadProvinces,
@@ -22,9 +23,9 @@ function makeFakeProvinces(): ProvinceModel[] {
 }
 
 type SutTypes = {
-  sut: LoadProvincesController,
-  loadProvincesStub: LoadProvinces 
-}
+  sut: LoadProvincesController;
+  loadProvincesStub: LoadProvinces;
+};
 
 const makeLoadProvinces = (): LoadProvinces => {
   class LoadProvincesStub implements LoadProvinces {
@@ -33,27 +34,30 @@ const makeLoadProvinces = (): LoadProvinces => {
     }
   }
 
- return new LoadProvincesStub()
-}
+  return new LoadProvincesStub();
+};
 
 const makeSut = (): SutTypes => {
-  const loadProvincesStub = makeLoadProvinces()
-  const sut = new LoadProvincesController(loadProvincesStub)
+  const loadProvincesStub = makeLoadProvinces();
+  const sut = new LoadProvincesController(loadProvincesStub);
 
   return {
     loadProvincesStub,
-    sut
-  }
-}
+    sut,
+  };
+};
 
 describe("LoadProvincesController", () => {
-  it("ensure load provinces is called", () => {
-
-    const {sut,loadProvincesStub} = makeSut()
-    
+  it("ensure load provinces is called", async () => {
+    const { sut, loadProvincesStub } = makeSut();
     const loadSpy = jest.spyOn(loadProvincesStub, "load");
-    const loadProvinces = new LoadProvincesController(loadProvincesStub);
-    sut.handle({});
+    await sut.handle({});
     expect(loadSpy).toHaveBeenCalled();
+  });
+
+  it("should return 200 on success", async () => {
+    const { sut } = makeSut();
+    const httpResponse = await sut.handle({});
+    expect(httpResponse.statusCode).toEqual(ok(makeFakeProvinces()).statusCode);
   });
 });
