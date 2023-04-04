@@ -1,3 +1,12 @@
+// These styles apply to every route in the application
+import './globals.css';
+
+export const metadata = {
+  title: 'Canada List',
+  description: 'Move to Canada',
+}
+
+
 export default function RootLayout({
   // Layouts must accept a children prop.
   // This will be populated with nested layouts or pages
@@ -8,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <p>testing</p>
+        <p>{children}</p>
       </body>
     </html>
   );
