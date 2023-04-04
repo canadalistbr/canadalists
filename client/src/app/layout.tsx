@@ -1,6 +1,4 @@
 export default function RootLayout({
-  // Layouts must accept a children prop.
-  // This will be populated with nested layouts or pages
   children,
 }: {
   children: React.ReactNode;
@@ -8,7 +6,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <p>testing</p>
+        <p>{children}</p>
       </body>
     </html>
   );
