@@ -1,14 +1,13 @@
-import Head from 'next/head'
-
-const Home = ({ title = 'Canada Lists' }) => {
+import Image from 'next/image'
+import MaxWidthWrapper from './components/MaxWidthWrapper'
+const Home = () => {
   return (
-    <div>
-      <Head>
-        <title>{title}</title>
-      </Head>
-      <>
-        <h1 className="text-3xl font-bold underline">{title}</h1>
-      </>
+    <div className="min-h-full">
+      <MaxWidthWrapper>
+        <main>
+          <Image src="/img/montreal.png" alt={'title'} width={640} height={426} />
+        </main>
+      </MaxWidthWrapper>
     </div>
   )
 }
