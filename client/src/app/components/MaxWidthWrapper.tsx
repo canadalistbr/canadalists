@@ -10,7 +10,6 @@ export function MaxWidthWrapper({ children }: MaxWidthWrapperProps) {
       className="
         container
         relative
-        max-w-[calc(1200px + 32px * 2)]   
         mx-auto
         px-4
       "
