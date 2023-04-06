@@ -1,22 +1,19 @@
 // These styles apply to every route in the application
-import './globals.css';
+import './globals.css'
 
 export const metadata = {
   title: 'Canada List',
-  description: 'Move to Canada',
+  description: 'Move to Canada'
 }
 
-
 export default function RootLayout({
-  children,
+  children
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <html lang="en">
-      <body>
-        <p>{children}</p>
-      </body>
+      <body>{children}</body>
     </html>
-  );
+  )
 }
