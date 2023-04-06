@@ -1,5 +1,4 @@
 // These styles apply to every route in the application
-import Head from 'next/head'
 import './globals.css'
 
 export const metadata = {
@@ -14,9 +13,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <Head>
-        <title>Canada List</title>
-      </Head>
       <body>{children}</body>
     </html>
   )
