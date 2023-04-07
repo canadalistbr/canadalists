@@ -9,7 +9,11 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      gridTemplateColumns: {
+        fluid: "min(calc(1200px + 32px * 2))"
+      }
+    },
   },
   plugins: [],
 }

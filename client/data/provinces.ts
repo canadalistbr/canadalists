@@ -5,6 +5,7 @@ export const ProvincesData = [
       capital: "Edmonton",
       languages: ["en"],
       minimumWage: 15,
+      slug: "AB"
     },
     {
       id: "2",
@@ -12,6 +13,7 @@ export const ProvincesData = [
       capital: "Victoria",
       languages: ["en"],
       minimumWage: 15.65,
+      slug: "BC"
     },
     {
       id: "3",
@@ -19,6 +21,7 @@ export const ProvincesData = [
       capital: "Winnipeg",
       languages: ["en", "fr"],
       minimumWage: 13.50,
+      slug: "MB"
     },
     {
       id: "4",
@@ -26,6 +29,7 @@ export const ProvincesData = [
       capital: "Fredericton",
       languages: ["en", "fr"],
       minimumWage: 13.75,
+      slug: "NB"
     },
     {
       id: "5",
@@ -33,6 +37,7 @@ export const ProvincesData = [
       capital: "Saint John's",
       languages: ["en"],
       minimumWage: 13.70,
+      slug: "NL"
     },
     {
       id: "6",
@@ -40,6 +45,7 @@ export const ProvincesData = [
       capital: "Halifax",
       languages: ["en"],
       minimumWage: 13.60,
+      slug: "NS"
     },
     {
       id: "7",
@@ -47,6 +53,7 @@ export const ProvincesData = [
       capital: "Ottawa",
       languages: ["en"],
       minimumWage: 15.50,
+      slug: "ON"
     },
     {
       id: "8",
@@ -54,6 +61,7 @@ export const ProvincesData = [
       capital: "Charlottetown",
       languages: ["en"],
       minimumWage: 13.70,
+      slug: "PEI"
     },
     {
       id: "9",
@@ -61,6 +69,7 @@ export const ProvincesData = [
       capital: "Quebec City",
       languages: ["fr"],
       minimumWage: 14.25,
+      slug: "QC"
     },
     {
       id: "10",
@@ -68,5 +77,6 @@ export const ProvincesData = [
       capital: "Regina",
       languages: ["en"],
       minimumWage: 13.00,
+      slug: "SK"
     },
   ];
