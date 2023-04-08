@@ -8,6 +8,7 @@ function Provinces() {
         <Link key={province.id} href={`/provinces/${province.slug}`}>
           <Card
             slug={province.slug}
+            key={province.id}
             title={province.name}
             image="/img/montreal.png"
           />
