@@ -57,7 +57,7 @@ export type SideCardProps = Pick<CardProps, 'title' | 'image'>
 
 export function SideCard({ title, image }: SideCardProps) {
   return (
-    <div className="p-6 h-66  shadow-lg flex flex-col justify-start items-center bg-white hover:shadow-md border-b-gray-50 rounded-lg overflow-hidden">
+    <div className="p-6 h-66   flex flex-col justify-start items-center hover:shadow-lg hover:ease-in duration-300 border rounded-lg overflow-hidden">
       <div className="rounded-full overflow-hidden">
         <Image
           src={image}
