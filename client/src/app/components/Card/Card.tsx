@@ -22,9 +22,11 @@ export function Card({
   upperRight
 }: CardProps) {
   return (
-    <div className="p-3 shadow-lg divide-y divide-dashed">
-      <div className="aspect-video relative p-2 opacity-80">
-        <Image src={image} alt={title} fill style={{ objectFit: 'cover' }} />
+    <div className="p-3 shadow-lg ">
+      <div className="relative">
+        <div className="aspect-video relative  opacity-80">
+          <Image src={image} alt={title} fill style={{ objectFit: 'cover' }} />
+        </div>
         <span className="absolute text-white text-9xl top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           {slug}
         </span>
@@ -41,20 +43,19 @@ export function Card({
           {upperRight}
         </div>
       </div>
-      <div className="py-5 text-center text-gray-600">
-        <span className="text-4xl">{title}</span>
+      <div className="divide-y divide">
+        <div className="py-3 text-center text-gray-600">
+          <span className="text-4xl">{title}</span>
+        </div>
+        <div className="text-2xl text-center py-3">{children}</div>
       </div>
-      <div className="text-2xl">{children}</div>
     </div>
   )
 }
 
-export type SideCardProps = Pick<CardProps,'title' | 'image'>
+export type SideCardProps = Pick<CardProps, 'title' | 'image'>
 
-export function SideCard({
-  title,
-  image,
-}: SideCardProps) {
+export function SideCard({ title, image }: SideCardProps) {
   return (
     <div className="p-6 h-66  shadow-lg flex flex-col justify-start items-center bg-white hover:shadow-md border-b-gray-50 rounded-lg overflow-hidden">
       <div className="rounded-full overflow-hidden">
