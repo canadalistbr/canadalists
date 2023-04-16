@@ -1,5 +1,5 @@
-import Image from "next/image"
-import { PropsWithChildren } from "react"
+import Image from 'next/image'
+import { PropsWithChildren } from 'react'
 
 export type CardProps = PropsWithChildren<{
   title: string
@@ -11,7 +11,16 @@ export type CardProps = PropsWithChildren<{
   upperRight?: React.ReactNode
 }>
 
-export function Card({ title, image, slug, children, bottomLeft, bottomRight, upperLeft, upperRight }: CardProps) {
+export function Card({
+  title,
+  image,
+  slug,
+  children,
+  bottomLeft,
+  bottomRight,
+  upperLeft,
+  upperRight
+}: CardProps) {
   return (
     <div className="p-3 shadow-lg divide-y divide-dashed">
       <div className="aspect-video relative p-2 opacity-80">
@@ -35,9 +44,29 @@ export function Card({ title, image, slug, children, bottomLeft, bottomRight, up
       <div className="py-5 text-center text-gray-600">
         <span className="text-4xl">{title}</span>
       </div>
-      <div className="text-2xl">
-        {children}
+      <div className="text-2xl">{children}</div>
+    </div>
+  )
+}
+
+export type SideCardProps = Pick<CardProps,'title' | 'image'>
+
+export function SideCard({
+  title,
+  image,
+}: SideCardProps) {
+  return (
+    <div className="p-6 h-66  shadow-lg flex flex-col justify-start items-center bg-white hover:shadow-md border-b-gray-50 rounded-lg overflow-hidden">
+      <div className="rounded-full overflow-hidden">
+        <Image
+          src={image}
+          alt={title}
+          width={72}
+          height={72}
+          className="w-full h-full"
+        />
       </div>
+      <p className="text-gray-700 text-3xl inline-block mt-6 ">{title}</p>
     </div>
   )
 }
