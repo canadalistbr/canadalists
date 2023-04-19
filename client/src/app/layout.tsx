@@ -1,5 +1,4 @@
 // These styles apply to every route in the application
-import MaxWidthWrapper from './components/MaxWidthWrapper'
 import './globals.css'
 
 export const metadata = {
@@ -15,7 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <MaxWidthWrapper>{children}</MaxWidthWrapper>
+        <div>{children}</div>
       </body>
     </html>
   )

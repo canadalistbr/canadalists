@@ -1,5 +1,5 @@
-import Image from "next/image"
-import { PropsWithChildren } from "react"
+import Image from 'next/image'
+import { PropsWithChildren } from 'react'
 
 export type CardProps = PropsWithChildren<{
   title: string
@@ -11,11 +11,22 @@ export type CardProps = PropsWithChildren<{
   upperRight?: React.ReactNode
 }>
 
-export function Card({ title, image, slug, children, bottomLeft, bottomRight, upperLeft, upperRight }: CardProps) {
+export function Card({
+  title,
+  image,
+  slug,
+  children,
+  bottomLeft,
+  bottomRight,
+  upperLeft,
+  upperRight
+}: CardProps) {
   return (
-    <div className="p-3 shadow-lg divide-y divide-dashed">
-      <div className="aspect-video relative p-2 opacity-80">
-        <Image src={image} alt={title} fill style={{ objectFit: 'cover' }} />
+    <div className="p-3 shadow-lg ">
+      <div className="relative">
+        <div className="aspect-video relative  opacity-80">
+          <Image src={image} alt={title} fill style={{ objectFit: 'cover' }} />
+        </div>
         <span className="absolute text-white text-9xl top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           {slug}
         </span>
@@ -32,11 +43,34 @@ export function Card({ title, image, slug, children, bottomLeft, bottomRight, up
           {upperRight}
         </div>
       </div>
-      <div className="py-5 text-center text-gray-600">
-        <span className="text-4xl">{title}</span>
+      <div className="divide-y divide">
+        <div className="py-3 text-center text-gray-600">
+          <span className="text-4xl">{title}</span>
+        </div>
+        <div className="text-2xl text-center py-3">{children}</div>
       </div>
-      <div className="text-2xl">
-        {children}
+    </div>
+  )
+}
+
+export type SideCardProps = Pick<CardProps, 'title' | 'image'>
+
+export function SideCard({ title, image }: SideCardProps) {
+  return (
+    <div className="p-6 h-66 flex gap-6 justify-start items-center hover:shadow-lg hover:ease-in duration-300 border rounded-lg overflow-hidden">
+      <div className="overflow-hidden rounded-lg">
+        <Image
+          src={image}
+          alt={title}
+          width={72}
+          height={72}
+          className="w-full h-full"
+        />
+      </div>
+      <div className='flex-1 text-center'>
+        <p className="text-gray-700 text-3xl  inline-block">
+          {title}
+        </p>
       </div>
     </div>
   )
