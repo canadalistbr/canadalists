@@ -53,11 +53,13 @@ export function Card({
   )
 }
 
-export type SideCardProps = Pick<CardProps, 'title' | 'image'>
+export type SideCardProps = Pick<CardProps, 'title' | 'image'> & {
+  className: string
+}
 
-export function SideCard({ title, image }: SideCardProps) {
+export function SideCard({ title, image, className }: SideCardProps) {
   return (
-    <div className="p-6 h-66 flex gap-6 justify-start items-center hover:shadow-lg hover:ease-in duration-300 border rounded-lg overflow-hidden">
+    <div className={`p-6 h-66 flex gap-6 justify-start items-center hover:shadow-lg hover:ease-in duration-300 border rounded-lg overflow-hidden ${className}`}>
       <div className="overflow-hidden rounded-lg">
         <Image
           src={image}

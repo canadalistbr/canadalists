@@ -1,36 +1,41 @@
+'use client'
+
 import { SideCard } from 'app/components/Card/Card'
 import MaxWidthWrapper from 'app/components/MaxWidthWrapper'
 import { Tabs } from 'app/components/Tabs'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { ProvincesData } from '../../../../data/provinces'
-const tabs = [
-  {
-    name: 'Info',
-    label: 'Info',
-    content: <div>Tab 1 content goes here</div>
-  },
-  {
-    name: 'Cities',
-    label: 'Cities',
-    content: <div>Tab 2 content goes here</div>
-  },
-  {
-    name: 'Immigration Programs',
-    label: 'Immigration Programs',
-    content: <div>Tab 3 content goes here</div>
-  }
-]
-
-// [&>*]:bg-orange-400
 
 function Province() {
+  const pathName = usePathname().split('/')
+  const provinceLabel = pathName[pathName.length - 1].replace(/%20/g,' ')
+
+  const tabs = [
+    {
+      name: 'Province',
+      label: provinceLabel,
+      content: <div>Tab 1 content goes here</div>
+    },
+    {
+      name: 'Cities',
+      label: 'Cities',
+      content: <div>Tab 2 content goes here</div>
+    },
+    {
+      name: 'Immigration Programs',
+      label: 'Immigration Programs',
+      content: <div>Tab 3 content goes here</div>
+    }
+  ]
+
   return (
     <MaxWidthWrapper>
       <div className="flex p-4 ">
         <div className=" flex flex-col gap-4">
           {ProvincesData.map((province) => (
-            <Link key={province.id} href={`/provinces/${province.slug}`}>
-              <SideCard title={province.name} image="/img/montreal.png" />
+            <Link key={province.id} href={`/provinces/${province.name}`}>
+              <SideCard className={province.name === provinceLabel ?'shadow-xl' : ''} title={province.name} image="/img/montreal.png" />
             </Link>
           ))}
         </div>
