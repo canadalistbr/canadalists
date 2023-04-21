@@ -1,15 +1,18 @@
-'use client'
-
 import { SideCard } from 'app/components/Card/Card'
 import MaxWidthWrapper from 'app/components/MaxWidthWrapper'
 import { Tabs } from 'app/components/Tabs'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import { ProvincesData } from '../../../../data/provinces'
 
-function Province() {
-  const pathName = usePathname().split('/')
-  const provinceLabel = pathName[pathName.length - 1].replace(/%20/g,' ')
+type ProvinceType = {
+  params: {
+    province: string
+  }
+}
+
+function Province({ params }: ProvinceType) {
+  const { province } = params
+  const provinceLabel = province.replace(/%20/g, ' ')
 
   const tabs = [
     {
@@ -35,7 +38,11 @@ function Province() {
         <div className=" flex flex-col gap-4">
           {ProvincesData.map((province) => (
             <Link key={province.id} href={`/provinces/${province.name}`}>
-              <SideCard className={province.name === provinceLabel ?'shadow-xl' : ''} title={province.name} image="/img/montreal.png" />
+              <SideCard
+                className={province.name === provinceLabel ? 'shadow-xl' : ''}
+                title={province.name}
+                image="/img/montreal.png"
+              />
             </Link>
           ))}
         </div>
