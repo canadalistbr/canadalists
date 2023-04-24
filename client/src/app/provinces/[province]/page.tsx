@@ -13,7 +13,9 @@ type ProvinceType = {
 
 function Province({ params }: ProvinceType) {
   const { province } = params
-  const provinceLabel = province.replace(/%20/g, ' ')
+  
+  const provinceLabel = province.replace(/%20/g,' ').replace(/%26/g,'&')
+
   //TODO: temporary
   // const data = ProvincesData.find(province => province.name === provinceLabel)
   const tabs = [
