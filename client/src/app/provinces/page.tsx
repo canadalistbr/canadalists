@@ -7,7 +7,7 @@ function Provinces() {
     <MaxWidthWrapper>
       <div className="grid gap-4 grid-cols-[repeat(auto-fill,minmax(350px,1fr))]">
         {ProvincesData.map((province) => (
-          <Link key={province.id} href={`/provinces/${province.slug}`}>
+          <Link key={province.id} href={`/provinces/${province.name}`}>
             <Card
               slug={province.slug}
               title={province.name}
