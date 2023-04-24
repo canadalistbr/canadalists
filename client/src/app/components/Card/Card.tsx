@@ -24,7 +24,7 @@ export function Card({
   return (
     <div className="p-3 shadow-lg ">
       <div className="relative">
-        <div className="aspect-video relative  opacity-80">
+        <div className="aspect-video relative opacity-80">
           <Image src={image} alt={title} fill style={{ objectFit: 'cover' }} />
         </div>
         <span className="absolute text-white text-9xl top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
