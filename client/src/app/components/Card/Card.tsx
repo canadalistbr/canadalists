@@ -59,7 +59,7 @@ export type SideCardProps = Pick<CardProps, 'title' | 'image'> & {
 
 export function SideCard({ title, image, className }: SideCardProps) {
   return (
-    <div className={`p-6 h-66 flex gap-6 justify-start items-center hover:shadow-lg hover:ease-in duration-300 border rounded-lg overflow-hidden ${className}`}>
+    <div className={`p-6 h-72 flex gap-6 justify-start items-center hover:shadow-lg hover:ease-in duration-300 border rounded-lg overflow-hidden ${className}`}>
       <div className="overflow-hidden rounded-lg">
         <Image
           src={image}
