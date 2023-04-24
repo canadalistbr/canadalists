@@ -1,4 +1,5 @@
 import { SideCard } from 'app/components/Card/Card'
+import { Info } from 'app/components/Info/Info'
 import MaxWidthWrapper from 'app/components/MaxWidthWrapper'
 import { Tabs } from 'app/components/Tabs'
 import Link from 'next/link'
@@ -13,12 +14,13 @@ type ProvinceType = {
 function Province({ params }: ProvinceType) {
   const { province } = params
   const provinceLabel = province.replace(/%20/g, ' ')
-
+  //TODO: temporary
+  // const data = ProvincesData.find(province => province.name === provinceLabel)
   const tabs = [
     {
       name: 'Province',
       label: provinceLabel,
-      content: <div>Tab 1 content goes here</div>
+      content: <Info />
     },
     {
       name: 'Cities',
@@ -48,7 +50,7 @@ function Province({ params }: ProvinceType) {
         </div>
         <section className="flex-1 mx-10 overflow-hidden  rounded-t-2xl ">
           <header className="h-72 mg-4 bg-[url('/img/montreal.png')] w-full rounded-t-2xl" />
-          <main className="rounded-t-3xl bg-white -translate-y-1/4">
+          <main className="rounded-t-3xl bg-white ">
             <Tabs tabs={tabs} />
           </main>
         </section>
