@@ -24,20 +24,20 @@ export type InfoProps = {
 export function Info(props: InfoProps) {
   const { image, alt } = props
   return (
-    <div className="grid grid-cols-2 gap-12">
-      <table className="table-auto">
+    <div className="grid grid-cols-3 gap-12">
+      <table className="table-auto col-span-2">
         <tbody className="">
-          <tr className="border-b">
+          <tr className="">
             <td className="pb-8">
               <LabelWrapper label="employment" symbol="💻">
                 Employment Opportunities
               </LabelWrapper>
             </td>
-            <td className="pb-8 w-72  ">
+            <td className="pb-8 w-96">
               <Progressbar progress={70} />
             </td>
           </tr>
-          <tr className="border-b">
+          <tr className="">
             <td className="py-8 ">
               <LabelWrapper label="cost" symbol="💰">
                 Cost of living
@@ -47,7 +47,7 @@ export function Info(props: InfoProps) {
               <Progressbar progress={70} />
             </td>
           </tr>
-          <tr className="border-b">
+          <tr className="">
             <td className="py-8 ">
               <LabelWrapper label="quality of life" symbol="🌟">
                 Quality of life
@@ -57,7 +57,7 @@ export function Info(props: InfoProps) {
               <Progressbar progress={70} />
             </td>
           </tr>
-          <tr className="border-b">
+          <tr className="">
             <td className="py-8 ">
               <LabelWrapper label="climate" symbol="☀️ ">
                 Climate
@@ -67,7 +67,7 @@ export function Info(props: InfoProps) {
               <Progressbar progress={70} />
             </td>
           </tr>
-          <tr className="border-b">
+          <tr className="">
             <td className="py-8 ">
               <LabelWrapper label="diversity" symbol="🌎">
                 Cultural diversity
@@ -77,7 +77,7 @@ export function Info(props: InfoProps) {
               <Progressbar progress={70} />
             </td>
           </tr>
-          <tr className="border-b">
+          <tr className="">
             <td className="py-8 ">
               <LabelWrapper label="housing" symbol="🏠">
                 Housing availability and affordability
@@ -87,7 +87,7 @@ export function Info(props: InfoProps) {
               <Progressbar progress={70} />
             </td>
           </tr>
-          <tr className="border-b">
+          <tr className="">
             <td className="py-8 ">
               <LabelWrapper label="healthcare" symbol="🏥">
                 Access to healthcare
@@ -97,7 +97,7 @@ export function Info(props: InfoProps) {
               <Progressbar progress={70} />
             </td>
           </tr>
-          <tr className="border-b">
+          <tr className="">
             <td className="py-8 ">
               <LabelWrapper label="education" symbol="🎓">
                 Education system
@@ -107,7 +107,7 @@ export function Info(props: InfoProps) {
               <Progressbar progress={70} />
             </td>
           </tr>
-          <tr className="border-b">
+          <tr className="">
             <td className="py-8 ">
               <LabelWrapper label="safety" symbol="🔒">
                 Crime rates and safety
@@ -117,7 +117,7 @@ export function Info(props: InfoProps) {
               <Progressbar progress={70} />
             </td>
           </tr>
-          <tr className="border-b">
+          <tr className="">
             <td className="py-8 ">
               <LabelWrapper label="transportation" symbol="🚗">
                 Transportation options
@@ -127,7 +127,7 @@ export function Info(props: InfoProps) {
               <Progressbar progress={70} />
             </td>
           </tr>
-          <tr className="border-b">
+          <tr className="">
             <td className="py-8 ">
               <LabelWrapper label="entertainment" symbol="🎭">
                 Recreation and entertainment
@@ -137,7 +137,7 @@ export function Info(props: InfoProps) {
               <Progressbar progress={70} />
             </td>
           </tr>
-          <tr className="border-b">
+          <tr className="">
             <td className="py-8 ">
               <LabelWrapper label="environment" symbol="🌿">
                 Environmental factors, such as air and water quality
@@ -147,7 +147,7 @@ export function Info(props: InfoProps) {
               <Progressbar progress={70} />
             </td>
           </tr>
-          <tr className="border-b">
+          <tr className="">
             <td className="py-8 ">
               <LabelWrapper label="dining" symbol="🍽️">
                 Access to food and dining options
@@ -157,7 +157,7 @@ export function Info(props: InfoProps) {
               <Progressbar progress={70} />
             </td>
           </tr>
-          <tr className="border-b">
+          <tr className="">
             <td className="py-8 ">
               <LabelWrapper label="religion" symbol="🛐">
                 Religious and cultural institutions
@@ -167,7 +167,7 @@ export function Info(props: InfoProps) {
               <Progressbar progress={70} />
             </td>
           </tr>
-          <tr className="border-b">
+          <tr className="">
             <td className="py-8 ">
               <LabelWrapper label="services" symbol="🏞️">
                 Public services, such as parks and libraries
@@ -177,7 +177,7 @@ export function Info(props: InfoProps) {
               <Progressbar progress={70} />
             </td>
           </tr>
-          <tr className="border-b">
+          <tr className="">
             <td className="py-8 ">
               <LabelWrapper label="reputation" symbol="🏆">
                 Overall reputation
@@ -187,7 +187,7 @@ export function Info(props: InfoProps) {
               <Progressbar progress={70} />
             </td>
           </tr>
-          <tr className="border-b">
+          <tr className="">
             <td className="py-8 ">
               <LabelWrapper label="business" symbol="🏢">
                 Business friendly
