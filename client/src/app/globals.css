@@ -23,6 +23,7 @@ body {
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
+/* TODO: it doesn't work, fix it */
 .container {
   max-width: tw(min(calc(1200px + 32px * 2)));
 }
