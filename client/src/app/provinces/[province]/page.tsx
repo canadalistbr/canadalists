@@ -20,7 +20,8 @@ function Province({ params }: ProvinceType) {
     {
       name: 'Province',
       label: provinceLabel,
-      content: <Info />
+      // TODO: Temporary image
+      content: <Info image='/img/canada_map.jpg' alt='province_map' />
     },
     {
       name: 'Cities',
@@ -36,7 +37,7 @@ function Province({ params }: ProvinceType) {
 
   return (
     <MaxWidthWrapper>
-      <div className="flex p-4 ">
+      <div className="flex p-4">
         <div className=" flex flex-col gap-4">
           {ProvincesData.map((province) => (
             <Link key={province.id} href={`/provinces/${province.name}`}>
@@ -48,7 +49,7 @@ function Province({ params }: ProvinceType) {
             </Link>
           ))}
         </div>
-        <section className="flex-1 mx-10 overflow-hidden  rounded-t-2xl ">
+        <section className="flex-1 mx-10 overflow-hidden rounded-t-2xl ">
           <header className="h-72 mg-4 bg-[url('/img/montreal.png')] w-full rounded-t-2xl" />
           <main className="rounded-t-3xl bg-white ">
             <Tabs tabs={tabs} />
