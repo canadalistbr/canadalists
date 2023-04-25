@@ -4,6 +4,8 @@ import MaxWidthWrapper from 'app/components/MaxWidthWrapper'
 import { Tabs } from 'app/components/Tabs'
 import Link from 'next/link'
 import { ProvincesData } from '../../../../data/provinces'
+import { ProvinceCities } from './components/Cities'
+import { ImmigrationPrograms } from './components/ImmigrationPrograms'
 
 type ProvinceType = {
   params: {
@@ -28,12 +30,12 @@ function Province({ params }: ProvinceType) {
     {
       name: 'Cities',
       label: 'Cities',
-      content: <div>Tab 2 content goes here</div>
+      content: <ProvinceCities  />
     },
     {
       name: 'Immigration Programs',
       label: 'Immigration Programs',
-      content: <div>Tab 3 content goes here</div>
+      content: <ImmigrationPrograms  />
     }
   ]
 
