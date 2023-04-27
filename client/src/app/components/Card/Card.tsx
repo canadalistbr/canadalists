@@ -69,7 +69,7 @@ export function SideCard({ title, image, className }: SideCardProps) {
         />
       </div>
       <div className='text-center max-w-[13rem] flex-1 break-word'>
-        <p className="inline-block text-xl font-medium text-gray-500">
+        <p className="inline-block text-xl font-medium ">
           {title}
         </p>
       </div>

@@ -46,7 +46,7 @@ function Province({ params }: ProvinceType) {
           {ProvincesData.map((province) => (
             <Link key={province.id} href={`/provinces/${province.name}`}>
               <SideCard
-                className={province.name === provinceLabel ? 'border-1 border-indigo-500' : ''}
+                className={province.name === provinceLabel ? 'border-1 border-indigo-500 text-indigo-500' : 'text-gray-500'}
                 title={province.name}
                 image="/img/montreal.png"
               />
