@@ -35,7 +35,7 @@ export function Progressbar({ progress }: ProgressbarProps) {
 
   return (
     <div
-      className="w-full h-12 bg-gray-200 rounded-2xl"
+      className="w-full h-8 bg-gray-200 rounded-2xl"
       role="progressbar"
       aria-valuenow={progress}
       aria-valuemin={0}
@@ -45,7 +45,7 @@ export function Progressbar({ progress }: ProgressbarProps) {
         className={`flex items-center justify-center h-full text-center rounded-2xl bg-gradient-to-l ${backgroundColor} `}
         style={{ width: `${width}%` }}
       >
-        <span className='text-3xl font-extrabold leading-none text-white '>{75}%</span>
+        <span className='text-xl font-extrabold leading-none text-white '>{75}%</span>
       </div>
     </div>
   )

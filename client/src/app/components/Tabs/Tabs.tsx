@@ -22,7 +22,7 @@ export function Tabs({ tabs }: TabsProps) {
     <Tab.Group
       onChange={(tabIndex: number) => setCurrentTab(tabs[tabIndex].name)}
     >
-      <Tab.List className="flex space-x-8 p-4 -mt-4 ">
+      <Tab.List className="flex px-2 py-4 -mt-4 space-x-8 ">
         {tabs.map((tab) => (
           <Tab
             key={tab.name}
@@ -32,7 +32,7 @@ export function Tabs({ tabs }: TabsProps) {
                   ? // TODO: Temporary colors
                     'border-indigo-500 text-indigo-600'
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300',
-                'whitespace-nowrap py-4 px-1 border-b-2 font-medium text-3xl'
+                'whitespace-nowrap py-4 px-1 border-b-2 font-medium text-xl'
               )
             }
             name={tab.name}
@@ -42,7 +42,7 @@ export function Tabs({ tabs }: TabsProps) {
         ))}
       </Tab.List>
       {tabs.map((tab) => (
-        <Tab.Panel key={tab.name} className="p-4">
+        <Tab.Panel key={tab.name} className="px-4">
           {currentTab === tab.name && tab.content}
         </Tab.Panel>
       ))}
