@@ -205,7 +205,7 @@ export function Info(props: InfoProps) {
         <div className="relative mb-4 border aspect-video opacity-80">
           <Image src={image} alt={alt} fill style={{ objectFit: 'cover' }} />
         </div>
-        <div className="text-gray-500 text-xl p-2 my-4 [&>*]:py-2 [&>*]:inline-block leading-10">
+        <div className="text-gray-500 text-xl p-2 my-4 [&>*]:py-2 [&>*]:inline-block">
           <h2 className="sr-only">Moving to Quebec</h2>
           <p>
             <strong>Language:</strong> French is the official language of
