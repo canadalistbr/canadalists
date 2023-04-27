@@ -23,7 +23,10 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "paths": {
+      "@aui/*":["./src/app/components/ui/*"]
+    }
   },
   "include": [
     "next-env.d.ts",

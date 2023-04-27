@@ -13,7 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className='debug-screens'>
         <div>{children}</div>
       </body>
     </html>
