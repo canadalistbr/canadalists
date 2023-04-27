@@ -7,11 +7,7 @@ type MaxWidthWrapperProps = {
 export function MaxWidthWrapper({ children }: MaxWidthWrapperProps) {
   return (
     <div
-      className="
-        relative
-        mx-auto
-        px-4
-      "
+      className="container relative px-4 mx-auto "
     >
       {children}
     </div>
