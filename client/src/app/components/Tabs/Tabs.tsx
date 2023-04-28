@@ -22,7 +22,7 @@ export function Tabs({ tabs }: TabsProps) {
     <Tab.Group
       onChange={(tabIndex: number) => setCurrentTab(tabs[tabIndex].name)}
     >
-      <Tab.List className="flex space-x-8 p-4 ">
+      <Tab.List className="flex space-x-8 p-4 -mt-4 ">
         {tabs.map((tab) => (
           <Tab
             key={tab.name}

@@ -8,7 +8,6 @@ export function MaxWidthWrapper({ children }: MaxWidthWrapperProps) {
   return (
     <div
       className="
-        container
         relative
         mx-auto
         px-4

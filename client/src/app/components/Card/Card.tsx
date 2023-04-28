@@ -24,7 +24,7 @@ export function Card({
   return (
     <div className="p-3 shadow-lg ">
       <div className="relative">
-        <div className="aspect-video relative  opacity-80">
+        <div className="aspect-video relative opacity-80">
           <Image src={image} alt={title} fill style={{ objectFit: 'cover' }} />
         </div>
         <span className="absolute text-white text-9xl top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
@@ -59,7 +59,7 @@ export type SideCardProps = Pick<CardProps, 'title' | 'image'> & {
 
 export function SideCard({ title, image, className }: SideCardProps) {
   return (
-    <div className={`p-6 h-66 flex gap-6 justify-start items-center hover:shadow-lg hover:ease-in duration-300 border rounded-lg overflow-hidden ${className}`}>
+    <div className={`p-6 h-72 flex gap-6 justify-start items-center hover:shadow-lg hover:ease-in duration-300 border rounded-lg overflow-hidden ${className}`}>
       <div className="overflow-hidden rounded-lg">
         <Image
           src={image}
