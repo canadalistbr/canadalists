@@ -41,12 +41,12 @@ function Province({ params }: ProvinceType) {
 
   return (
     <MaxWidthWrapper>
-      <div className="flex p-4 gap-4">
-        <div className=" flex flex-col gap-4">
+      <div className="flex gap-4 p-4">
+        <div className="flex flex-col gap-4">
           {ProvincesData.map((province) => (
             <Link key={province.id} href={`/provinces/${province.name}`}>
               <SideCard
-                className={province.name === provinceLabel ? 'shadow-xl' : ''}
+                className={province.name === provinceLabel ? 'border-1 border-indigo-500 text-indigo-500' : 'text-gray-500'}
                 title={province.name}
                 image="/img/montreal.png"
               />
@@ -55,7 +55,7 @@ function Province({ params }: ProvinceType) {
         </div>
         <section className="flex-1 overflow-hidden rounded-t-2xl ">
           <header className="h-96 mg-4 bg-[url('/img/montreal.png')] w-full rounded-t-2xl" />
-          <main className="rounded-t-3xl bg-white ">
+          <main className="bg-white rounded-t-3xl ">
             <Tabs tabs={tabs} />
           </main>
         </section>
