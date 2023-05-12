@@ -1,11 +1,15 @@
 import { Card } from 'app/components/Card/Card'
 import { CustomTag } from 'app/components/CustomTag'
 import MaxWidthWrapper from 'app/components/MaxWidthWrapper'
+import { UnexpectedError } from 'app/errors/unexpected-error'
 import { Province } from 'app/lib'
 import Link from 'next/link'
 
 async function getProvinces(): Promise<Provinces> {
   const res = await fetch(`${process.env.BASE_URL}/api/provinces/v1/provinces`)
+  if (!res.ok) {
+    throw new UnexpectedError()
+  }
   return res.json()
 }
 
@@ -20,7 +24,7 @@ async function Provinces() {
     <MaxWidthWrapper>
       <div className="grid gap-4 grid-cols-[repeat(auto-fill,minmax(350px,1fr))]">
         {provinces.map((province) => (
-          <Link key={province.id} href={`/provinces/${province.name}`}>
+          <Link className='group' key={province.id} href={`/provinces/${province.name}`}>
             <Card
               slug={province.slug}
               title={province.name}
