@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Provinces" ADD COLUMN     "flag_url" TEXT NOT NULL DEFAULT 'https://xdcgqdmfytknfwfiixza.supabase.co/storage/v1/object/sign/provincesFlags/british_columbia_flag.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm92aW5jZXNGbGFncy9icml0aXNoX2NvbHVtYmlhX2ZsYWcucG5nIiwiaWF0IjoxNjg0MDAxNzgwLCJleHAiOjE2ODQ2MDY1ODB9.kpXUUqlruhkW0HbsBYOkI00Bsag7cNfJ5V8PJ_5a7ek&t=2023-05-13T18%3A16%3A20.866Z';
