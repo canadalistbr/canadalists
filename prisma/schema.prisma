@@ -19,7 +19,7 @@ model Province {
   topCities          String[]          @map("top_cities")
   immigrationRanking Int               @map("immigration_ranking")
   imageUrl           String            @map("image_url")
-  flagUrl            String            @default("https://xdcgqdmfytknfwfiixza.supabase.co/storage/v1/object/sign/provincesFlags/british_columbia_flag.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm92aW5jZXNGbGFncy9icml0aXNoX2NvbHVtYmlhX2ZsYWcucG5nIiwiaWF0IjoxNjg0MDAxNzgwLCJleHAiOjE2ODQ2MDY1ODB9.kpXUUqlruhkW0HbsBYOkI00Bsag7cNfJ5V8PJ_5a7ek&t=2023-05-13T18%3A16%3A20.866Z") @map("flag_url")
+  flagUrl            String            @map("flag_url")
   overview           ProvinceOverview?
 
   @@map("Provinces")
@@ -27,7 +27,6 @@ model Province {
 
 model ProvinceOverview {
   id         Int             @id @default(autoincrement())
-  name       String
   province   Province        @relation(fields: [provinceId], references: [id])
   provinceId Int             @unique @map("province_id")
   scores     ProvinceScore[] @relation("scores")
