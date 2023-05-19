@@ -21,9 +21,9 @@ model Province {
   imageUrl           String            @map("image_url")
   flagUrl            String            @map("flag_url")
   overview           ProvinceOverview?
-  City               City[]
-  Immigration        Immigration[]
-  Study              Study[]
+  city               City[]
+  immigration        Immigration[]
+  study              Study[]
 
   @@map("Provinces")
 }
