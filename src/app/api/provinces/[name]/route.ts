@@ -13,6 +13,16 @@ export async function GET(
   const province = await prisma.province.findFirst({
     where: {
       name: capitalizedProvinceName
+    },
+    include: {
+      overview: {
+        include: {
+          scores: true
+        }
+      },
+      cities: true,
+      immigration: true,
+      study: true
     }
   })
   return NextResponse.json({ province })
