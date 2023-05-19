@@ -1,5 +1,6 @@
 import { Province } from '@prisma/client'
 import { Card } from 'app/components/Card/Card'
+import axios from 'axios'
 import MaxWidthWrapper from 'app/components/MaxWidthWrapper'
 import Link from 'next/link'
 export type Provinces = {
@@ -7,13 +8,13 @@ export type Provinces = {
 }
 
 export async function getProvinces(): Promise<Provinces> {
-  const res = await fetch(`${process.env.BASE_URL}/api/provinces`, {
+  const res = await axios.get(`${process.env.BASE_URL}/api/provinces`, {
     method: 'GET',
     headers: {
       Accept: 'application/json'
     }
   })
-  return res.json()
+  return res.data
 }
 async function Provinces() {
   const { provinces } = await getProvinces()
