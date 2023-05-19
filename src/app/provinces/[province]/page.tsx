@@ -14,6 +14,7 @@ import Link from 'next/link'
 import { ProvincesData } from '../../../../data/provinces'
 import { ProvinceCities } from './components/Cities'
 import { ImmigrationPrograms } from './components/ImmigrationPrograms'
+import axios from 'axios'
 
 type ProvinceType = {
   params: {
@@ -33,13 +34,13 @@ export type ProvinceResponse = {
 }
 
 export async function getProvince(id: string): Promise<ProvinceResponse> {
-  const res = await fetch(`${process.env.BASE_URL}/api/provinces/${id}`, {
+  const res = await axios.get(`${process.env.BASE_URL}/api/provinces/${id}`, {
     method: 'GET',
     headers: {
       Accept: 'application/json'
     }
   })
-  return res.json()
+  return res.data
 }
 
 async function Province({ params }: ProvinceType) {
