@@ -1,3 +1,11 @@
+import {
+  City,
+  Immigration,
+  Province as ProvinceModel,
+  ProvinceOverview,
+  ProvinceScore,
+  Study
+} from '@prisma/client'
 import { SideCard } from 'app/components/Card/Card'
 import { Info } from 'app/components/Info/Info'
 import MaxWidthWrapper from 'app/components/MaxWidthWrapper'
@@ -13,29 +21,52 @@ type ProvinceType = {
   }
 }
 
-function Province({ params }: ProvinceType) {
-  const { province } = params
-  
-  const provinceLabel = province.replace(/%20/g,' ').replace(/%26/g,'&')
+export type ProvinceResponse = {
+  province: ProvinceModel & {
+    overview: ProvinceOverview & {
+      scores: ProvinceScore[]
+    }
+    cities: City[]
+    immigration: Immigration[]
+    study: Study[]
+  }
+}
 
-  //TODO: temporary
-  // const data = ProvincesData.find(province => province.name === provinceLabel)
+export async function getProvince(id: string): Promise<ProvinceResponse> {
+  const res = await fetch(`${process.env.BASE_URL}/api/provinces/${id}`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json'
+    }
+  })
+  return res.json()
+}
+
+async function Province({ params }: ProvinceType) {
+  const { province } = params
+  const response = await getProvince(province)
+  const scores = response.province.overview.scores
+
+  const provinceLabel = province.replace(/%20/g, ' ').replace(/%26/g, '&')
+
   const tabs = [
     {
       name: 'Province',
       label: provinceLabel,
       // TODO: Temporary image
-      content: <Info image='/img/canada_map.jpg' alt='province_map' />
+      content: (
+        <Info scores={scores} image="/img/canada_map.jpg" alt="province_map" />
+      )
     },
     {
       name: 'Cities',
       label: 'Cities',
-      content: <ProvinceCities  />
+      content: <ProvinceCities />
     },
     {
       name: 'Immigration Programs',
       label: 'Immigration Programs',
-      content: <ImmigrationPrograms  />
+      content: <ImmigrationPrograms />
     }
   ]
 
@@ -46,7 +77,11 @@ function Province({ params }: ProvinceType) {
           {ProvincesData.map((province) => (
             <Link key={province.id} href={`/provinces/${province.name}`}>
               <SideCard
-                className={province.name === provinceLabel ? 'border-1 border-indigo-500 text-indigo-500' : 'text-gray-500'}
+                className={
+                  province.name === provinceLabel
+                    ? 'border-1 border-indigo-500 text-indigo-500'
+                    : 'text-gray-500'
+                }
                 title={province.name}
                 slug={province.slug}
                 image="/img/montreal.png"
