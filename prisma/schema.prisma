@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -20,19 +17,19 @@ model Province {
   immigrationRanking Int               @map("immigration_ranking")
   imageUrl           String            @map("image_url")
   flagUrl            String            @map("flag_url")
-  overview           ProvinceOverview?
-  city               City[]
   immigration        Immigration[]
+  overview           ProvinceOverview?
   study              Study[]
+  cities             City[]
 
   @@map("Provinces")
 }
 
 model ProvinceOverview {
   id         Int             @id @default(autoincrement())
-  province   Province        @relation(fields: [provinceId], references: [id])
   provinceId Int             @unique @map("province_id")
   bannerUrl  String          @default("") @map("banner_url")
+  province   Province        @relation(fields: [provinceId], references: [id])
   scores     ProvinceScore[] @relation("scores")
 }
 
@@ -41,8 +38,8 @@ model ProvinceScore {
   name       String
   score      Float
   emoji      String
-  overview   ProvinceOverview @relation("scores", fields: [overviewId], references: [id])
   overviewId Int              @map("overview_id")
+  overview   ProvinceOverview @relation("scores", fields: [overviewId], references: [id])
 
   @@map("ProvinceScores")
 }
@@ -55,9 +52,9 @@ model City {
   imageUrl     String   @map("image_url")
   costOfLiving Float    @map("cost_of_living")
   overallScore Float    @map("overall_score")
-  province     Province @relation(fields: [provinceId], references: [id])
   provinceId   Int
   Study        Study[]
+  province     Province @relation(fields: [provinceId], references: [id])
 
   @@map("cities")
 }
@@ -66,16 +63,16 @@ model Immigration {
   id          Int      @id @default(autoincrement())
   name        String
   description String
-  province    Province @relation(fields: [provinceId], references: [id])
   provinceId  Int
+  province    Province @relation(fields: [provinceId], references: [id])
 }
 
 model Study {
   id          Int      @id @default(autoincrement())
   name        String
   description String
-  province    Province @relation(fields: [provinceId], references: [id])
   provinceId  Int
-  city        City     @relation(fields: [cityId], references: [id])
   cityId      Int
+  city        City     @relation(fields: [cityId], references: [id])
+  province    Province @relation(fields: [provinceId], references: [id])
 }
