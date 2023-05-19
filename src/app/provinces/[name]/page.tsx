@@ -11,14 +11,14 @@ import { Info } from 'app/components/Info/Info'
 import MaxWidthWrapper from 'app/components/MaxWidthWrapper'
 import { Tabs } from 'app/components/Tabs'
 import Link from 'next/link'
-import { ProvincesData } from '../../../../data/provinces'
 import { ProvinceCities } from './components/Cities'
 import { ImmigrationPrograms } from './components/ImmigrationPrograms'
 import axios from 'axios'
+import { getProvinces } from 'api/getProvinces'
 
 type ProvinceType = {
   params: {
-    province: string
+    name: string
   }
 }
 
@@ -44,30 +44,31 @@ export async function getProvince(id: string): Promise<ProvinceResponse> {
 }
 
 async function Province({ params }: ProvinceType) {
-  const { province } = params
-  const response = await getProvince(province)
-  const scores = response.province.overview.scores
+  const { name } = params
+  const { province } = await getProvince(name)
+  const { provinces } = await getProvinces()
 
-  const provinceLabel = province.replace(/%20/g, ' ').replace(/%26/g, '&')
+  const { cities, immigration, overview } = province
+  const { scores, bannerUrl } = overview
+
+  const provinceLabel = province.name
 
   const tabs = [
     {
       name: 'Province',
       label: provinceLabel,
       // TODO: Temporary image
-      content: (
-        <Info scores={scores} image="/img/canada_map.jpg" alt="province_map" />
-      )
+      content: <Info scores={scores} image={bannerUrl} alt="province_map" />
     },
     {
       name: 'Cities',
       label: 'Cities',
-      content: <ProvinceCities />
+      content: <ProvinceCities cities={cities} />
     },
     {
       name: 'Immigration Programs',
       label: 'Immigration Programs',
-      content: <ImmigrationPrograms />
+      content: <ImmigrationPrograms immigrationPrograms={immigration} />
     }
   ]
 
@@ -75,23 +76,31 @@ async function Province({ params }: ProvinceType) {
     <MaxWidthWrapper>
       <div className="p-4">
         <div className="mb-4 gap-4 flex xl:grid xl:grid-cols-[repeat(auto-fill,minmax(auto,16rem))]">
-          {ProvincesData.map((province) => (
-            <Link key={province.id} href={`/provinces/${province.name}`}>
+          {provinces.map((provinceData) => (
+            <Link
+              key={provinceData.id}
+              href={`/provinces/${provinceData.name}`}
+            >
               <SideCard
                 className={
-                  province.name === provinceLabel
+                  provinceData.name === provinceLabel
                     ? 'border-1 border-indigo-500 text-indigo-500'
                     : 'text-gray-500'
                 }
-                title={province.name}
-                slug={province.slug}
-                image="/img/montreal.png"
+                title={provinceData.name}
+                slug={provinceData.slug}
+                image={provinceData.imageUrl}
               />
             </Link>
           ))}
         </div>
         <section className="flex-1 block overflow-hidden rounded-t-2xl ">
-          <header className="h-96 mg-4 bg-[url('/img/montreal.png')] w-full rounded-t-2xl" />
+          <header
+            className="h-96 mg-4 bg-no-repeat bg-center bg-cover w-full rounded-t-2xl"
+            style={{
+              backgroundImage: `url(${bannerUrl})`
+            }}
+          />
           <main className="bg-white rounded-t-3xl ">
             <Tabs tabs={tabs} />
           </main>
