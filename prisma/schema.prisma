@@ -32,6 +32,7 @@ model ProvinceOverview {
   id         Int             @id @default(autoincrement())
   province   Province        @relation(fields: [provinceId], references: [id])
   provinceId Int             @unique @map("province_id")
+  bannerUrl  String          @default("") @map("banner_url")
   scores     ProvinceScore[] @relation("scores")
 }
 
