@@ -1,3 +1,4 @@
+import { ProvinceScore } from '@prisma/client'
 import Image from 'next/image'
 import { PropsWithChildren } from 'react'
 import { LabelWithEmoji } from '../Emoji'
@@ -19,185 +20,30 @@ function LabelWrapper(props: LabelWrapperProps) {
 export type InfoProps = {
   image: string
   alt: string
+  scores: ProvinceScore[]
 }
 
 export function Info(props: InfoProps) {
-  const { image, alt } = props
+  const { image, alt, scores } = props
   return (
     <div className="grid grid-cols-3 gap-12">
       <div className="col-span-2 ">
-        <table className='w-full' >
+        <table className="w-full">
           <tbody className="">
-            <tr className="h-12 ">
-              <td className="">
-                <LabelWrapper label="employment" symbol="💻">
-                  Employment Opportunities
-                </LabelWrapper>
-              </td>
-              <td className="w-96">
-                <Progressbar progress={95} />
-              </td>
-            </tr>
-            <tr className="h-12 ">
-              <td className="">
-                <LabelWrapper label="cost" symbol="💰">
-                  Cost of living
-                </LabelWrapper>
-              </td>
-              <td className="">
-                <Progressbar progress={95} />
-              </td>
-            </tr>
-            <tr className="h-12 ">
-              <td className="">
-                <LabelWrapper label="quality of life" symbol="🌟">
-                  Quality of life
-                </LabelWrapper>
-              </td>
-              <td className="">
-                <Progressbar progress={95} />
-              </td>
-            </tr>
-            <tr className="h-12 ">
-              <td className="">
-                <LabelWrapper label="climate" symbol="☀️ ">
-                  Climate
-                </LabelWrapper>
-              </td>
-              <td className="">
-                <Progressbar progress={95} />
-              </td>
-            </tr>
-            <tr className="h-12 ">
-              <td className="">
-                <LabelWrapper label="diversity" symbol="🌎">
-                  Cultural diversity
-                </LabelWrapper>
-              </td>
-              <td className="">
-                <Progressbar progress={95} />
-              </td>
-            </tr>
-            <tr className="h-12 ">
-              <td className="">
-                <LabelWrapper label="housing" symbol="🏠">
-                  Housing availability and affordability
-                </LabelWrapper>
-              </td>
-              <td className="">
-                <Progressbar progress={95} />
-              </td>
-            </tr>
-            <tr className="h-12 ">
-              <td className="">
-                <LabelWrapper label="healthcare" symbol="🏥">
-                  Access to healthcare
-                </LabelWrapper>
-              </td>
-              <td className="">
-                <Progressbar progress={95} />
-              </td>
-            </tr>
-            <tr className="h-12 ">
-              <td className="">
-                <LabelWrapper label="education" symbol="🎓">
-                  Education system
-                </LabelWrapper>
-              </td>
-              <td className="">
-                <Progressbar progress={95} />
-              </td>
-            </tr>
-            <tr className="h-12 ">
-              <td className="">
-                <LabelWrapper label="safety" symbol="🔒">
-                  Crime rates and safety
-                </LabelWrapper>
-              </td>
-              <td className="">
-                <Progressbar progress={95} />
-              </td>
-            </tr>
-            <tr className="h-12 ">
-              <td className="">
-                <LabelWrapper label="transportation" symbol="🚗">
-                  Transportation options
-                </LabelWrapper>
-              </td>
-              <td className="">
-                <Progressbar progress={95} />
-              </td>
-            </tr>
-            <tr className="h-12 ">
-              <td className="">
-                <LabelWrapper label="entertainment" symbol="🎭">
-                  Recreation and entertainment
-                </LabelWrapper>
-              </td>
-              <td className="">
-                <Progressbar progress={95} />
-              </td>
-            </tr>
-            <tr className="h-12 ">
-              <td className="">
-                <LabelWrapper label="environment" symbol="🌿">
-                  Environmental factors, such as air and water quality
-                </LabelWrapper>
-              </td>
-              <td className="">
-                <Progressbar progress={95} />
-              </td>
-            </tr>
-            <tr className="h-12 ">
-              <td className="">
-                <LabelWrapper label="dining" symbol="🍽️">
-                  Access to food and dining options
-                </LabelWrapper>
-              </td>
-              <td className="">
-                <Progressbar progress={95} />
-              </td>
-            </tr>
-            <tr className="h-12 ">
-              <td className="">
-                <LabelWrapper label="religion" symbol="🛐">
-                  Religious and cultural institutions
-                </LabelWrapper>
-              </td>
-              <td className="">
-                <Progressbar progress={95} />
-              </td>
-            </tr>
-            <tr className="h-12 ">
-              <td className="">
-                <LabelWrapper label="services" symbol="🏞️">
-                  Public services, such as parks and libraries
-                </LabelWrapper>
-              </td>
-              <td className="">
-                <Progressbar progress={95} />
-              </td>
-            </tr>
-            <tr className="h-12 ">
-              <td className="">
-                <LabelWrapper label="reputation" symbol="🏆">
-                  Overall reputation
-                </LabelWrapper>
-              </td>
-              <td className="">
-                <Progressbar progress={95} />
-              </td>
-            </tr>
-            <tr className="">
-              <td className="h-12">
-                <LabelWrapper label="business" symbol="🏢">
-                  Business friendly
-                </LabelWrapper>
-              </td>
-              <td className="">
-                <Progressbar progress={95} />
-              </td>
-            </tr>
+            {scores.map((score) => (
+              // eslint-disable-next-line react/no-unknown-property
+              <tr key={score.id} className="h-12 ">
+                <td className="">
+                  {/* TODO: insert label when there is a tooltip */}
+                  <LabelWrapper label="" symbol={score.emoji}>
+                    {score.name}
+                  </LabelWrapper>
+                </td>
+                <td className="w-96">
+                  <Progressbar progress={score.score * 100} />
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
