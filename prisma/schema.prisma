@@ -21,6 +21,9 @@ model Province {
   imageUrl           String            @map("image_url")
   flagUrl            String            @map("flag_url")
   overview           ProvinceOverview?
+  City               City[]
+  Immigration        Immigration[]
+  Study              Study[]
 
   @@map("Provinces")
 }
@@ -41,4 +44,37 @@ model ProvinceScore {
   overviewId Int              @map("overview_id")
 
   @@map("ProvinceScores")
+}
+
+model City {
+  id           Int      @id @default(autoincrement())
+  name         String
+  slug         String
+  language     String[]
+  imageUrl     String   @map("image_url")
+  costOfLiving Float    @map("cost_of_living")
+  overallScore Float    @map("overall_score")
+  province     Province @relation(fields: [provinceId], references: [id])
+  provinceId   Int
+  Study        Study[]
+
+  @@map("cities")
+}
+
+model Immigration {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  province    Province @relation(fields: [provinceId], references: [id])
+  provinceId  Int
+}
+
+model Study {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  province    Province @relation(fields: [provinceId], references: [id])
+  provinceId  Int
+  city        City     @relation(fields: [cityId], references: [id])
+  cityId      Int
 }
