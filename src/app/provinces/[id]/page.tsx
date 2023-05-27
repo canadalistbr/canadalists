@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ProvinceCities } from './components/Cities'
+import { ProvinceCities } from './components/ProvinceCities'
 import { ImmigrationPrograms } from './components/ImmigrationPrograms'
 import { SideCard } from 'components/Card/Card'
 import { Info } from 'components/Info/Info'
