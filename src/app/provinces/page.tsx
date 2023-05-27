@@ -1,5 +1,5 @@
-import { Card } from 'app/components/Card/Card'
-import MaxWidthWrapper from 'app/components/MaxWidthWrapper'
+import { Card } from 'components/Card/Card'
+import MaxWidthWrapper from 'components/MaxWidthWrapper'
 import Link from 'next/link'
 import { getProvinces } from 'api/getProvinces'
 
