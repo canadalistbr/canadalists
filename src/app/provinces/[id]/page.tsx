@@ -122,20 +122,17 @@ async function Province({ params }: ProvinceType) {
     <MaxWidthWrapper>
       <div className="p-4">
         <div className="mb-4 gap-4 flex xl:grid xl:grid-cols-[repeat(auto-fill,minmax(auto,16rem))]">
-          {provinces.map((provinceData) => (
-            <Link
-              key={provinceData.id}
-              href={`/provinces/${provinceData.name}`}
-            >
+          {provinces.map((province) => (
+            <Link key={province.id} href={`/provinces/${province.id}`}>
               <SideCard
                 className={
-                  provinceData.name === provinceLabel
+                  province.name === provinceLabel
                     ? 'border-1 border-indigo-500 text-indigo-500'
                     : 'text-gray-500'
                 }
-                title={provinceData.name}
-                slug={provinceData.slug}
-                image={provinceData.imageUrl}
+                title={province.name}
+                slug={province.slug}
+                image={province.imageUrl}
               />
             </Link>
           ))}
