@@ -1,11 +1,3 @@
-import {
-  City,
-  Immigration,
-  Province as ProvinceModel,
-  ProvinceOverview,
-  ProvinceScore,
-  Study
-} from '@prisma/client'
 import { SideCard } from 'app/components/Card/Card'
 import { Info } from 'app/components/Info/Info'
 import MaxWidthWrapper from 'app/components/MaxWidthWrapper'
@@ -16,41 +8,93 @@ import { ImmigrationPrograms } from './components/ImmigrationPrograms'
 import axios from 'axios'
 import { getProvinces } from 'api/getProvinces'
 
-type ProvinceType = {
-  params: {
-    name: string
-  }
+export type Province = {
+  id: string
+  name: string
+  capital: string
+  slug: string
+  language: string[]
+  top_cities: string[]
+  immigration_ranking: number
+  image_url: string
+  flag_url: string
 }
 
-export type ProvinceResponse = {
-  province: ProvinceModel & {
-    overview: ProvinceOverview & {
-      scores: ProvinceScore[]
-    }
-    cities: City[]
-    immigration: Immigration[]
-    study: Study[]
-  }
+export type cities = {
+  id: string
+  name: string
+  slug: string
+  language: string[]
+  image_url: string
+  cost_of_living: number
+  overall_score: number
+  provinceId: string
 }
 
-export async function getProvince(id: string): Promise<ProvinceResponse> {
-  const res = await axios.get(`${process.env.BASE_URL}/api/provinces/${id}`, {
-    method: 'GET',
-    headers: {
-      Accept: 'application/json'
+export type Immigration = {
+  id: string
+  name: string
+  description: string
+  provinceId: string
+}
+
+export type ProvinceOverview = {
+  id: string
+  province_id: string
+  banner_url: string
+  ProvinceScores: ProvinceScores[]
+}
+
+export type ProvinceScores = {
+  id: string
+  name: string
+  score: number
+  emoji: string
+  overview_id: string
+}
+
+export type Study = {
+  id: string
+  name: string
+  description: string
+  provinceId: string
+  cityId: string
+}
+
+export type ProvinceModel = Province & {
+  cities?: cities[]
+  Immigration?: Immigration[]
+  ProvinceOverview?: ProvinceOverview
+  Study?: Study[]
+}
+
+export async function getProvince(id: string): Promise<ProvinceModel> {
+  const res = await axios.get(
+    `${process.env.BASE_URL_BACKEND}/api/provinces/${id}`,
+    {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json'
+      }
     }
-  })
+  )
   return res.data
 }
 
+type ProvinceType = {
+  params: {
+    id: string
+  }
+}
+
 async function Province({ params }: ProvinceType) {
-  const { name } = params
-  const { province } = await getProvince(name)
-  const { provinces } = await getProvinces()
-
-  const { cities, immigration, overview } = province
-  const { scores, bannerUrl } = overview
-
+  const { id } = params
+  const province = await getProvince(id)
+  const provinces = await getProvinces()
+  const { cities, Immigration, ProvinceOverview } = province
+  // TODO: Throw Error
+  if (!ProvinceOverview || !cities || !Immigration) return
+  const { ProvinceScores, banner_url } = ProvinceOverview
   const provinceLabel = province.name
 
   const tabs = [
@@ -58,7 +102,9 @@ async function Province({ params }: ProvinceType) {
       name: 'Province',
       label: provinceLabel,
       // TODO: Temporary image
-      content: <Info scores={scores} image={bannerUrl} alt="province_map" />
+      content: (
+        <Info scores={ProvinceScores} image={banner_url} alt="province_map" />
+      )
     },
     {
       name: 'Cities',
@@ -68,7 +114,7 @@ async function Province({ params }: ProvinceType) {
     {
       name: 'Immigration Programs',
       label: 'Immigration Programs',
-      content: <ImmigrationPrograms immigrationPrograms={immigration} />
+      content: <ImmigrationPrograms immigrationPrograms={Immigration} />
     }
   ]
 
@@ -98,7 +144,7 @@ async function Province({ params }: ProvinceType) {
           <header
             className="h-96 mg-4 bg-no-repeat bg-center bg-cover w-full rounded-t-2xl"
             style={{
-              backgroundImage: `url(${bannerUrl})`
+              backgroundImage: `url(${banner_url})`
             }}
           />
           <main className="bg-white rounded-t-3xl ">
