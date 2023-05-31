@@ -31,8 +31,12 @@ const makeFakeProvinceFactory = (): Province[] => {
 
 let sut: LoadProvincesUsecase
 let findAll: jest.SpyInstance<Promise<Province[]>, []>
+let findeOne: jest.SpyInstance<Promise<Province>, [id: string]>
 beforeEach(() => {
   class LoadProvincesGatewayStub implements ProvincesGateway {
+    findById(id: string): Promise<Province> {
+      return new Promise((resolve) => resolve(makeFakeProvinceFactory()[0]))
+    }
     findAll(): Promise<Province[]> {
       return new Promise((resolve) => resolve(makeFakeProvinceFactory()))
     }
@@ -40,12 +44,18 @@ beforeEach(() => {
   const gatewayStub = new LoadProvincesGatewayStub()
   sut = new LoadProvincesUsecase(gatewayStub)
   findAll = jest.spyOn(gatewayStub, 'findAll')
+  findeOne = jest.spyOn(gatewayStub, 'findById')
 })
 
 describe('LoadProvincesUsecase', () => {
   it('invokes gateway', async () => {
     await sut.loadAll()
     expect(findAll).toHaveBeenCalled()
+  })
+
+  it('invokes gateway', async () => {
+    await sut.load('random_id')
+    expect(findeOne).toHaveBeenCalled()
   })
 
   it('returns provinces', async () => {
