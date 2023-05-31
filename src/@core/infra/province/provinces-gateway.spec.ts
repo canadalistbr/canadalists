@@ -1,8 +1,8 @@
 import { ProvincesHttpGateway } from './provinces-gateway'
 import axios, { AxiosInstance } from 'axios'
 import MockAdapter from 'axios-mock-adapter'
-import { Province } from '@core/domain/models/province/province'
 import dotenv from 'dotenv'
+import { Province } from '@core/domain/models'
 
 dotenv.config({
   path: './env.test'

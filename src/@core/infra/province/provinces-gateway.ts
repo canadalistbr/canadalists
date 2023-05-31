@@ -1,5 +1,5 @@
 import { ProvincesGateway } from '@core/domain/gateways/province/provinces-gateway'
-import { Province } from '@core/domain/models/province/province'
+import { Province } from '@core/domain/models'
 import { AxiosInstance } from 'axios'
 
 export class ProvincesHttpGateway implements ProvincesGateway {

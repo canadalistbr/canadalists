@@ -1,4 +1,4 @@
-import { City } from '@prisma/client'
+import { City } from '@core/domain/models'
 import { Card } from 'components/Card/Card'
 import Link from 'next/link'
 

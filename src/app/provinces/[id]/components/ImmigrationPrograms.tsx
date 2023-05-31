@@ -1,4 +1,4 @@
-import { Immigration } from '@prisma/client'
+import { Immigration } from '@core/domain/models'
 import { Card } from 'components/Card/Card'
 import Link from 'next/link'
 

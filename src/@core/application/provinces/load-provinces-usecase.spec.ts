@@ -1,6 +1,6 @@
 import { ProvincesGateway } from '@core/domain/gateways/province/provinces-gateway'
-import { Province } from '@core/domain/models/province/province'
-import { LoadProvincesUsecase } from './load-province-usecase'
+import { Province } from '@core/domain/models'
+import LoadProvincesUsecase from './load-province-usecase'
 
 const makeFakeProvinceFactory = (): Province[] => {
   return [
