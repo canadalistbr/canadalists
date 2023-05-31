@@ -1,4 +1,4 @@
-import { ProvinceScores } from 'app/provinces/[id]/page'
+import { ProvinceScores } from '@core/domain/models'
 import Image from 'next/image'
 import { PropsWithChildren } from 'react'
 import { LabelWithEmoji } from '../Emoji'

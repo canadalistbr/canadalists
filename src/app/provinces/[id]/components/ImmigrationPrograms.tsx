@@ -1,5 +1,5 @@
-import { Immigration } from '@prisma/client'
-import { Card } from 'app/components/Card/Card'
+import { Immigration } from '@core/domain/models'
+import { Card } from 'components/Card/Card'
 import Link from 'next/link'
 
 export type ImmigrationProgramsType = {

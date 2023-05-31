@@ -1,5 +1,5 @@
-import { City } from '@prisma/client'
-import { Card } from 'app/components/Card/Card'
+import { City } from '@core/domain/models'
+import { Card } from 'components/Card/Card'
 import Link from 'next/link'
 
 export type ProvinceCitiesType = {

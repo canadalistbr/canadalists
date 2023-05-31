@@ -1,85 +1,14 @@
-import { SideCard } from 'app/components/Card/Card'
-import { Info } from 'app/components/Info/Info'
-import MaxWidthWrapper from 'app/components/MaxWidthWrapper'
-import { Tabs } from 'app/components/Tabs'
 import Link from 'next/link'
 import { ProvinceCities } from './components/Cities'
 import { ImmigrationPrograms } from './components/ImmigrationPrograms'
-import axios from 'axios'
-import { getProvinces } from 'api/getProvinces'
-
-export type Province = {
-  id: string
-  name: string
-  capital: string
-  slug: string
-  language: string[]
-  top_cities: string[]
-  immigration_ranking: number
-  image_url: string
-  flag_url: string
-}
-
-export type cities = {
-  id: string
-  name: string
-  slug: string
-  language: string[]
-  image_url: string
-  cost_of_living: number
-  overall_score: number
-  provinceId: string
-}
-
-export type Immigration = {
-  id: string
-  name: string
-  description: string
-  provinceId: string
-}
-
-export type ProvinceOverview = {
-  id: string
-  province_id: string
-  banner_url: string
-  ProvinceScores: ProvinceScores[]
-}
-
-export type ProvinceScores = {
-  id: string
-  name: string
-  score: number
-  emoji: string
-  overview_id: string
-}
-
-export type Study = {
-  id: string
-  name: string
-  description: string
-  provinceId: string
-  cityId: string
-}
-
-export type ProvinceModel = Province & {
-  cities?: cities[]
-  Immigration?: Immigration[]
-  ProvinceOverview?: ProvinceOverview
-  Study?: Study[]
-}
-
-export async function getProvince(id: string): Promise<ProvinceModel> {
-  const res = await axios.get(
-    `${process.env.BASE_URL_BACKEND}/api/provinces/${id}`,
-    {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json'
-      }
-    }
-  )
-  return res.data
-}
+import { SideCard } from 'components/Card/Card'
+import { Info } from 'components/Info/Info'
+import MaxWidthWrapper from 'components/MaxWidthWrapper'
+import { Tabs } from 'components/Tabs'
+import {
+  makeGetProvinceBy,
+  makeGetProvinces
+} from '@core/main/factories/province'
 
 type ProvinceType = {
   params: {
@@ -87,10 +16,10 @@ type ProvinceType = {
   }
 }
 
-async function Province({ params }: ProvinceType) {
+async function ProvincePage({ params }: ProvinceType) {
   const { id } = params
-  const province = await getProvince(id)
-  const provinces = await getProvinces()
+  const province = await makeGetProvinceBy(id)
+  const provinces = await makeGetProvinces()
   const { cities, Immigration, ProvinceOverview } = province
   // TODO: Throw Error
   if (!ProvinceOverview || !cities || !Immigration) return
@@ -132,7 +61,7 @@ async function Province({ params }: ProvinceType) {
                 }
                 title={province.name}
                 slug={province.slug}
-                image={province.imageUrl}
+                image={province.image_url}
               />
             </Link>
           ))}
@@ -153,4 +82,4 @@ async function Province({ params }: ProvinceType) {
   )
 }
 
-export default Province
+export default ProvincePage

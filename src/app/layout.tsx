@@ -1,5 +1,5 @@
 // These styles apply to every route in the application
-import './globals.css'
+import '../globals.css'
 
 export const metadata = {
   title: 'Canada List',
@@ -13,7 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className='debug-screens'>
+      <body className="debug-screens">
         <div>{children}</div>
       </body>
     </html>
