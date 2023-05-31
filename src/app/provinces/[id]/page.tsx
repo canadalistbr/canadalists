@@ -2,23 +2,22 @@ import Link from 'next/link'
 import { ProvinceCities } from './components/Cities'
 import { ImmigrationPrograms } from './components/ImmigrationPrograms'
 import axios from 'axios'
-import { getProvinces } from 'api/getProvinces'
 import { SideCard } from 'components/Card/Card'
 import { Info } from 'components/Info/Info'
 import MaxWidthWrapper from 'components/MaxWidthWrapper'
 import { Tabs } from 'components/Tabs'
-import { ProvinceModel } from '@core/domain/models'
+import { Province, ProvinceModel } from '@core/domain/models'
+import { axiosHttps } from '@core/main/http'
+import { ProvincesHttpGateway } from '@core/infra/province/provinces-gateway'
+import LoadProvincesUsecase from '@core/application/provinces/load-province-usecase'
 
-export async function getProvince(id: string): Promise<ProvinceModel> {
-  const res = await axios.get(
-    `${process.env.BASE_URL_BACKEND}/api/provinces/${id}`,
-    {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json'
-      }
+export async function getProvinceBy(id: string): Promise<ProvinceModel> {
+  const res = await axios.get(`${process.env.BASE_URL}/api/provinces/${id}`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json'
     }
-  )
+  })
   return res.data
 }
 
@@ -28,9 +27,14 @@ type ProvinceType = {
   }
 }
 
-async function Province({ params }: ProvinceType) {
+export async function getProvinces(): Promise<Province[]> {
+  const loadProvincesGateway = new ProvincesHttpGateway(axiosHttps)
+  return new LoadProvincesUsecase(loadProvincesGateway).loadAll()
+}
+
+async function ProvincePage({ params }: ProvinceType) {
   const { id } = params
-  const province = await getProvince(id)
+  const province = await getProvinceBy(id)
   const provinces = await getProvinces()
   const { cities, Immigration, ProvinceOverview } = province
   // TODO: Throw Error
@@ -94,4 +98,4 @@ async function Province({ params }: ProvinceType) {
   )
 }
 
-export default Province
+export default ProvincePage
