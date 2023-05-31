@@ -1,24 +1,18 @@
 import Link from 'next/link'
 import { ProvinceCities } from './components/Cities'
 import { ImmigrationPrograms } from './components/ImmigrationPrograms'
-import axios from 'axios'
 import { SideCard } from 'components/Card/Card'
 import { Info } from 'components/Info/Info'
 import MaxWidthWrapper from 'components/MaxWidthWrapper'
 import { Tabs } from 'components/Tabs'
 import { Province, ProvinceModel } from '@core/domain/models'
-import { axiosHttps } from '@core/main/http'
+import { axiosHttp } from '@core/main/http'
 import { ProvincesHttpGateway } from '@core/infra/province/provinces-gateway'
 import LoadProvincesUsecase from '@core/application/provinces/load-province-usecase'
 
 export async function getProvinceBy(id: string): Promise<ProvinceModel> {
-  const res = await axios.get(`${process.env.BASE_URL}/api/provinces/${id}`, {
-    method: 'GET',
-    headers: {
-      Accept: 'application/json'
-    }
-  })
-  return res.data
+  const getProvinceByGateway = new ProvincesHttpGateway(axiosHttp)
+  return new LoadProvincesUsecase(getProvinceByGateway).load(id)
 }
 
 type ProvinceType = {
@@ -28,7 +22,7 @@ type ProvinceType = {
 }
 
 export async function getProvinces(): Promise<Province[]> {
-  const loadProvincesGateway = new ProvincesHttpGateway(axiosHttps)
+  const loadProvincesGateway = new ProvincesHttpGateway(axiosHttp)
   return new LoadProvincesUsecase(loadProvincesGateway).loadAll()
 }
 

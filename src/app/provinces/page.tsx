@@ -1,13 +1,13 @@
 import LoadProvincesUsecase from '@core/application/provinces/load-province-usecase'
 import { Province } from '@core/domain/models'
 import { ProvincesHttpGateway } from '@core/infra/province/provinces-gateway'
-import { axiosHttps } from '@core/main/http'
+import { axiosHttp } from '@core/main/http'
 import { Card } from 'components/Card/Card'
 import MaxWidthWrapper from 'components/MaxWidthWrapper'
 import Link from 'next/link'
 
 export async function getProvinces(): Promise<Province[]> {
-  const loadProvincesGateway = new ProvincesHttpGateway(axiosHttps)
+  const loadProvincesGateway = new ProvincesHttpGateway(axiosHttp)
   return new LoadProvincesUsecase(loadProvincesGateway).loadAll()
 }
 
