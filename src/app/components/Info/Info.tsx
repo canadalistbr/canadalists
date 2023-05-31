@@ -1,4 +1,4 @@
-import { ProvinceScore } from '@prisma/client'
+import { ProvinceScores } from 'app/provinces/[id]/page'
 import Image from 'next/image'
 import { PropsWithChildren } from 'react'
 import { LabelWithEmoji } from '../Emoji'
@@ -20,7 +20,7 @@ function LabelWrapper(props: LabelWrapperProps) {
 export type InfoProps = {
   image: string
   alt: string
-  scores: ProvinceScore[]
+  scores: ProvinceScores[]
 }
 
 export function Info(props: InfoProps) {
