@@ -5,15 +5,10 @@ import { SideCard } from 'components/Card/Card'
 import { Info } from 'components/Info/Info'
 import MaxWidthWrapper from 'components/MaxWidthWrapper'
 import { Tabs } from 'components/Tabs'
-import { Province, ProvinceModel } from '@core/domain/models'
-import { axiosHttp } from '@core/main/http'
-import { ProvincesHttpGateway } from '@core/infra/province/provinces-gateway'
-import LoadProvincesUsecase from '@core/application/provinces/load-province-usecase'
-
-export async function getProvinceBy(id: string): Promise<ProvinceModel> {
-  const getProvinceByGateway = new ProvincesHttpGateway(axiosHttp)
-  return new LoadProvincesUsecase(getProvinceByGateway).load(id)
-}
+import {
+  makeGetProvinceBy,
+  makeGetProvinces
+} from '@core/main/factories/province'
 
 type ProvinceType = {
   params: {
@@ -21,15 +16,10 @@ type ProvinceType = {
   }
 }
 
-export async function getProvinces(): Promise<Province[]> {
-  const loadProvincesGateway = new ProvincesHttpGateway(axiosHttp)
-  return new LoadProvincesUsecase(loadProvincesGateway).loadAll()
-}
-
 async function ProvincePage({ params }: ProvinceType) {
   const { id } = params
-  const province = await getProvinceBy(id)
-  const provinces = await getProvinces()
+  const province = await makeGetProvinceBy(id)
+  const provinces = await makeGetProvinces()
   const { cities, Immigration, ProvinceOverview } = province
   // TODO: Throw Error
   if (!ProvinceOverview || !cities || !Immigration) return
