@@ -1,12 +1,12 @@
-import { SideCard } from 'app/components/Card/Card'
-import { Info } from 'app/components/Info/Info'
-import MaxWidthWrapper from 'app/components/MaxWidthWrapper'
-import { Tabs } from 'app/components/Tabs'
 import Link from 'next/link'
 import { ProvinceCities } from './components/Cities'
 import { ImmigrationPrograms } from './components/ImmigrationPrograms'
 import axios from 'axios'
 import { getProvinces } from 'api/getProvinces'
+import { SideCard } from 'components/Card/Card'
+import { Info } from 'components/Info/Info'
+import MaxWidthWrapper from 'components/MaxWidthWrapper'
+import { Tabs } from 'components/Tabs'
 
 export type Province = {
   id: string
