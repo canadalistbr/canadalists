@@ -47,13 +47,21 @@ describe('', () => {
   afterEach(() => {
     axiosMock.reset()
   })
-  it('"should call findAll', async () => {
+  it('should call findAll', async () => {
     axiosMock.onGet(`${process.env.BASE_URL}/api/provinces`).reply(200)
     await sut.findAll()
     expect(axiosMock.history.get.length).toBe(1)
   })
 
-  it('"should call findAll', async () => {
+  it('should call findById', async () => {
+    axiosMock
+      .onGet(`${process.env.BASE_URL}/api/provinces/random_id`)
+      .reply(200)
+    await sut.findById('random_id')
+    expect(axiosMock.history.get.length).toBe(1)
+  })
+
+  it('should load all provinces', async () => {
     const expectedProvinces = makeFakeProvincesFactory()
 
     axiosMock
@@ -61,5 +69,15 @@ describe('', () => {
       .reply(200, expectedProvinces)
     const provinces = await sut.findAll()
     expect(provinces).toEqual(expectedProvinces)
+  })
+
+  it('should find one provinces by its id', async () => {
+    const expectedProvinces = makeFakeProvincesFactory()
+
+    axiosMock
+      .onGet(`${process.env.BASE_URL}/api/provinces/${expectedProvinces[1].id}`)
+      .reply(200, expectedProvinces[1])
+    const provinces = await sut.findById(expectedProvinces[1].id)
+    expect(provinces).toEqual(expectedProvinces[1])
   })
 })
