@@ -9,6 +9,7 @@ import {
   makeGetProvinceBy,
   makeGetProvinces
 } from '@core/main/factories/province'
+import { assertNotEmpty, assertNotNull } from '../../../../utils/assertion'
 
 type ProvinceType = {
   params: {
@@ -20,10 +21,17 @@ async function ProvincePage({ params }: ProvinceType) {
   const { id } = params
   const province = await makeGetProvinceBy(id)
   const provinces = await makeGetProvinces()
-  const { cities, Immigration, ProvinceOverview } = province
-  // TODO: Throw Error
-  if (!ProvinceOverview || !cities || !Immigration) return
-  const { ProvinceScores, banner_url } = ProvinceOverview
+  const { cities, immigration, overview } = province
+
+  assertNotEmpty(provinces)
+  assertNotNull(overview, 'every province has an overview')
+  assertNotNull(cities, 'every province has at least one city')
+  assertNotNull(
+    immigration,
+    'every province has at leat one immigration program'
+  )
+
+  const { scores, bannerUrl } = overview
   const provinceLabel = province.name
 
   const tabs = [
@@ -31,9 +39,7 @@ async function ProvincePage({ params }: ProvinceType) {
       name: 'Province',
       label: provinceLabel,
       // TODO: Temporary image
-      content: (
-        <Info scores={ProvinceScores} image={banner_url} alt="province_map" />
-      )
+      content: <Info scores={scores} image={bannerUrl} alt="province_map" />
     },
     {
       name: 'Cities',
@@ -43,7 +49,7 @@ async function ProvincePage({ params }: ProvinceType) {
     {
       name: 'Immigration Programs',
       label: 'Immigration Programs',
-      content: <ImmigrationPrograms immigrationPrograms={Immigration} />
+      content: <ImmigrationPrograms immigrationPrograms={immigration} />
     }
   ]
 
@@ -61,7 +67,7 @@ async function ProvincePage({ params }: ProvinceType) {
                 }
                 title={province.name}
                 slug={province.slug}
-                image={province.image_url}
+                image={province.imageUrl}
               />
             </Link>
           ))}
@@ -70,7 +76,7 @@ async function ProvincePage({ params }: ProvinceType) {
           <header
             className="h-96 mg-4 bg-no-repeat bg-center bg-cover w-full rounded-t-2xl"
             style={{
-              backgroundImage: `url(${banner_url})`
+              backgroundImage: `url(${bannerUrl})`
             }}
           />
           <main className="bg-white rounded-t-3xl ">

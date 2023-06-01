@@ -5,6 +5,7 @@ import { axiosHttp } from '@core/main/http'
 import { Card } from 'components/Card/Card'
 import MaxWidthWrapper from 'components/MaxWidthWrapper'
 import Link from 'next/link'
+import { assertNotEmpty } from '../../../utils/assertion'
 
 export async function getProvinces(): Promise<Province[]> {
   const loadProvincesGateway = new ProvincesHttpGateway(axiosHttp)
@@ -13,6 +14,7 @@ export async function getProvinces(): Promise<Province[]> {
 
 async function Provinces() {
   const provinces = await getProvinces()
+  assertNotEmpty(provinces)
 
   return (
     <MaxWidthWrapper>
@@ -22,7 +24,7 @@ async function Provinces() {
             <Card
               slug={province.slug}
               title={province.name}
-              image={province.image_url}
+              image={province.imageUrl}
             />
           </Link>
         ))}

@@ -3,8 +3,8 @@ export type City = {
   name: string
   slug: string
   language: string[]
-  image_url: string
-  cost_of_living: number
-  overall_score: number
+  imageUrl: string
+  costOfLiving: number
+  overallScore: number
   provinceId: string
 }
