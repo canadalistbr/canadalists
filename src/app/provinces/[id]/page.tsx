@@ -62,7 +62,7 @@ async function ProvincePage({ params }: ProvinceType) {
               <SideCard
                 className={
                   province.name === provinceLabel
-                    ? 'border-1 border-indigo-500 text-indigo-500'
+                    ? 'border-1 text-gray-600 shadow-xl'
                     : 'text-gray-500'
                 }
                 title={province.name}
