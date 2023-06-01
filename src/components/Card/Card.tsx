@@ -22,7 +22,7 @@ export function Card({
   upperRight
 }: CardProps) {
   return (
-    <div className="p-3 shadow-lg ">
+    <div className="p-3 hover:shadow-lg transition duration-300 border ">
       <div className="relative">
         <div className="relative aspect-video opacity-80">
           <Image src={image} alt={title} fill style={{ objectFit: 'cover' }} />
@@ -47,7 +47,7 @@ export function Card({
         <div className="py-3 text-center text-gray-600">
           <span className="text-4xl">{title}</span>
         </div>
-        <div className="py-3 text-2xl text-center">{children}</div>
+        <div className=" text-2xl text-center">{children}</div>
       </div>
     </div>
   )
@@ -69,7 +69,7 @@ export function SideCard({ title, image, className, slug }: SideCardProps) {
           {slug}
         </span>
       </div>
-      <div className="flex-1 hidden break-word xl:block" >
+      <div className="flex-1 hidden break-word xl:block">
         <p className="inline-block text-xl font-medium ">{title}</p>
       </div>
     </div>
