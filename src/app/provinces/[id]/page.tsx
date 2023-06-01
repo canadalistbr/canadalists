@@ -9,6 +9,7 @@ import {
   makeGetProvinceBy,
   makeGetProvinces
 } from '@core/main/factories/province'
+import { assertNotEmpty, assertNotNull } from '../../../../utils/assertion'
 
 type ProvinceType = {
   params: {
@@ -21,8 +22,15 @@ async function ProvincePage({ params }: ProvinceType) {
   const province = await makeGetProvinceBy(id)
   const provinces = await makeGetProvinces()
   const { cities, immigration, overview } = province
-  // TODO: Throw Error
-  if (!overview || !cities || !immigration) return
+
+  assertNotEmpty(provinces)
+  assertNotNull(overview, 'every province has an overview')
+  assertNotNull(cities, 'every province has at least one city')
+  assertNotNull(
+    immigration,
+    'every province has at leat one immigration program'
+  )
+
   const { scores, bannerUrl } = overview
   const provinceLabel = province.name
 
