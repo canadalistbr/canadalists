@@ -9,15 +9,15 @@ export type Province = {
   capital: string
   slug: string
   language: string[]
-  top_cities: string[]
-  immigration_ranking: number
-  image_url: string
-  flag_url: string
+  topCities: string[]
+  immigrationRanking: number
+  imageUrl: string
+  flagUrl: string
 }
 
 export type ProvinceModel = Province & {
   cities?: City[]
-  Immigration?: Immigration[]
-  ProvinceOverview?: ProvinceOverview
-  Study?: Study[]
+  immigration?: Immigration[]
+  overview?: ProvinceOverview
+  study?: Study[]
 }

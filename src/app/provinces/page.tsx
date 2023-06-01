@@ -22,7 +22,7 @@ async function Provinces() {
             <Card
               slug={province.slug}
               title={province.name}
-              image={province.image_url}
+              image={province.imageUrl}
             />
           </Link>
         ))}
