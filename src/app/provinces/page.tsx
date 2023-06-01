@@ -6,6 +6,8 @@ import { Card } from 'components/Card/Card'
 import MaxWidthWrapper from 'components/MaxWidthWrapper'
 import Link from 'next/link'
 import { assertNotEmpty } from '../../../utils/assertion'
+import { Building } from 'lucide-react'
+import { Tag } from 'components/Tag'
 
 export async function getProvinces(): Promise<Province[]> {
   const loadProvincesGateway = new ProvincesHttpGateway(axiosHttp)
@@ -25,7 +27,24 @@ async function Provinces() {
               slug={province.slug}
               title={province.name}
               image={province.imageUrl}
-            />
+            >
+              <div>
+                <div className="flex items-center justify-center gap-1 text-gray-600 py-2">
+                  <Building size={11} />
+                  <span style={{ fontSize: '1.2rem' }}>Top Cities</span>
+                </div>
+                <div className="flex justify-center gap-3 text-gray-600 ">
+                  {province.topCities.map((city, i) => (
+                    <Tag
+                      classNames="hover:shadow-md gray transition duration-300"
+                      key={i}
+                    >
+                      {city}
+                    </Tag>
+                  ))}
+                </div>
+              </div>
+            </Card>
           </Link>
         ))}
       </div>
