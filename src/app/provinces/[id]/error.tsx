@@ -15,6 +15,7 @@ export default function Error({
   }, [error])
 
   return (
+    // eslint-disable-next-line react/no-unknown-property
     <div key={'error-page'}>
       <h2>Something went wrong!</h2>
       <button

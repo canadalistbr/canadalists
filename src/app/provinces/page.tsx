@@ -36,7 +36,7 @@ async function Provinces() {
                 <div className="flex justify-center gap-3 text-gray-600 ">
                   {province.topCities.map((city, i) => (
                     <Tag
-                      classNames="hover:shadow-md gray transition duration-300"
+                      classNames="hover:shadow-md hover:bg-red-200 gray transition duration-300"
                       key={i}
                     >
                       {city}

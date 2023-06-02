@@ -13,28 +13,31 @@ const makeFakeProvincesFactory = (): Province[] => {
     {
       id: 'random_id',
       capital: 'quebec city',
-      flag_url: 'randomUrl',
-      image_url: 'randomUrl',
+      flagUrl: 'randomUrl',
+      imageUrl: 'randomUrl',
       language: ['fr', 'en'],
-      immigration_ranking: 4,
+      immigrationRanking: 4,
       name: 'Quebec',
       slug: 'Qc',
-      top_cities: ['montreal']
+      topCities: ['montreal']
     },
     {
       id: 'random_id_2',
       capital: 'Ottawa',
-      flag_url: 'randomUrl',
-      image_url: 'randomUrl',
+      flagUrl: 'randomUrl',
+      imageUrl: 'randomUrl',
       language: ['fr', 'en'],
-      immigration_ranking: 2,
+      immigrationRanking: 2,
       name: 'Ontario',
       slug: 'On',
-      top_cities: ['Toronto']
+      topCities: ['Toronto']
     }
   ]
 }
-describe('', () => {
+
+describe('ProvincesHttpGateway', () => {
+  const expectedProvinces = makeFakeProvincesFactory()
+
   let sut: ProvincesHttpGateway
   let axiosMock: MockAdapter
 
@@ -47,8 +50,11 @@ describe('', () => {
   afterEach(() => {
     axiosMock.reset()
   })
+
   it('should call findAll', async () => {
-    axiosMock.onGet(`${process.env.BASE_URL}/api/provinces`).reply(200)
+    axiosMock
+      .onGet(`${process.env.BASE_URL}/api/provinces`)
+      .reply(200, expectedProvinces)
     await sut.findAll()
     expect(axiosMock.history.get.length).toBe(1)
   })
@@ -56,14 +62,13 @@ describe('', () => {
   it('should call findById', async () => {
     axiosMock
       .onGet(`${process.env.BASE_URL}/api/provinces/random_id`)
-      .reply(200)
+      .reply(200, expectedProvinces[1])
     await sut.findById('random_id')
     expect(axiosMock.history.get.length).toBe(1)
   })
 
   it('should load all provinces', async () => {
     const expectedProvinces = makeFakeProvincesFactory()
-
     axiosMock
       .onGet(`${process.env.BASE_URL}/api/provinces`)
       .reply(200, expectedProvinces)
@@ -71,13 +76,11 @@ describe('', () => {
     expect(provinces).toEqual(expectedProvinces)
   })
 
-  it('should find one provinces by its id', async () => {
-    const expectedProvinces = makeFakeProvincesFactory()
-
+  it('should find one province by its id', async () => {
     axiosMock
       .onGet(`${process.env.BASE_URL}/api/provinces/${expectedProvinces[1].id}`)
       .reply(200, expectedProvinces[1])
-    const provinces = await sut.findById(expectedProvinces[1].id)
-    expect(provinces).toEqual(expectedProvinces[1])
+    const province = await sut.findById(expectedProvinces[1].id)
+    expect(province).toEqual(expectedProvinces[1])
   })
 })
