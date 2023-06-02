@@ -26,8 +26,8 @@ export type InfoProps = {
 export function Info(props: InfoProps) {
   const { image, alt, scores } = props
   return (
-    <div className="grid grid-cols-5 gap-24">
-      <div className="col-span-2 ">
+    <div className="grid-cols-1 grid lg:grid-cols-6 gap-12">
+      <div className="col-span-2 lg:col-span-3">
         <table className="w-full">
           <tbody className="">
             {scores.map((score) => (
