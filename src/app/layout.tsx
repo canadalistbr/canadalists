@@ -21,7 +21,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="debug-screens">
-        {/* <div>{children}</div> */}
         <div className={inter.className}>{children}</div>
       </body>
     </html>
