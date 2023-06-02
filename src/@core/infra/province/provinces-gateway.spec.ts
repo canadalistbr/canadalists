@@ -54,7 +54,7 @@ describe('ProvincesHttpGateway', () => {
   it('should call findAll', async () => {
     axiosMock
       .onGet(`${process.env.BASE_URL}/api/provinces`)
-      .reply(200, expectedProvinces[1])
+      .reply(200, expectedProvinces)
     await sut.findAll()
     expect(axiosMock.history.get.length).toBe(1)
   })
