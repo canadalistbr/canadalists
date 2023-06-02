@@ -25,7 +25,14 @@ export function Card({
     <div className="p-3 hover:shadow-lg transition duration-300 border ">
       <div className="relative">
         <div className="relative aspect-video opacity-80">
-          <Image src={image} alt={title} fill style={{ objectFit: 'cover' }} />
+          <Image
+            priority
+            src={image}
+            alt={title}
+            fill
+            style={{ objectFit: 'cover' }}
+            sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
+          />
         </div>
         <span className="absolute text-white transform -translate-x-1/2 -translate-y-1/2 text-9xl top-1/2 left-1/2">
           {slug}

@@ -49,7 +49,13 @@ export function Info(props: InfoProps) {
       </div>
       <section>
         <div className="relative mb-4 border aspect-video opacity-80">
-          <Image src={image} alt={alt} fill style={{ objectFit: 'cover' }} />
+          <Image
+            sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
+            src={image}
+            alt={alt}
+            fill
+            style={{ objectFit: 'cover' }}
+          />
         </div>
         <div className="text-gray-500 text-xl p-2 my-4 [&>*]:py-2 [&>*]:inline-block">
           <h2 className="sr-only">Moving to Quebec</h2>
