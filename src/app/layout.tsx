@@ -22,6 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="debug-screens">
         <div className={inter.className}>{children}</div>
+        {/* <div className={inter.className}>{children}</div> */}
       </body>
     </html>
   )
