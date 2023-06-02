@@ -11,9 +11,9 @@
     "skipLibCheck": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
     "esModuleInterop": true,
-    "module": "CommonJS",
+    "noEmit": true,
+    "module": "ESNext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -25,7 +25,7 @@
       }
     ],
     "paths": {
-      "@aui/*":["./src/app/components/ui/*"]
+      "@aui/*":["./src/*"]
     }
   },
   "include": [
