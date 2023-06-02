@@ -1,4 +1,4 @@
-import { Province } from '@core/domain/models/province/province'
+import { Province } from '@core/domain/models'
 
 export interface LoadProvinces {
   loadAll(): Promise<Province[]>

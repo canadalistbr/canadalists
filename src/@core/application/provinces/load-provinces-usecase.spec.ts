@@ -7,24 +7,24 @@ const makeFakeProvinceFactory = (): Province[] => {
     {
       id: 'random_id',
       capital: 'quebec city',
-      flag_url: 'randomUrl',
-      image_url: 'randomUrl',
+      flagUrl: 'randomUrl',
+      imageUrl: 'randomUrl',
       language: ['fr', 'en'],
-      immigration_ranking: 4,
+      immigrationRanking: 4,
       name: 'Quebec',
       slug: 'Qc',
-      top_cities: ['montreal']
+      topCities: ['montreal']
     },
     {
       id: 'random_id_2',
       capital: 'Ottawa',
-      flag_url: 'randomUrl',
-      image_url: 'randomUrl',
+      flagUrl: 'randomUrl',
+      imageUrl: 'randomUrl',
       language: ['fr', 'en'],
-      immigration_ranking: 2,
+      immigrationRanking: 2,
       name: 'Ontario',
       slug: 'On',
-      top_cities: ['Toronto']
+      topCities: ['Toronto']
     }
   ]
 }
