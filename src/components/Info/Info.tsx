@@ -26,7 +26,7 @@ export type InfoProps = {
 export function Info(props: InfoProps) {
   const { image, alt, scores } = props
   return (
-    <div className="grid grid-cols-3 gap-12">
+    <div className="grid grid-cols-5 gap-24">
       <div className="col-span-2 ">
         <table className="w-full">
           <tbody className="">
@@ -47,7 +47,7 @@ export function Info(props: InfoProps) {
           </tbody>
         </table>
       </div>
-      <section>
+      <section className="col-span-3">
         <div className="relative mb-4 border aspect-video opacity-80">
           <Image src={image} alt={alt} fill style={{ objectFit: 'cover' }} />
         </div>

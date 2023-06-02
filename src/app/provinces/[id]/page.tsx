@@ -10,11 +10,16 @@ import {
   makeGetProvinces
 } from '@core/main/factories/province'
 import { assertNotEmpty, assertNotNull } from '../../../../utils/assertion'
+import { ReactNode } from 'react'
 
 type ProvinceType = {
   params: {
     id: string
   }
+}
+
+function Label({ children }: { children: ReactNode }) {
+  return <div className="flex items-center gap-1">{children}</div>
 }
 
 async function ProvincePage({ params }: ProvinceType) {
@@ -32,23 +37,38 @@ async function ProvincePage({ params }: ProvinceType) {
   )
 
   const { scores, bannerUrl } = overview
-  const provinceLabel = province.name
+  const provinceName = province.name
+
+  const provinceLabel = (
+    <Label>
+      🇨🇦<span>{provinceName}</span>
+    </Label>
+  )
+  const citiesLabel = (
+    <Label>
+      <span>🏙️Cities</span>
+    </Label>
+  )
+  const immigrationProgramsLabel = (
+    <Label>
+      🌍<span>Immigration programs</span>
+    </Label>
+  )
 
   const tabs = [
     {
       name: 'Province',
       label: provinceLabel,
-      // TODO: Temporary image
       content: <Info scores={scores} image={bannerUrl} alt="province_map" />
     },
     {
       name: 'Cities',
-      label: 'Cities',
+      label: citiesLabel,
       content: <ProvinceCities cities={cities} />
     },
     {
       name: 'Immigration Programs',
-      label: 'Immigration Programs',
+      label: immigrationProgramsLabel,
       content: <ImmigrationPrograms immigrationPrograms={immigration} />
     }
   ]
@@ -61,8 +81,8 @@ async function ProvincePage({ params }: ProvinceType) {
             <Link key={province.id} href={`/provinces/${province.id}`}>
               <SideCard
                 className={
-                  province.name === provinceLabel
-                    ? 'border-1 text-gray-600 shadow-xl'
+                  province.name === provinceName
+                    ? 'border-1 text-red-400 shadow-xl'
                     : 'text-gray-500'
                 }
                 title={province.name}
