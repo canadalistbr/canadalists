@@ -6,6 +6,13 @@ export const metadata = {
   description: 'Move to Canada'
 }
 
+import { Nunito } from '@next/font/google'
+
+const inter = Nunito({
+  weight: '500',
+  subsets: ['latin']
+})
+
 export default function RootLayout({
   children
 }: {
@@ -14,7 +21,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="debug-screens">
-        <div>{children}</div>
+        {/* <div>{children}</div> */}
+        <div className={inter.className}>{children}</div>
       </body>
     </html>
   )
