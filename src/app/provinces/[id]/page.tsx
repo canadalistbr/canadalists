@@ -46,7 +46,7 @@ async function ProvincePage({ params }: ProvinceType) {
   )
   const citiesLabel = (
     <Label>
-      <span>🏙️Cities</span>
+      🏙️ <span>Cities</span>
     </Label>
   )
   const immigrationProgramsLabel = (
