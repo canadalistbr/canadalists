@@ -1,5 +1,5 @@
-import type { Province } from '@core/domain/models'
+import type { Province, ProvinceModel } from '@core/domain/models'
 export interface ProvincesGateway {
   findAll(): Promise<Province[]>
-  findById(id: string): Promise<Province>
+  findByName(provinceName: string): Promise<ProvinceModel>
 }

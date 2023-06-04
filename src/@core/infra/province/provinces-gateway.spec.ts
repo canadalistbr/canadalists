@@ -3,6 +3,7 @@ import axios, { AxiosInstance } from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import dotenv from 'dotenv'
 import { Province } from '@core/domain/models'
+import { ProvinceEntity } from '@core/domain/entities/province-entity'
 
 dotenv.config({
   path: './env.test'
@@ -36,7 +37,9 @@ const makeFakeProvincesFactory = (): Province[] => {
 }
 
 describe('ProvincesHttpGateway', () => {
-  const expectedProvinces = makeFakeProvincesFactory()
+  const expectedProvinces = makeFakeProvincesFactory().map(
+    (province) => new ProvinceEntity({ ...province })
+  )
 
   let sut: ProvincesHttpGateway
   let axiosMock: MockAdapter
@@ -59,16 +62,15 @@ describe('ProvincesHttpGateway', () => {
     expect(axiosMock.history.get.length).toBe(1)
   })
 
-  it('should call findById', async () => {
+  it('should call findByName', async () => {
     axiosMock
       .onGet(`${process.env.BASE_URL}/api/provinces/random_id`)
       .reply(200, expectedProvinces[1])
-    await sut.findById('random_id')
+    await sut.findByName('random_name')
     expect(axiosMock.history.get.length).toBe(1)
   })
 
   it('should load all provinces', async () => {
-    const expectedProvinces = makeFakeProvincesFactory()
     axiosMock
       .onGet(`${process.env.BASE_URL}/api/provinces`)
       .reply(200, expectedProvinces)
@@ -78,9 +80,11 @@ describe('ProvincesHttpGateway', () => {
 
   it('should find one province by its id', async () => {
     axiosMock
-      .onGet(`${process.env.BASE_URL}/api/provinces/${expectedProvinces[1].id}`)
+      .onGet(
+        `${process.env.BASE_URL}/api/provinces/${expectedProvinces[1].name}`
+      )
       .reply(200, expectedProvinces[1])
-    const province = await sut.findById(expectedProvinces[1].id)
+    const province = await sut.findByName(expectedProvinces[1].name)
     expect(province).toEqual(expectedProvinces[1])
   })
 })
