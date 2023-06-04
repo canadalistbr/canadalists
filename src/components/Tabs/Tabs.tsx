@@ -38,14 +38,16 @@ export function Tabs({ tabs }: TabsProps) {
           </Tab>
         ))}
       </Tab.List>
+
       {tabs.map((tab) => (
         <Tab.Panel 
           key={tab.name} 
-          className={tab.name === 'Cities' ? "grid grid-cols-3 gap-12" : "px-4"}
+          className={tab.name === 'Cities' ? "grid grid-cols-5 gap-12" : "px-4"}
         >
           {currentTab === tab.name && tab.content}
         </Tab.Panel>
       ))}
+      
     </Tab.Group>
   )
 }
