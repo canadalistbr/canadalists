@@ -1,4 +1,4 @@
-import LoadProvincesUsecase from '@core/application/provinces/load-province-usecase'
+import LoadProvincesUsecase from '@core/application/usecases/provinces/load-province-usecase'
 import { Province } from '@core/domain/models'
 import { ProvincesHttpGateway } from '@core/infra/province/provinces-gateway'
 import { axiosHttp } from '@core/main/http'
@@ -22,7 +22,7 @@ async function Provinces() {
     <MaxWidthWrapper>
       <div className="grid gap-4 grid-cols-[repeat(auto-fill,minmax(350px,1fr))]">
         {provinces.map((province) => (
-          <Link key={province.id} href={`/provinces/${province.id}`}>
+          <Link key={province.id} href={`/provinces/${province.name}`}>
             <Card
               slug={province.slug}
               title={province.name}
