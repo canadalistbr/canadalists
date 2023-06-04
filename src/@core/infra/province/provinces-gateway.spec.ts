@@ -3,8 +3,7 @@ import axios, { AxiosInstance } from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import dotenv from 'dotenv'
 import { Province } from '@core/domain/models'
-import { ProvinceEntity } from '@core/domain/entities/province-entity'
-
+import { ProvinceEntity } from '../../domain/entities/province-entity'
 dotenv.config({
   path: './env.test'
 })
@@ -57,34 +56,32 @@ describe('ProvincesHttpGateway', () => {
   it('should call findAll', async () => {
     axiosMock
       .onGet(`${process.env.BASE_URL}/api/provinces`)
-      .reply(200, expectedProvinces)
+      .reply(200, makeFakeProvincesFactory())
     await sut.findAll()
     expect(axiosMock.history.get.length).toBe(1)
   })
 
   it('should call findByName', async () => {
     axiosMock
-      .onGet(`${process.env.BASE_URL}/api/provinces/random_id`)
-      .reply(200, expectedProvinces[1])
-    await sut.findByName('random_name')
+      .onGet(`${process.env.BASE_URL}/api/provinces/Ontario`)
+      .reply(200, makeFakeProvincesFactory()[1])
+    await sut.findByName('Ontario')
     expect(axiosMock.history.get.length).toBe(1)
   })
 
   it('should load all provinces', async () => {
     axiosMock
       .onGet(`${process.env.BASE_URL}/api/provinces`)
-      .reply(200, expectedProvinces)
+      .reply(200, makeFakeProvincesFactory())
     const provinces = await sut.findAll()
     expect(provinces).toEqual(expectedProvinces)
   })
 
-  it('should find one province by its id', async () => {
+  it('should find one province by its name', async () => {
     axiosMock
-      .onGet(
-        `${process.env.BASE_URL}/api/provinces/${expectedProvinces[1].name}`
-      )
-      .reply(200, expectedProvinces[1])
-    const province = await sut.findByName(expectedProvinces[1].name)
-    expect(province).toEqual(expectedProvinces[1])
+      .onGet(`${process.env.BASE_URL}/api/provinces/Ontario`)
+      .reply(200, makeFakeProvincesFactory()[1])
+    const province = await sut.findByName('Ontario')
+    expect(province.id).toEqual('random_id_2')
   })
 })

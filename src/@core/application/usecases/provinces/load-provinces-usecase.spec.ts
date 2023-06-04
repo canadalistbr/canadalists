@@ -1,9 +1,10 @@
+import { ProvinceEntity } from '../../../domain/entities/province-entity'
 import { ProvincesGateway } from '@core/domain/gateways/province/provinces-gateway'
-import { Province } from '@core/domain/models'
+import { Province, ProvinceModel } from '@core/domain/models'
 import LoadProvincesUsecase from './load-province-usecase'
 
-const makeFakeProvinceFactory = (): Province[] => {
-  return [
+const makeFakeProvinceFactory = (): ProvinceEntity[] => {
+  const provinceModels: ProvinceModel[] = [
     {
       id: 'random_id',
       capital: 'quebec city',
@@ -27,6 +28,10 @@ const makeFakeProvinceFactory = (): Province[] => {
       topCities: ['Toronto']
     }
   ]
+
+  return provinceModels.map(
+    (provinceModel) => new ProvinceEntity(provinceModel)
+  )
 }
 
 let sut: LoadProvincesUsecase
@@ -34,17 +39,17 @@ let findAll: jest.SpyInstance<Promise<Province[]>, []>
 let findeOne: jest.SpyInstance<Promise<Province>, [id: string]>
 beforeEach(() => {
   class LoadProvincesGatewayStub implements ProvincesGateway {
-    findById(id: string): Promise<Province> {
+    findByName(provinceName: string): Promise<ProvinceEntity> {
       return new Promise((resolve) => resolve(makeFakeProvinceFactory()[0]))
     }
-    findAll(): Promise<Province[]> {
+    findAll(): Promise<ProvinceEntity[]> {
       return new Promise((resolve) => resolve(makeFakeProvinceFactory()))
     }
   }
   const gatewayStub = new LoadProvincesGatewayStub()
   sut = new LoadProvincesUsecase(gatewayStub)
   findAll = jest.spyOn(gatewayStub, 'findAll')
-  findeOne = jest.spyOn(gatewayStub, 'findById')
+  findeOne = jest.spyOn(gatewayStub, 'findByName')
 })
 
 describe('LoadProvincesUsecase', () => {

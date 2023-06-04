@@ -32,35 +32,27 @@ export class ProvinceEntity {
     this._overview = data.overview
     this._study = data.study
   }
-
   get id(): string {
     return this._id
   }
-
   get name(): string {
     return this._name
   }
-
   get capital(): string {
     return this._capital
   }
-
   get slug(): string {
     return this._slug
   }
-
   get language(): string[] {
     return this._language
   }
-
   get topCities(): string[] {
     return this._topCities
   }
-
   get immigrationRanking(): number {
     return this._immigrationRanking
   }
-
   get imageUrl(): string {
     return this._imageUrl
   }
@@ -78,5 +70,9 @@ export class ProvinceEntity {
   }
   get study(): Study[] | undefined {
     return this._study
+  }
+  // TODO: Find out if it hurts the principles of Clean Architecture
+  get provinceNameLink(): string {
+    return this._name.replace(/\s+/g, '-').toLocaleLowerCase()
   }
 }
