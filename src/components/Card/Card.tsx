@@ -68,16 +68,21 @@ export type SideCardProps = Pick<CardProps, 'title' | 'image'> & {
 export function SideCard({ title, image, className, slug }: SideCardProps) {
   return (
     <div
-      className={`xl:p-4 flex gap-4 justify-start items-center hover:shadow-md hover:ease-in duration-300 border rounded-full overflow-hidden ${className}`}
+      className={`
+        xl:p-3 flex gap-4 justify-start items-center hover:shadow-md hover:ease-in duration-300 border rounded-full overflow-hidden 
+        ${className}
+      `}
     >
       <div className="relative overflow-hidden rounded-full">
         <Image src={image} alt={title} width={42} height={42} />
-        <span className="absolute text-3xl text-white transform -translate-x-1/2 -translate-y-1/2 xl:hidden top-1/2 left-1/2">
+        <span 
+          className="absolute text-3xl text-white transform -translate-x-1/2 -translate-y-1/2 xl:hidden top-1/2 left-1/2"
+        >
           {slug}
         </span>
       </div>
       <div className="flex-1 hidden break-word xl:block">
-        <p className="inline-block text-xl font-medium ">{title}</p>
+        <p className="inline-block text-2xl font-medium ">{title}</p>
       </div>
     </div>
   )
