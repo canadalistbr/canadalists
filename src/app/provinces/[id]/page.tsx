@@ -80,7 +80,10 @@ async function ProvincePage({ params }: ProvinceType) {
           className="mb-4 gap-4 flex xl:grid xl:grid-cols-[repeat(auto-fill,minmax(auto,17rem))]"
         >
           {provinces.map((province) => (
-            <Link key={province.id} href={`/provinces/${province.id}`}>
+            <Link
+              key={province.id}
+              href={`/provinces/${province.provinceNameLink}`}
+            >
               <SideCard
                 className={
                   province.name === provinceName

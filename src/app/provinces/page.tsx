@@ -1,5 +1,4 @@
 import LoadProvincesUsecase from '@core/application/usecases/provinces/load-province-usecase'
-import { Province } from '@core/domain/models'
 import { ProvincesHttpGateway } from '@core/infra/province/provinces-gateway'
 import { axiosHttp } from '@core/main/http'
 import { Card } from 'components/Card/Card'
@@ -8,8 +7,9 @@ import Link from 'next/link'
 import { assertNotEmpty } from '../../../utils/assertion'
 import { Building } from 'lucide-react'
 import { Tag } from 'components/Tag'
+import { ProvinceEntity } from '@core/domain/entities/province-entity'
 
-export async function getProvinces(): Promise<Province[]> {
+export async function getProvinces(): Promise<ProvinceEntity[]> {
   const loadProvincesGateway = new ProvincesHttpGateway(axiosHttp)
   return new LoadProvincesUsecase(loadProvincesGateway).loadAll()
 }
