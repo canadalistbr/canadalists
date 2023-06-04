@@ -1,23 +1,33 @@
+import { ProvinceEntity } from '@core/domain/entities/province-entity'
 import { ProvincesGateway } from '@core/domain/gateways/province/provinces-gateway'
-import { Province } from '@core/domain/models'
+import { Province, ProvinceModel } from '@core/domain/models'
 import { AxiosInstance } from 'axios'
 
 export class ProvincesHttpGateway implements ProvincesGateway {
   constructor(private readonly http: AxiosInstance) {}
-  async findById(id: string): Promise<Province> {
-    const res = await this.http.get(
-      `${process.env.BASE_URL}/api/provinces/${id}`
+  async findByName(provinceName: string): Promise<ProvinceModel> {
+    const response = await this.http.get<ProvinceModel>(
+      `${process.env.BASE_URL}/api/provinces/${provinceName}`
     )
-    if (!res.data) {
+    if (!response.data) {
       throw Error('Something went Wrong')
     }
-    return res.data
+
+    const province = response.data
+
+    return new ProvinceEntity({
+      ...province
+    })
   }
   async findAll(): Promise<Province[]> {
-    const res = await this.http.get(`${process.env.BASE_URL}/api/provinces`)
-    if (!res.data) {
+    const response = await this.http.get<Province[]>(
+      `${process.env.BASE_URL}/api/provinces`
+    )
+    if (!response.data) {
       throw Error('Something went Wrong')
     }
-    return res.data
+    return response.data.map((province) => {
+      return new ProvinceEntity({ ...province })
+    })
   }
 }
