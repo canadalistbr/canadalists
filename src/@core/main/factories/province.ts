@@ -1,4 +1,4 @@
-import LoadProvincesUsecase from '@core/application/provinces/load-province-usecase'
+import LoadProvincesUsecase from '@core/application/usecases/provinces/load-province-usecase'
 import { Province, ProvinceModel } from '@core/domain/models'
 import { ProvincesHttpGateway } from '@core/infra/province/provinces-gateway'
 import { axiosHttp } from '../http'
