@@ -16,8 +16,7 @@ export function ProvinceCities({ cities }: ProvinceCitiesType) {
     <Tab.Group
       onChange={(tabIndex: number) => setCurrentCity(cities[tabIndex].name)}
     >
-      <Tab.List className="grid">
-        <div className="flex flex-col">
+      <Tab.List className="flex flex-col">
           {cities.map((city) => (
             <Tab
               key={city.name}
@@ -34,7 +33,6 @@ export function ProvinceCities({ cities }: ProvinceCitiesType) {
               {city.name}
             </Tab>
           ))}
-        </div>
       </Tab.List>
 
       <ProvinceCityPage city={currentCity}/>
