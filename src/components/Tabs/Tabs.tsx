@@ -1,6 +1,7 @@
 'use client'
 import { Tab } from '@headlessui/react'
 import { useState } from 'react'
+import { classNames } from '../../../utils/classNames'
 
 type Tab = {
   name: string
@@ -12,12 +13,9 @@ type TabsProps = {
   tabs: Tab[]
 }
 
-export function classNames(...classes: (string | undefined)[]) {
-  return classes.filter(Boolean).join(' ')
-}
-
 export function Tabs({ tabs }: TabsProps) {
   const [currentTab, setCurrentTab] = useState(tabs[0].name)
+
   return (
     <Tab.Group
       onChange={(tabIndex: number) => setCurrentTab(tabs[tabIndex].name)}
@@ -40,11 +38,16 @@ export function Tabs({ tabs }: TabsProps) {
           </Tab>
         ))}
       </Tab.List>
+
       {tabs.map((tab) => (
-        <Tab.Panel key={tab.name} className="px-4">
+        <Tab.Panel 
+          key={tab.name} 
+          className={tab.name === 'Cities' ? "grid grid-cols-5 gap-12" : "px-4"}
+        >
           {currentTab === tab.name && tab.content}
         </Tab.Panel>
       ))}
+      
     </Tab.Group>
   )
 }

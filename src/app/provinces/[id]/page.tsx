@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ProvinceCities } from './components/Cities'
+import { ProvinceCities } from './components/ProvinceCities'
 import { ImmigrationPrograms } from './components/ImmigrationPrograms'
 import { SideCard } from 'components/Card/Card'
 import { Info } from 'components/Info/Info'
@@ -76,7 +76,9 @@ async function ProvincePage({ params }: ProvinceType) {
   return (
     <MaxWidthWrapper>
       <div className="p-4">
-        <div className="mb-4 gap-4 flex xl:grid xl:grid-cols-[repeat(auto-fill,minmax(auto,16rem))]">
+        <div 
+          className="mb-4 gap-4 flex xl:grid xl:grid-cols-[repeat(auto-fill,minmax(auto,17rem))]"
+        >
           {provinces.map((province) => (
             <Link key={province.id} href={`/provinces/${province.id}`}>
               <SideCard
