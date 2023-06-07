@@ -74,10 +74,15 @@ export function SideCard({ title, image, className, slug }: SideCardProps) {
       `}
     >
       <div className="relative overflow-hidden rounded-full">
-        <Image src={image} alt={title} width={42} height={42} />
-        <span 
-          className="absolute text-3xl text-white transform -translate-x-1/2 -translate-y-1/2 xl:hidden top-1/2 left-1/2"
-        >
+        <Image
+          loading="eager"
+          src={image}
+          alt={title}
+          width={42}
+          height={42}
+          quality={25}
+        />
+        <span className="absolute text-3xl text-white transform -translate-x-1/2 -translate-y-1/2 xl:hidden top-1/2 left-1/2">
           {slug}
         </span>
       </div>

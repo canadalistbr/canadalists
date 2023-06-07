@@ -11,6 +11,7 @@ import {
 } from '@core/main/factories/province'
 import { assertNotEmpty, assertNotNull } from '../../../../utils/assertion'
 import { ReactNode } from 'react'
+import Image from 'next/image'
 
 type ProvinceType = {
   params: {
@@ -24,8 +25,9 @@ function Label({ children }: { children: ReactNode }) {
 
 async function ProvincePage({ params }: ProvinceType) {
   const { id } = params
-  const province = await makeGetProvinceBy(id)
-  const provinces = await makeGetProvinces()
+
+  const promises = Promise.all([makeGetProvinces(), makeGetProvinceBy(id)])
+  const [provinces, province] = await promises
   const { cities, immigration, overview } = province
 
   assertNotEmpty(provinces)
@@ -98,12 +100,16 @@ async function ProvincePage({ params }: ProvinceType) {
           ))}
         </div>
         <section className="flex-1 block overflow-hidden rounded-t-2xl ">
-          <header
-            className="h-96 mg-4 bg-no-repeat bg-center bg-cover w-full rounded-t-2xl"
-            style={{
-              backgroundImage: `url(${bannerUrl})`
-            }}
-          />
+          <header className="h-96 mg-4 bg-no-repeat bg-center bg-cover w-full rounded-t-2xl relative">
+            <Image
+              src={bannerUrl}
+              alt={`${province.name}-banner`}
+              fill
+              style={{ objectFit: 'cover' }}
+              sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
+              loading="eager"
+            />
+          </header>
           <main className="bg-white rounded-t-3xl ">
             <Tabs tabs={tabs} />
           </main>
