@@ -34,7 +34,7 @@ export function Card({
             sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
           />
         </div>
-        <span className="absolute text-white transform -translate-x-1/2 -translate-y-1/2 text-9xl top-1/2 left-1/2">
+        <span className="absolute text-white transform -translate-x-1/2 -translate-y-1/2 text-7xl top-1/2 left-1/2">
           {slug}
         </span>
         <div className="absolute bottom-0 left-0 text-4xl text-white">
