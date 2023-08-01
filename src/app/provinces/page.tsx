@@ -4,10 +4,10 @@ import { ProvincesHttpGateway } from '@core/infra/province/provinces-gateway'
 import { axiosHttp } from '@core/main/http'
 import { Card } from 'components/Card/Card'
 import MaxWidthWrapper from 'components/MaxWidthWrapper'
+import { Tag } from 'components/Tag'
+import { Building } from 'lucide-react'
 import Link from 'next/link'
 import { assertNotEmpty } from '../../../utils/assertion'
-import { Building } from 'lucide-react'
-import { Tag } from 'components/Tag'
 
 export async function getProvinces(): Promise<Province[]> {
   const loadProvincesGateway = new ProvincesHttpGateway(axiosHttp)
@@ -23,8 +23,9 @@ async function Provinces() {
       <div className="grid gap-4 grid-cols-[repeat(auto-fill,minmax(350px,1fr))]">
         {provinces.map((province) => (
           <Link key={province.id} href={`/provinces/${province.id}`}>
+            {/* TODO: FIX SLUG */}
             <Card
-              slug={province.slug}
+              slug={province.name}
               title={province.name}
               image={province.imageUrl}
             >
