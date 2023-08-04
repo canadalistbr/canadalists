@@ -1,8 +1,8 @@
-import { ProvincesHttpGateway } from './provinces-gateway'
+import { Province } from '@core/domain/models'
 import axios, { AxiosInstance } from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import dotenv from 'dotenv'
-import { Province } from '@core/domain/models'
+import { ProvincesHttpGateway } from './provinces-gateway'
 
 dotenv.config({
   path: './env.test'
@@ -63,7 +63,7 @@ describe('ProvincesHttpGateway', () => {
     axiosMock
       .onGet(`${process.env.BASE_URL}/api/provinces/random_id`)
       .reply(200, expectedProvinces[1])
-    await sut.findById('random_id')
+    await sut.findBy('random_id')
     expect(axiosMock.history.get.length).toBe(1)
   })
 
@@ -80,7 +80,7 @@ describe('ProvincesHttpGateway', () => {
     axiosMock
       .onGet(`${process.env.BASE_URL}/api/provinces/${expectedProvinces[1].id}`)
       .reply(200, expectedProvinces[1])
-    const province = await sut.findById(expectedProvinces[1].id)
+    const province = await sut.findBy(expectedProvinces[1].id)
     expect(province).toEqual(expectedProvinces[1])
   })
 })

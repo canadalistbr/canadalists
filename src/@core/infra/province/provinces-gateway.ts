@@ -4,9 +4,9 @@ import { AxiosInstance } from 'axios'
 
 export class ProvincesHttpGateway implements ProvincesGateway {
   constructor(private readonly http: AxiosInstance) {}
-  async findById(id: string): Promise<Province> {
+  async findBy(name: string): Promise<Province> {
     const res = await this.http.get(
-      `${process.env.BASE_URL}/api/provinces/${id}`
+      `${process.env.BASE_URL}/api/provinces/${name}`
     )
     if (!res.data) {
       throw Error('Something went Wrong')
