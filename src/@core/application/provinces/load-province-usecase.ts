@@ -8,7 +8,7 @@ export default class LoadProvincesUsecase
 {
   constructor(private readonly loadProvincesGateway: ProvincesGateway) {}
   async load(id: string): Promise<Province> {
-    return await this.loadProvincesGateway.findById(id)
+    return await this.loadProvincesGateway.findBy(id)
   }
   async loadAll(): Promise<Province[]> {
     return await this.loadProvincesGateway.findAll()

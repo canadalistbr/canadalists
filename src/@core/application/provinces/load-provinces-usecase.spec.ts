@@ -34,7 +34,7 @@ let findAll: jest.SpyInstance<Promise<Province[]>, []>
 let findeOne: jest.SpyInstance<Promise<Province>, [id: string]>
 beforeEach(() => {
   class LoadProvincesGatewayStub implements ProvincesGateway {
-    findById(id: string): Promise<Province> {
+    findBy(name: string): Promise<Province> {
       return new Promise((resolve) => resolve(makeFakeProvinceFactory()[0]))
     }
     findAll(): Promise<Province[]> {
@@ -44,7 +44,7 @@ beforeEach(() => {
   const gatewayStub = new LoadProvincesGatewayStub()
   sut = new LoadProvincesUsecase(gatewayStub)
   findAll = jest.spyOn(gatewayStub, 'findAll')
-  findeOne = jest.spyOn(gatewayStub, 'findById')
+  findeOne = jest.spyOn(gatewayStub, 'findBy')
 })
 
 describe('LoadProvincesUsecase', () => {

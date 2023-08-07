@@ -22,8 +22,7 @@ async function Provinces() {
     <MaxWidthWrapper>
       <div className="grid gap-4 grid-cols-[repeat(auto-fill,minmax(350px,1fr))]">
         {provinces.map((province) => (
-          <Link key={province.id} href={`/provinces/${province.id}`}>
-            {/* TODO: FIX SLUG */}
+          <Link key={province.id} href={`/provinces/${province.slug}`}>
             <Card
               slug={province.name}
               title={province.name}
