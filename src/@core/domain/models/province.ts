@@ -13,6 +13,7 @@ export type Province = {
   immigrationRanking: number
   imageUrl: string
   flagUrl: string
+  short: string
 }
 
 export type ProvinceModel = Province & {
