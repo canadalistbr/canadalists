@@ -14,7 +14,7 @@ import { ProvinceCities } from './components/ProvinceCities'
 
 type ProvinceType = {
   params: {
-    id: string
+    name: string
   }
 }
 
@@ -23,8 +23,8 @@ function Label({ children }: { children: ReactNode }) {
 }
 
 async function ProvincePage({ params }: ProvinceType) {
-  const { id } = params
-  const province = await makeGetProvinceBy(id)
+  const { name } = params
+  const province = await makeGetProvinceBy(name)
   const provinces = await makeGetProvinces()
   const { cities, immigration, overview } = province
 
@@ -41,7 +41,7 @@ async function ProvincePage({ params }: ProvinceType) {
 
   const provinceLabel = (
     <Label>
-      🇨🇦<span>{provinceName}</span>
+      🥇<span>Scores</span>
     </Label>
   )
   const citiesLabel = (
