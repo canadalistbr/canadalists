@@ -19,7 +19,8 @@ const makeFakeProvincesFactory = (): Province[] => {
       immigrationRanking: 4,
       name: 'Quebec',
       slug: 'Qc',
-      topCities: ['montreal']
+      topCities: ['montreal'],
+      short: ' qct'
     },
     {
       id: 'random_id_2',
@@ -30,7 +31,8 @@ const makeFakeProvincesFactory = (): Province[] => {
       immigrationRanking: 2,
       name: 'Ontario',
       slug: 'On',
-      topCities: ['Toronto']
+      topCities: ['Toronto'],
+      short: 'TOR'
     }
   ]
 }
