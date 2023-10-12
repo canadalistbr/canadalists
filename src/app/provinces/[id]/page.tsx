@@ -1,16 +1,16 @@
-import Link from 'next/link'
-import { ProvinceCities } from './components/ProvinceCities'
-import { ImmigrationPrograms } from './components/ImmigrationPrograms'
-import { SideCard } from 'components/Card/Card'
-import { Info } from 'components/Info/Info'
-import MaxWidthWrapper from 'components/MaxWidthWrapper'
-import { Tabs } from 'components/Tabs'
 import {
   makeGetProvinceBy,
   makeGetProvinces
 } from '@core/main/factories/province'
-import { assertNotEmpty, assertNotNull } from '../../../../utils/assertion'
+import { SideCard } from 'components/Card/Card'
+import { Info } from 'components/Info/Info'
+import MaxWidthWrapper from 'components/MaxWidthWrapper'
+import { Tabs } from 'components/Tabs'
+import Link from 'next/link'
 import { ReactNode } from 'react'
+import { assertNotEmpty, assertNotNull } from '../../../../utils/assertion'
+import { ImmigrationPrograms } from './components/ImmigrationPrograms'
+import { ProvinceCities } from './components/ProvinceCities'
 
 type ProvinceType = {
   params: {
@@ -76,11 +76,11 @@ async function ProvincePage({ params }: ProvinceType) {
   return (
     <MaxWidthWrapper>
       <div className="p-4">
-        <div 
+        <div
           className="mb-4 gap-4 flex xl:grid xl:grid-cols-[repeat(auto-fill,minmax(auto,17rem))]"
         >
           {provinces.map((province) => (
-            <Link key={province.id} href={`/provinces/${province.id}`}>
+            <Link key={province.id} href={`/provinces/${province.slug}`}>
               <SideCard
                 className={
                   province.name === provinceName
@@ -96,11 +96,25 @@ async function ProvincePage({ params }: ProvinceType) {
         </div>
         <section className="flex-1 block overflow-hidden rounded-t-2xl ">
           <header
-            className="h-96 mg-4 bg-no-repeat bg-center bg-cover w-full rounded-t-2xl"
+            className="h-96 bg-no-repeat bg-center bg-cover w-full rounded-t-2xl"
             style={{
               backgroundImage: `url(${bannerUrl})`
             }}
-          />
+          >
+            <div className='relative h-full w-full'>
+              {/* Center */}
+              <span className="absolute text-white transform -translate-x-1/2 -translate-y-1/2 text-9xl top-1/2 left-1/2">
+                {province.name}
+              </span>
+              {/* TODO: temporary - use an icon or somthing fancier */}
+              {/* Bottom left */}
+              <Link href={'/'}>
+                <span className=" underline cursor-pointer absolute bottom-4 left-2 text-2xl text-white">
+                  {'/HOME'}
+                </span>
+              </Link>
+            </div>
+          </header>
           <main className="bg-white rounded-t-3xl ">
             <Tabs tabs={tabs} />
           </main>
