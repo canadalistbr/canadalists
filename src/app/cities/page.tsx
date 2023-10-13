@@ -4,7 +4,8 @@ import { Card } from 'components/Card/Card'
 import MaxWidthWrapper from 'components/MaxWidthWrapper'
 import Link from 'next/link'
 
-export async function getCities(): Promise<City[]> {
+// Move into a shared folder
+export async function getAllCities(): Promise<City[]> {
   const res = await axiosHttp.get('/api/cities')
   if (!res.data) {
     throw Error('Something went Wrong')
@@ -13,7 +14,7 @@ export async function getCities(): Promise<City[]> {
 }
 
 async function Cities() {
-  const cities = await getCities()
+  const cities = await getAllCities()
 
   return (
     <MaxWidthWrapper>
