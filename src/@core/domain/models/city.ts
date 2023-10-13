@@ -1,3 +1,6 @@
+import { CityOverView } from "./city-overview"
+import { Province } from "./province"
+
 export type City = {
   id: string
   name: string
@@ -8,4 +11,10 @@ export type City = {
   overallScore: number
   provinceId: string
   short: string
+}
+
+
+export type CityModel = City & {
+  cityOverview?: CityOverView
+  provinces: Province
 }
