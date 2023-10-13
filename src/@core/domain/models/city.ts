@@ -7,4 +7,5 @@ export type City = {
   costOfLiving: number
   overallScore: number
   provinceId: string
+  short: string
 }
