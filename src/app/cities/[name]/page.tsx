@@ -1,5 +1,4 @@
-import { CityModel } from '@core/domain/models'
-import { axiosHttp } from '@core/main/http'
+import { getAllCities, getCityBy } from '@core/main/api/cities'
 import { SideCard } from 'components/Card/Card'
 import { Info } from 'components/Info/Info'
 import MaxWidthWrapper from 'components/MaxWidthWrapper'
@@ -7,17 +6,7 @@ import { Tabs } from 'components/Tabs'
 import Link from 'next/link'
 import { ReactNode } from 'react'
 import { assertNotEmpty, assertNotNull } from '../../../../utils/assertion'
-import { getAllCities } from '../page'
 
-
-// Move into a shared folder
-export async function getCityBy(name: string): Promise<CityModel> {
-    const res = await axiosHttp.get(`/api/cities/${name}`)
-    if (!res.data) {
-        throw Error('Something went Wrong')
-    }
-    return res.data
-}
 
 type ProvinceType = {
     params: {
@@ -31,10 +20,8 @@ function Label({ children }: { children: ReactNode }) {
 
 async function CityPage({ params }: ProvinceType) {
     const { name } = params
-
-    const cities = await getAllCities()
-    const currentCity = await getCityBy(name)
-
+    // TODO: pass getAllCities from cities page to this one
+    const [cities, currentCity] = await Promise.all([getAllCities(), getCityBy(name)])
     const { cityOverview } = currentCity
 
     assertNotEmpty(cities)

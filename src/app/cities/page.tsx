@@ -1,21 +1,12 @@
-import { City } from '@core/domain/models'
-import { axiosHttp } from '@core/main/http'
+import { getAllCities } from '@core/main/api/cities'
 import { Card } from 'components/Card/Card'
 import MaxWidthWrapper from 'components/MaxWidthWrapper'
 import Link from 'next/link'
 
-// Move into a shared folder
-export async function getAllCities(): Promise<City[]> {
-  const res = await axiosHttp.get('/api/cities')
-  if (!res.data) {
-    throw Error('Something went Wrong')
-  }
-  return res.data
-}
+
 
 async function Cities() {
   const cities = await getAllCities()
-
   return (
     <MaxWidthWrapper>
       <div className="grid gap-4 grid-cols-[repeat(auto-fill,minmax(350px,1fr))]">
