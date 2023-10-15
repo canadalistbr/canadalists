@@ -1,4 +1,4 @@
-import { City, CityModel } from "@core/domain/models"
+import { CityModel } from "@core/domain/models"
 import { axiosHttp } from "../http"
 
 export async function getCityBy(name: string): Promise<CityModel> {
@@ -11,7 +11,7 @@ export async function getCityBy(name: string): Promise<CityModel> {
 
 
 // Move into a shared folder
-export async function getAllCities(): Promise<City[]> {
+export async function getAllCities(): Promise<CityModel[]> {
     const res = await axiosHttp.get('/api/cities')
     if (!res.data) {
         throw Error('Something went Wrong')

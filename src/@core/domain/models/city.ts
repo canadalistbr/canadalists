@@ -11,6 +11,11 @@ export type City = {
   overallScore: number
   provinceId: string
   short: string
+  industries: string[]
+  nature: boolean
+  population: number
+  festivals: string
+  bikeFriendly: boolean
 }
 
 
