@@ -1,10 +1,12 @@
+import {
+  TooltipComponent
+} from "@/components/ui/tooltip"
 import { getAllCities } from '@core/main/api/cities'
 import { Card } from 'components/Card/Card'
 import MaxWidthWrapper from 'components/MaxWidthWrapper'
 import { Tag } from 'components/Tag'
 import Link from 'next/link'
 import { isEmpty } from 'ramda'
-
 
 function getCitySize(population: number): '🏡Small' | '🏙️Middle-Size' | '🌆Big' {
   if (population <= 100000) {
@@ -32,10 +34,15 @@ function getLanguages(langs: string[]) {
 
 function getCost(costRange: string, score: number) {
   const moneys = '💸'.repeat(score)
-  return <>
-    <span>{moneys} {costRange}</span>
-    <span className='text-base'>2 people in downtown</span>
-  </>
+
+  return (
+    <TooltipComponent content={<p>Cost of living</p>}>
+      <div className='flex flex-col items-start'>
+        <span>{moneys} {costRange}</span>
+        <span className='text-base'>2 people in downtown</span>
+      </div>
+    </TooltipComponent>
+  )
 }
 
 async function Cities() {
