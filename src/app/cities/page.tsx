@@ -16,6 +16,28 @@ function getCitySize(population: number): '🏡Small' | '🏙️Middle-Size' | '
   return '🌆Big'
 }
 
+function getWinterSeverity(winter: string) {
+  if (winter === 'mild') {
+    `🌨️${winter} winter`
+  }
+  if (winter === 'cold') {
+    ` ❄️ ${winter} winter`
+  }
+  return `🥶${winter} winter`
+}
+
+function getLanguages(langs: string[]) {
+  return <span>Language {langs.map(lang => lang)}</span>
+}
+
+function getCost(costRange: string, score: number) {
+  const moneys = '💸'.repeat(score)
+  return <>
+    <span>{moneys} {costRange}</span>
+    <span className='text-base'>2 people in downtown</span>
+  </>
+}
+
 async function Cities() {
   const cities = await getAllCities()
 
@@ -23,12 +45,16 @@ async function Cities() {
     <MaxWidthWrapper>
       <div className="grid gap-4 grid-cols-[repeat(auto-fill,minmax(350px,1fr))]">
         {cities.map((city) => {
-          const { id, slug, name, imageUrl, provinces, population, ...restProps } = city
+          const { id, slug, name, imageUrl, costOfLiving, overallScore, language, provinces, population, winter, immigrationDestinationRank, ...restProps } = city
           const citySize = getCitySize(population)
           const center = <div className='gap-4 flex justify-center items-center flex-col '>
             <span>{name}</span>
             <span className='text-xl'>{provinces.name}</span>
           </div>
+
+          const bottomLeft = getWinterSeverity(winter)
+          const bottomRight = getLanguages(language)
+          const topLeft = getCost(costOfLiving, overallScore)
 
           return (
             <Link key={id} href={`/cities/${slug}`}>
@@ -36,6 +62,9 @@ async function Cities() {
                 center={center}
                 title={name}
                 image={imageUrl}
+                bottomLeft={bottomLeft}
+                bottomRight={bottomRight}
+                upperLeft={topLeft}
               >
                 <Tags {...restProps} citySize={citySize} />
               </Card>
@@ -60,43 +89,33 @@ export type TagsProps = {
 function Tags(props: TagsProps) {
   const { festivals, industries, nature, bikeFriendly, citySize } = props
   return (
-    <>
-      <Tag
-        classNames="hover:shadow-md  transition duration-300"
-      >
+    <div className='text-lg flex flex-wrap'>
+      <Tag>
         {citySize}
       </Tag>
-      {festivals ? <Tag
-        classNames="hover:shadow-md  transition duration-300"
-      >
+      {festivals ? <Tag>
         🎉Festivals city
       </Tag> : null
       }
       {
-        nature ? <Tag
-          classNames="hover:shadow-md  transition duration-300"
-        >
+        nature ? <Tag>
           🌲Nature
         </Tag> : null
       }
       {
-        bikeFriendly ? <Tag
-          classNames="hover:shadow-md  transition duration-300"
-        >
+        bikeFriendly ? <Tag>
           🚴Bike friendly
         </Tag> : null
       }
       {
         !isEmpty(industries) ?
           industries.map((industry, i) => (
-            <Tag
-              classNames="hover:shadow-md  transition duration-300"
-            >
+            <Tag>
               {industry} pole
             </Tag>
           ))
           : null
       }
-    </>
+    </div>
   )
 }
