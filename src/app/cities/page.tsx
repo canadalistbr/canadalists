@@ -8,24 +8,24 @@ import { Tag } from 'components/Tag'
 import Link from 'next/link'
 import { isEmpty } from 'ramda'
 
-function getCitySize(population: number): '🏡Small' | '🏙️Middle-Size' | '🌆Big' {
+function getCitySize(population: number): '🏡 Small City' | '🏙️ Middle-Sized City' | '🌆 Big City' {
   if (population <= 100000) {
-    return '🏡Small'
+    return '🏡 Small City'
   }
   if (population > 100000 && population <= 1000000) {
-    return '🏙️Middle-Size'
+    return '🏙️ Middle-Sized City'
   }
-  return '🌆Big'
+  return '🌆 Big City'
 }
 
 function getWinterSeverity(winter: string) {
   if (winter === 'mild') {
-    `🌨️${winter} winter`
+    `🌨️ ${winter} winter`
   }
   if (winter === 'cold') {
     ` ❄️ ${winter} winter`
   }
-  return `🥶${winter} winter`
+  return `🥶 ${winter} winter`
 }
 
 function getLanguages(langs: string[]) {
@@ -34,10 +34,18 @@ function getLanguages(langs: string[]) {
 
 function getCost(costRange: string, score: number) {
   const moneys = '💸'.repeat(score)
+  let costOfLivingScore: string
+  if (score === 3) {
+    costOfLivingScore = 'High'
+  } else if (score === 2) {
+    costOfLivingScore = 'Medium'
+  } else {
+    costOfLivingScore = 'Low'
+  }
 
   return (
-    <TooltipComponent content={<p>Cost of living</p>}>
-      <div className='flex flex-col items-start'>
+    <TooltipComponent content={<p>{costOfLivingScore} Cost of living</p>}>
+      <div className='flex flex-col items-center'>
         <span>{moneys} {costRange}</span>
         <span className='text-base'>2 people in downtown</span>
       </div>
@@ -96,22 +104,25 @@ export type TagsProps = {
 function Tags(props: TagsProps) {
   const { festivals, industries, nature, bikeFriendly, citySize } = props
   return (
-    <div className='text-lg flex flex-wrap'>
+    <div className='gap-2 text-lg flex flex-wrap'>
       <Tag>
         {citySize}
       </Tag>
-      {festivals ? <Tag>
-        🎉Festivals city
-      </Tag> : null
+      {festivals ? (
+        <TooltipComponent content={<p className="text-white">{festivals}</p>}>
+          <Tag>
+            🎉 Festivals city
+          </Tag>
+        </TooltipComponent>) : null
       }
       {
         nature ? <Tag>
-          🌲Nature
+          🌲 Nature
         </Tag> : null
       }
       {
         bikeFriendly ? <Tag>
-          🚴Bike friendly
+          🚴 Bike friendly
         </Tag> : null
       }
       {

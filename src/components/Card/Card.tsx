@@ -26,7 +26,7 @@ export function Card({
       <div className="relative rounded-3xl font-bold">
         <div className="relative aspect-video opacity-80 rounded-3xl">
           <Image
-            className='rounded-3xl rounded-b-none brightness-75'
+            className='rounded-3xl rounded-b-none brightness-50'
             priority
             src={image}
             alt={title}
