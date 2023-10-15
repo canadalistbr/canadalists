@@ -7,7 +7,7 @@ export type City = {
   slug: string
   language: string[]
   imageUrl: string
-  costOfLiving: number
+  costOfLiving: string
   overallScore: number
   provinceId: string
   short: string
@@ -16,6 +16,8 @@ export type City = {
   population: number
   festivals: string
   bikeFriendly: boolean
+  winter: 'Mild' | 'Cold' | 'Frezing'
+  immigrationDestinationRank: number
 }
 
 
