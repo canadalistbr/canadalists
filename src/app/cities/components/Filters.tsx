@@ -5,14 +5,24 @@ import { cn } from "@/lib/utils";
 import { XCircle } from "lucide-react";
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { isEmpty } from "ramda";
 import React from 'react';
+
+const booleanTags = [
+  { tag: 'bikeFriendly', label: '🚲 Bike Friendly' },
+  { tag: 'nature', label: '🌲 Nature' },
+  { tag: 'festivals', label: '🎉 Festivals' }
+]
+
 
 
 export function Filters() {
   const router = useRouter()
   const pathname = usePathname()
-  const searchParams = useSearchParams()!
+  const searchParams = useSearchParams()
+  const hasFilters = !isEmpty(searchParams.toString())
   const params = new URLSearchParams(searchParams)
+
 
   function addQueryString(name: string, value: string): void {
     params.set(name, value)
@@ -24,11 +34,6 @@ export function Filters() {
     router.push(`${pathname}?${params.toString()}`)
   }
 
-  const booleanTags = [
-    { tag: 'bikeFriendly', label: '🚲 Bike Friendly' },
-    { tag: 'nature', label: '🌲 Nature' },
-    { tag: 'festivals', label: '🎉 Festivals' }
-  ]
 
   return (
     <div className="flex gap-4">
@@ -51,14 +56,17 @@ export function Filters() {
           </Badge>
         )
       })}
-      <Badge className="bg-slate-100 hover:bg-red-400 hover:text-white transition-all duration-500 border-red-400 text-red-400">
-        <Link href={'/cities'}>
-          <div className="p-1 cursor-pointer flex items-center gap-2">
-            <span className="text-xl">Remove all filters</span> <XCircle size={15} />
-          </div>
+      {hasFilters ?
+        <Badge className="bg-slate-100 hover:bg-red-400 hover:text-white transition-all duration-500 border-red-400 text-red-400">
+          <Link href={'/cities'}>
+            <div className="p-1 cursor-pointer flex items-center gap-2">
+              <span className="text-xl">Remove all filters</span> <XCircle size={15} />
+            </div>
 
-        </Link>
-      </Badge>
+          </Link>
+        </Badge>
+        : null
+      }
     </div>
   )
 }
