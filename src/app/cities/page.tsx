@@ -1,7 +1,7 @@
 import { getAllCities } from '@core/main/api/cities'
-import { Filters } from 'components/Filters'
 import MaxWidthWrapper from 'components/MaxWidthWrapper'
 import { CitiesList } from './components/CitiesList'
+import { Filters } from './components/Filters'
 
 async function Cities({ searchParams }: {
   searchParams: {
