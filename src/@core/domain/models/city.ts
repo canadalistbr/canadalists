@@ -16,7 +16,7 @@ export type City = {
   population: number
   festivals: string
   bikeFriendly: boolean
-  winter: 'Mild' | 'Cold' | 'Frezing'
+  winter: 'Mild' | 'Cold' | 'Freezing'
   immigrationDestinationRank: number
 }
 
