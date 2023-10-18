@@ -24,7 +24,7 @@ export function getCost(costRange: string, score: number) {
   return (
     <TooltipComponent content={<span className="text-black text-xl">Cost for 1 bedroom for 2 people in downtown </span>}>
       <div className='flex flex-col items-start'>
-        <span> 🤑 {costRange}</span>
+        <span>💰 {costRange}</span>
         <span className="text-lg">{costOfLivingScore}</span>
       </div>
     </TooltipComponent>
