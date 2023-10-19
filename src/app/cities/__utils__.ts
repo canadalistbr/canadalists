@@ -6,7 +6,7 @@ export enum CitySize {
 
 export enum Winter {
   "Mild" = "🌨️ Mild Winter",
-  "Cold" = "❄️ Mild Winter",
+  "Cold" = "❄️ Cold Winter",
   "Freezing" = "🥶 Freezing Winter"
 }
 
