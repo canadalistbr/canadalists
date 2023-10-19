@@ -11,7 +11,11 @@ import { isEmpty } from "ramda";
 import React, { useState } from 'react';
 import { CitySize, Winter } from "../__utils__";
 
-const booleanTags = [
+type BooleanTagsType = {
+  tag: 'bikeFriendly' | 'nature' | 'festivals'
+  label: "🚲 Bike Friendly" | "🌲 Nature" | "🎉 Festivals"
+}
+const booleanTags: BooleanTagsType[] = [
   { tag: 'bikeFriendly', label: '🚲 Bike Friendly' },
   { tag: 'nature', label: '🌲 Nature' },
   { tag: 'festivals', label: '🎉 Festivals' }
@@ -31,7 +35,6 @@ type CitySizeTagsType = {
   tag: 'size'
   label: "Small" | "Medium" | "Big"
 }
-
 const citySizeTags: CitySizeTagsType[] = [
   { tag: 'size', label: 'Small' },
   { tag: 'size', label: 'Medium' },
@@ -44,13 +47,14 @@ export function Filters() {
   const hasFilters = !isEmpty(searchParams.toString())
   const params = new URLSearchParams(searchParams)
 
-  type ChekedWinterState = Record<'Mild' | 'Cold' | 'Freezing', boolean>
-  const initialWinterCheckedState = {
+  type ChekedWinterState = Record<WinterTagsType['label'], boolean>
+  const initialWinterCheckedState: ChekedWinterState = {
     Mild: false,
     Cold: false,
     Freezing: false
   }
   const [checkedWinter, setCheckedWinter] = useState<ChekedWinterState>(initialWinterCheckedState);
+
 
   type ChekedSizeState = Record<CitySizeTagsType['label'], boolean>
   const initialSizeCheckedState: ChekedSizeState = {
@@ -68,6 +72,10 @@ export function Filters() {
   function removeQueryString(name: string): void {
     params.delete(name)
     router.push(`${pathname}?${params.toString()}`)
+  }
+
+  function isRadioButtonChecked(tag: string, label: string) {
+    return params.get(tag) === label
   }
 
   function getStyles(tag: string, value: string) {
@@ -103,28 +111,22 @@ export function Filters() {
         )
       })}
 
-      <RadioGroup className="flex" onValueChange={(value: 'Mild' | 'Cold' | 'Freezing') => {
+      <RadioGroup className="flex" onValueChange={(value: WinterTagsType['label']) => {
         addQueryString('winter', value)
       }
       }>
         {winterTags.map(({ tag, label }) => {
           const { className, xCircle } = getStyles(tag, label)
-          const selectedTag = params.get(tag) === label
+          const selectedTag = isRadioButtonChecked(tag, label)
           return (
             <Badge
               className={selectedTag ? className : 'p-3 '}
               variant={'outline'}
               key={label}
               onClick={() => {
-                const selectedTag = params.get('winter')
-                if (selectedTag === label) {
-                  const uncheckAll = {
-                    Mild: false,
-                    Cold: false,
-                    Freezing: false
-                  }
+                if (selectedTag) {
                   setCheckedWinter({
-                    ...uncheckAll,
+                    ...initialWinterCheckedState,
                   })
                   removeQueryString(tag)
                 } else {
