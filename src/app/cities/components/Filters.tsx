@@ -34,11 +34,13 @@ export function Filters() {
   const hasFilters = !isEmpty(searchParams.toString())
   const params = new URLSearchParams(searchParams)
 
-  const [checked, setChecked] = useState({
+  type ChekedWinterState = Record<'Mild' | 'Cold' | 'Freezing', boolean>
+  const initialWinterCheckedState = {
     Mild: false,
     Cold: false,
     Freezing: false
-  });
+  }
+  const [checkedWinter, setCheckedWinter] = useState<ChekedWinterState>(initialWinterCheckedState);
 
   function addQueryString(name: string, value: string): void {
     params.set(name, value)
@@ -50,7 +52,6 @@ export function Filters() {
     router.push(`${pathname}?${params.toString()}`)
   }
 
-
   function getStyles(tag: string, value: string) {
     const isTagFiltered = searchParams.get(tag)
     const variant = isTagFiltered ? 'secondary' : 'outline' as BadgeProps['variant']
@@ -61,7 +62,8 @@ export function Filters() {
       variant,
       className,
       onClick,
-      xCircle
+      xCircle,
+      isTagFiltered
     }
   }
 
@@ -78,7 +80,7 @@ export function Filters() {
             onClick={onClick}
           >
             <div className="flex items-center gap-2">
-              <Label className="text-xl">{label}</Label> {xCircle}
+              <Label className="text-xl cursor-pointer ">{label}</Label> {xCircle}
             </div>
           </Badge>
         )
@@ -89,7 +91,7 @@ export function Filters() {
       }
       }>
         {winterTags.map(({ tag, label }) => {
-          const { className } = getStyles(tag, label)
+          const { className, xCircle } = getStyles(tag, label)
           const selectedTag = params.get(tag) === label
           return (
             <Badge
@@ -104,15 +106,23 @@ export function Filters() {
                     Cold: false,
                     Freezing: false
                   }
-                  setChecked({
+                  setCheckedWinter({
                     ...uncheckAll,
                   })
-                  removeQueryString(label)
+                  removeQueryString(tag)
+                } else {
+                  setCheckedWinter({
+                    ...checkedWinter,
+                    [label]: true
+                  })
+                  addQueryString(tag, label)
                 }
               }}
             >
-              <RadioGroupItem className="invisible" checked={checked[label]} value={label} id={label} />
-              <Label className="cursor-pointer text-xl" htmlFor={label}>{Winter[label]}</Label>
+              <RadioGroupItem className="invisible" checked={checkedWinter[label]} value={label} id={label} />
+              <Label className="cursor-pointer text-xl flex gap-2 items-center justify-center" htmlFor={label}>
+                {Winter[label]} {selectedTag ? xCircle : undefined}
+              </Label>
             </Badge>
           )
         })}
@@ -121,7 +131,7 @@ export function Filters() {
         <Badge className="bg-slate-100 hover:bg-red-400 hover:text-white transition-all duration-500 border-red-400 text-red-400">
           <Link href={'/cities'}>
             <div className="p-1 cursor-pointer flex items-center gap-2">
-              <span className="text-xl">Remove all filters</span> <XCircle size={15} />
+              <Label className="text-xl">Remove all filters</Label> <XCircle size={15} />
             </div>
           </Link>
         </Badge>
