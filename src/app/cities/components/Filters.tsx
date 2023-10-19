@@ -85,7 +85,6 @@ export function Filters() {
     }
   }
 
-
   return (
     <div className="flex flex-wrap gap-4">
       {booleanTags.map(({ tag, label }) => {
@@ -144,6 +143,11 @@ export function Filters() {
             </Badge>
           )
         })}
+      </RadioGroup>
+      <RadioGroup className="flex" onValueChange={(value: CitySizeTagsType['label']) => {
+        addQueryString('size', value)
+      }
+      }>
         {citySizeTags.map(({ tag, label }) => {
           const { className, xCircle } = getStyles(tag, label)
           const selectedTag = params.get(tag) === label
@@ -153,20 +157,15 @@ export function Filters() {
               variant={'outline'}
               key={label}
               onClick={() => {
-                const selectedTag = params.get('winter')
+                const selectedTag = params.get('size')
                 if (selectedTag === label) {
-                  const uncheckAll = {
-                    Mild: false,
-                    Cold: false,
-                    Freezing: false
-                  }
-                  setCheckedWinter({
-                    ...uncheckAll,
+                  setCheckedSize({
+                    ...initialSizeCheckedState,
                   })
                   removeQueryString(tag)
                 } else {
-                  setCheckedWinter({
-                    ...checkedWinter,
+                  setCheckedSize({
+                    ...checkedSize,
                     [label]: true
                   })
                   addQueryString(tag, label)
@@ -181,6 +180,7 @@ export function Filters() {
           )
         })}
       </RadioGroup>
+
       {hasFilters ?
         <Badge className="bg-slate-100 hover:bg-red-400 hover:text-white transition-all duration-500 border-red-400 text-red-400">
           <Link href={'/cities'}>
