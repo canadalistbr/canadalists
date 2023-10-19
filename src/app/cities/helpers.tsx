@@ -53,7 +53,7 @@ export type TagsProps = {
 export function Tags(props: TagsProps) {
   const { festivals, industries, nature, bikeFriendly, citySize } = props
   return (
-    <div className='gap-2 text-lg flex flex-wrap'>
+    <div className='gap-2 text-base flex flex-wrap justify-center'>
       <Tag>
         {citySize}
       </Tag>
