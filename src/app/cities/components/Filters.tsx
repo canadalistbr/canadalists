@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { isEmpty } from "ramda";
 import React, { useState } from 'react';
-import { Winter } from "../__utils__";
+import { CitySize, Winter } from "../__utils__";
 
 const booleanTags = [
   { tag: 'bikeFriendly', label: '🚲 Bike Friendly' },
@@ -27,6 +27,16 @@ const winterTags: WinterTagsType[] = [
   { tag: 'winter', label: 'Mild' },
 ]
 
+type CitySizeTagsType = {
+  tag: 'size'
+  label: "Small" | "Medium" | "Big"
+}
+
+const citySizeTags: CitySizeTagsType[] = [
+  { tag: 'size', label: 'Small' },
+  { tag: 'size', label: 'Medium' },
+  { tag: 'size', label: 'Big' },
+]
 export function Filters() {
   const router = useRouter()
   const pathname = usePathname()
@@ -41,6 +51,14 @@ export function Filters() {
     Freezing: false
   }
   const [checkedWinter, setCheckedWinter] = useState<ChekedWinterState>(initialWinterCheckedState);
+
+  type ChekedSizeState = Record<CitySizeTagsType['label'], boolean>
+  const initialSizeCheckedState: ChekedSizeState = {
+    Small: false,
+    Medium: false,
+    Big: false
+  }
+  const [checkedSize, setCheckedSize] = useState<ChekedSizeState>(initialSizeCheckedState);
 
   function addQueryString(name: string, value: string): void {
     params.set(name, value)
@@ -122,6 +140,42 @@ export function Filters() {
               <RadioGroupItem className="invisible" checked={checkedWinter[label]} value={label} id={label} />
               <Label className="cursor-pointer text-base flex gap-2 items-center justify-center" htmlFor={label}>
                 {Winter[label]} {selectedTag ? xCircle : undefined}
+              </Label>
+            </Badge>
+          )
+        })}
+        {citySizeTags.map(({ tag, label }) => {
+          const { className, xCircle } = getStyles(tag, label)
+          const selectedTag = params.get(tag) === label
+          return (
+            <Badge
+              className={selectedTag ? className : 'p-3 '}
+              variant={'outline'}
+              key={label}
+              onClick={() => {
+                const selectedTag = params.get('winter')
+                if (selectedTag === label) {
+                  const uncheckAll = {
+                    Mild: false,
+                    Cold: false,
+                    Freezing: false
+                  }
+                  setCheckedWinter({
+                    ...uncheckAll,
+                  })
+                  removeQueryString(tag)
+                } else {
+                  setCheckedWinter({
+                    ...checkedWinter,
+                    [label]: true
+                  })
+                  addQueryString(tag, label)
+                }
+              }}
+            >
+              <RadioGroupItem className="invisible" checked={checkedSize[label]} value={label} id={label} />
+              <Label className="cursor-pointer text-base flex gap-2 items-center justify-center" htmlFor={label}>
+                {CitySize[label]} {selectedTag ? xCircle : undefined}
               </Label>
             </Badge>
           )
