@@ -81,7 +81,7 @@ export function Filters() {
   function getStyles(tag: string, value: string) {
     const isTagFiltered = searchParams.get(tag)
     const variant = isTagFiltered ? 'secondary' : 'outline' as BadgeProps['variant']
-    const className = cn('p-3 cursor-pointer', isTagFiltered && 'bg-slate-100 border-red-400 text-red-400')
+    const className = cn('p-2 cursor-pointer', isTagFiltered && 'bg-slate-100 border-red-400 text-red-400')
     const onClick = !isTagFiltered ? () => addQueryString(tag, value) : () => removeQueryString(tag)
     const xCircle = isTagFiltered ? <XCircle size={15} /> : null
     return {
@@ -120,7 +120,7 @@ export function Filters() {
           const selectedTag = isRadioButtonChecked(tag, label)
           return (
             <Badge
-              className={selectedTag ? className : 'p-3 '}
+              className={selectedTag ? className : 'p-2 '}
               variant={'outline'}
               key={label}
               onClick={() => {
@@ -155,7 +155,7 @@ export function Filters() {
           const selectedTag = params.get(tag) === label
           return (
             <Badge
-              className={selectedTag ? className : 'p-3 '}
+              className={selectedTag ? className : 'p-2 '}
               variant={'outline'}
               key={label}
               onClick={() => {
@@ -184,7 +184,7 @@ export function Filters() {
       </RadioGroup>
 
       {hasFilters ?
-        <Badge className="bg-slate-100 hover:bg-red-400 hover:text-white transition-all duration-500 border-red-400 text-red-400">
+        <Badge className="cursor-pointer p-2 bg-slate-100 hover:bg-red-400 hover:text-white transition-all duration-500 border-red-400 text-red-400">
           <Link href={'/cities'}>
             <div className="p-1 cursor-pointer flex items-center gap-2">
               <Label className="text-base">Remove all filters</Label> <XCircle size={15} />
