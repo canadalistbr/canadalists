@@ -9,7 +9,53 @@ import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { isEmpty } from "ramda";
 import React, { useState } from 'react';
+import { Combobox as ProvinceSelect, SelectsType } from "../../../@/components/ui/Combobox";
 import { CitySize, Winter } from "../__utils__";
+
+
+const provinces: SelectsType[] = [
+  {
+    value: "british columbia",
+    label: "British Columbia",
+  },
+  {
+    value: "alberta",
+    label: "Alberta",
+  },
+  {
+    value: "saskatchewan",
+    label: "Saskatchewan",
+  },
+  {
+    value: "manitoba",
+    label: "Manitoba",
+  },
+  {
+    value: "ontario",
+    label: "Ontario",
+  },
+  {
+    value: "newfoundland and Labrador",
+    label: "Newfoundland and Labrador",
+  },
+  {
+    value: "nova Scotia",
+    label: "Nova Scotia",
+  },
+  {
+    value: "prince Edward Island",
+    label: "Prince Edward Island",
+  },
+  {
+    value: "newfoundland and Labrador",
+    label: "Newfoundland and Labrador",
+  },
+  {
+    value: "quebec",
+    label: "Quebec",
+  },
+]
+
 
 type BooleanTagsType = {
   tag: 'bikeFriendly' | 'nature' | 'festivals'
@@ -94,7 +140,8 @@ export function Filters() {
   }
 
   return (
-    <div className="flex flex-wrap gap-4">
+    // TODO: Add carousel for sm screen sizes
+    <div className="flex md:flex-wrap gap-4">
       {booleanTags.map(({ tag, label }) => {
         const { variant, className, onClick, xCircle } = getStyles(tag, 'true')
         return (
@@ -110,7 +157,6 @@ export function Filters() {
           </Badge>
         )
       })}
-
       <RadioGroup className="flex" onValueChange={(value: WinterTagsType['label']) => {
         addQueryString('winter', value)
       }
@@ -178,13 +224,18 @@ export function Filters() {
               <Label className="cursor-pointer text-base flex gap-2 items-center justify-center" htmlFor={label}>
                 {CitySize[label]} {selectedTag ? xCircle : undefined}
               </Label>
+
             </Badge>
           )
         })}
       </RadioGroup>
-
+      <ProvinceSelect
+        selects={provinces}
+        selectName="province"
+        addQuery={addQueryString}
+        removeQuery={removeQueryString} />
       {hasFilters ?
-        <Badge className="cursor-pointer p-2 bg-slate-100 hover:bg-red-400 hover:text-white transition-all duration-500 border-red-400 text-red-400">
+        <Badge className="cursor-pointer p-1 bg-slate-100 hover:bg-red-400 hover:text-white transition-all duration-500 border-red-400 text-red-400">
           <Link href={'/cities'}>
             <div className="p-1 cursor-pointer flex items-center gap-2">
               <Label className="text-base">Remove all filters</Label> <XCircle size={15} />
