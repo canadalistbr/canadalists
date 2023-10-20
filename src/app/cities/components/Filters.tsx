@@ -4,12 +4,14 @@ import { Badge, BadgeProps } from "@/components/ui/badge";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
+import { Language } from "@core/domain/models";
 import { XCircle } from "lucide-react";
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { isEmpty } from "ramda";
 import React, { useState } from 'react';
 import { Combobox as ProvinceSelect, SelectsType } from "../../../@/components/ui/Combobox";
+import { languagesMap } from "../helpers";
 import { CitySize, Winter } from "../__utils__";
 
 
@@ -86,6 +88,16 @@ const citySizeTags: CitySizeTagsType[] = [
   { tag: 'size', label: 'Medium' },
   { tag: 'size', label: 'Big' },
 ]
+type LanguagesType = {
+  tag: "fr" | "en"
+  label: 'French' | 'English'
+  filterLabel: Language
+}
+const languages: LanguagesType[] = [
+  { tag: 'fr', label: 'French', filterLabel: 'Fr' },
+  { tag: 'en', label: 'English', filterLabel: 'En' },
+]
+
 export function Filters() {
   const router = useRouter()
   const pathname = usePathname()
@@ -127,7 +139,7 @@ export function Filters() {
   function getStyles(tag: string, value: string) {
     const isTagFiltered = searchParams.get(tag)
     const variant = isTagFiltered ? 'secondary' : 'outline' as BadgeProps['variant']
-    const className = cn('p-2 cursor-pointer', isTagFiltered && 'bg-slate-100 border-red-400 text-red-400')
+    const className = cn('p-2 cursor-pointer hover:bg-gray-100 transition-all duration-300', isTagFiltered && 'bg-slate-100 border-red-400 text-red-400')
     const onClick = !isTagFiltered ? () => addQueryString(tag, value) : () => removeQueryString(tag)
     const xCircle = isTagFiltered ? <XCircle size={15} /> : null
     return {
@@ -141,7 +153,7 @@ export function Filters() {
 
   return (
     // TODO: Add carousel for sm screen sizes
-    <div className="flex md:flex-wrap gap-4">
+    <div className="flex md:flex-wrap gap-4  ">
       {booleanTags.map(({ tag, label }) => {
         const { variant, className, onClick, xCircle } = getStyles(tag, 'true')
         return (
@@ -166,7 +178,7 @@ export function Filters() {
           const selectedTag = isRadioButtonChecked(tag, label)
           return (
             <Badge
-              className={selectedTag ? className : 'p-2 '}
+              className={selectedTag ? className : 'p-2 hover:bg-gray-100 transition-all duration-300 '}
               variant={'outline'}
               key={label}
               onClick={() => {
@@ -201,7 +213,7 @@ export function Filters() {
           const selectedTag = params.get(tag) === label
           return (
             <Badge
-              className={selectedTag ? className : 'p-2 '}
+              className={selectedTag ? className : 'p-2  hover:bg-gray-100 transition-all duration-300'}
               variant={'outline'}
               key={label}
               onClick={() => {
@@ -224,11 +236,21 @@ export function Filters() {
               <Label className="cursor-pointer text-base flex gap-2 items-center justify-center" htmlFor={label}>
                 {CitySize[label]} {selectedTag ? xCircle : undefined}
               </Label>
-
             </Badge>
           )
         })}
       </RadioGroup>
+      {languages.map(({ filterLabel, label, tag }) => {
+        const { variant, className, onClick, xCircle } = getStyles(tag, "true")
+        return (
+          <Badge variant={variant}
+            className={className}
+            onClick={onClick}
+          >
+            <Label className="cursor-pointer flex gap-2 items-center justify-center">{languagesMap[filterLabel]} {label} {xCircle}</Label>
+          </Badge>
+        )
+      })}
       <ProvinceSelect
         selects={provinces}
         selectName="province"
@@ -238,7 +260,7 @@ export function Filters() {
         <Badge className="cursor-pointer p-1 bg-slate-100 hover:bg-red-400 hover:text-white transition-all duration-500 border-red-400 text-red-400">
           <Link href={'/cities'}>
             <div className="p-1 cursor-pointer flex items-center gap-2">
-              <Label className="text-base">Remove all filters</Label> <XCircle size={15} />
+              <Label className="text-base cursor-pointer">Remove all filters</Label> <XCircle size={15} />
             </div>
           </Link>
         </Badge>

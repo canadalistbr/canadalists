@@ -1,4 +1,5 @@
 import { TooltipComponent } from "@/components/ui/tooltip"
+import { Language } from "@core/domain/models"
 import { Tag } from "components/Tag"
 import { isEmpty } from "ramda"
 import { CitySize, Cost, Winter } from "./__utils__"
@@ -6,9 +7,13 @@ import { CitySize, Cost, Winter } from "./__utils__"
 export function getWinterSeverity(winter: "Mild" | "Cold" | "Freezing"): Winter {
   return Winter[winter]
 }
+export const languagesMap: Record<Language, string> = {
+  "En": "🇬🇧",
+  "Fr": "🇫🇷",
+}
 
-export function getLanguages(langs: string[]) {
-  return <span>Language {langs.map(lang => lang)}</span>
+export function getLanguages(langs: Language[]) {
+  return <span>Language {langs.map((lang) => languagesMap[lang])}</span>
 }
 
 export function getCost(costRange: string, score: number) {
