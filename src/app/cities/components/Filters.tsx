@@ -6,11 +6,12 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 import { Language } from "@core/domain/models";
 import { XCircle } from "lucide-react";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context";
 import Link from 'next/link';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { ReadonlyURLSearchParams, usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { isEmpty } from "ramda";
 import React, { useState } from 'react';
-import { Combobox as ProvinceSelect, SelectsType } from "../../../@/components/ui/Combobox";
+import { ComboboxWithQueryParams as ProvinceSelect, SelectsType } from "../../../@/components/ui/ComboboxWithQueryParams";
 import { languagesMap } from "../helpers";
 import { CitySize, Winter } from "../__utils__";
 
@@ -98,6 +99,51 @@ const languages: LanguagesType[] = [
   { tag: 'en', label: 'English', filterLabel: 'En' },
 ]
 
+type ChekedWinterState = Record<WinterTagsType['label'], boolean>
+type ChekedSizeState = Record<CitySizeTagsType['label'], boolean>
+
+
+type ParamsProps = Partial<{
+  params: URLSearchParams
+  router: AppRouterInstance
+  pathname: string
+  searchParams: ReadonlyURLSearchParams
+}>
+
+function addQueryString(name: string, value: string, paramsProps: ParamsProps): void {
+  const { params, pathname, router } = paramsProps
+  params?.set(name, value)
+  router?.push(`${pathname}?${params?.toString()}`)
+}
+
+function removeQueryString(name: string, paramsProps: ParamsProps): void {
+  const { params, pathname, router } = paramsProps
+  params?.delete(name)
+  router?.push(`${pathname}?${params?.toString()}`)
+}
+
+function isRadioButtonChecked(tag: string, label: string, params: URLSearchParams) {
+  return params.get(tag) === label
+}
+
+
+function getStyles(tag: string, value: string, paramsProps: ParamsProps) {
+  const { searchParams } = paramsProps
+  const isTagFiltered = searchParams?.get(tag)
+  const variant = isTagFiltered ? 'secondary' : 'outline' as BadgeProps['variant']
+  const className = cn('p-2 px-6 cursor-pointer hover:bg-gray-100 transition-all duration-300', isTagFiltered && 'bg-slate-100 border-red-400 text-red-400')
+
+  const onClick = !isTagFiltered ? () => addQueryString(tag, value, paramsProps) : () => removeQueryString(tag, paramsProps)
+  const xCircle = isTagFiltered ? <XCircle size={15} /> : null
+  return {
+    variant,
+    className,
+    onClick,
+    xCircle,
+    isTagFiltered
+  }
+}
+
 export function Filters() {
   const router = useRouter()
   const pathname = usePathname()
@@ -105,7 +151,13 @@ export function Filters() {
   const hasFilters = !isEmpty(searchParams.toString())
   const params = new URLSearchParams(searchParams)
 
-  type ChekedWinterState = Record<WinterTagsType['label'], boolean>
+  const paramsProps: Partial<ParamsProps> = {
+    router,
+    params,
+    pathname,
+    searchParams
+  }
+
   const initialWinterCheckedState: ChekedWinterState = {
     Mild: false,
     Cold: false,
@@ -113,8 +165,6 @@ export function Filters() {
   }
   const [checkedWinter, setCheckedWinter] = useState<ChekedWinterState>(initialWinterCheckedState);
 
-
-  type ChekedSizeState = Record<CitySizeTagsType['label'], boolean>
   const initialSizeCheckedState: ChekedSizeState = {
     Small: false,
     Medium: false,
@@ -122,41 +172,14 @@ export function Filters() {
   }
   const [checkedSize, setCheckedSize] = useState<ChekedSizeState>(initialSizeCheckedState);
 
-  function addQueryString(name: string, value: string): void {
-    params.set(name, value)
-    router.push(`${pathname}?${params.toString()}`)
-  }
 
-  function removeQueryString(name: string): void {
-    params.delete(name)
-    router.push(`${pathname}?${params.toString()}`)
-  }
-
-  function isRadioButtonChecked(tag: string, label: string) {
-    return params.get(tag) === label
-  }
-
-  function getStyles(tag: string, value: string) {
-    const isTagFiltered = searchParams.get(tag)
-    const variant = isTagFiltered ? 'secondary' : 'outline' as BadgeProps['variant']
-    const className = cn('p-2 px-6 cursor-pointer hover:bg-gray-100 transition-all duration-300', isTagFiltered && 'bg-slate-100 border-red-400 text-red-400')
-    const onClick = !isTagFiltered ? () => addQueryString(tag, value) : () => removeQueryString(tag)
-    const xCircle = isTagFiltered ? <XCircle size={15} /> : null
-    return {
-      variant,
-      className,
-      onClick,
-      xCircle,
-      isTagFiltered
-    }
-  }
   const labelClassName = "cursor-pointer text-lg flex gap-2 items-center justify-center"
 
   return (
     // TODO: Add carousel for sm screen sizes
     <div className="flex md:flex-wrap  items-center gap-4">
       {booleanTags.map(({ tag, label }) => {
-        const { variant, className, onClick, xCircle } = getStyles(tag, 'true')
+        const { variant, className, onClick, xCircle } = getStyles(tag, 'true', paramsProps)
         return (
           <Badge
             key={label}
@@ -171,12 +194,12 @@ export function Filters() {
         )
       })}
       <RadioGroup className="flex" onValueChange={(value: WinterTagsType['label']) => {
-        addQueryString('winter', value)
+        addQueryString('winter', value, paramsProps)
       }
       }>
         {winterTags.map(({ tag, label }) => {
-          const { className, xCircle } = getStyles(tag, label)
-          const selectedTag = isRadioButtonChecked(tag, label)
+          const { className, xCircle } = getStyles(tag, label, paramsProps)
+          const selectedTag = isRadioButtonChecked(tag, label, params)
           return (
             <Badge
               className={selectedTag ? className : 'p-2 px-4 hover:bg-gray-100 transition-all duration-300 '}
@@ -187,13 +210,13 @@ export function Filters() {
                   setCheckedWinter({
                     ...initialWinterCheckedState,
                   })
-                  removeQueryString(tag)
+                  removeQueryString(tag, paramsProps)
                 } else {
                   setCheckedWinter({
                     ...checkedWinter,
                     [label]: true
                   })
-                  addQueryString(tag, label)
+                  addQueryString(tag, label, paramsProps)
                 }
               }}
             >
@@ -206,11 +229,11 @@ export function Filters() {
         })}
       </RadioGroup>
       <RadioGroup className="flex" onValueChange={(value: CitySizeTagsType['label']) => {
-        addQueryString('size', value)
+        addQueryString('size', value, paramsProps)
       }
       }>
         {citySizeTags.map(({ tag, label }) => {
-          const { className, xCircle } = getStyles(tag, label)
+          const { className, xCircle } = getStyles(tag, label, paramsProps)
           const selectedTag = params.get(tag) === label
           return (
             <Badge
@@ -223,13 +246,13 @@ export function Filters() {
                   setCheckedSize({
                     ...initialSizeCheckedState,
                   })
-                  removeQueryString(tag)
+                  removeQueryString(tag, paramsProps)
                 } else {
                   setCheckedSize({
                     ...checkedSize,
                     [label]: true
                   })
-                  addQueryString(tag, label)
+                  addQueryString(tag, label, paramsProps)
                 }
               }}
             >
@@ -242,7 +265,7 @@ export function Filters() {
         })}
       </RadioGroup>
       {languages.map(({ filterLabel, label, tag }) => {
-        const { variant, className, onClick, xCircle } = getStyles(tag, "true")
+        const { variant, className, onClick, xCircle } = getStyles(tag, "true", paramsProps)
         return (
           <Badge variant={variant}
             className={className}
