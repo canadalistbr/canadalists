@@ -1,10 +1,10 @@
-import Provinces from './provinces/page'
+import Cities from './cities/page'
 
 const Home = () => {
   return (
     <main className="min-h-full">
       {/* @ts-expect-error Server Component */}
-      <Provinces />
+      <Cities />
     </main>
   )
 }

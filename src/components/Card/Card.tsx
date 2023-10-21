@@ -1,10 +1,10 @@
 import Image from 'next/image'
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, ReactElement } from 'react'
 
 export type CardProps = PropsWithChildren<{
   title: string
   image: string
-  short: string
+  center: ReactElement
   bottomLeft?: React.ReactNode
   bottomRight?: React.ReactNode
   upperLeft?: React.ReactNode
@@ -14,7 +14,7 @@ export type CardProps = PropsWithChildren<{
 export function Card({
   title,
   image,
-  short,
+  center,
   children,
   bottomLeft,
   bottomRight,
@@ -22,10 +22,11 @@ export function Card({
   upperRight
 }: CardProps) {
   return (
-    <div className="p-3 hover:shadow-lg transition duration-300 border ">
-      <div className="relative">
-        <div className="relative aspect-video opacity-80">
+    <div className="hover:shadow-lg transition duration-300 border rounded-3xl ">
+      <div className="relative rounded-3xl font-bold">
+        <div className="relative aspect-video opacity-80 rounded-3xl">
           <Image
+            className='rounded-3xl rounded-b-none brightness-50'
             priority
             src={image}
             alt={title}
@@ -34,27 +35,31 @@ export function Card({
             sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
           />
         </div>
-        <span className="absolute text-white transform -translate-x-1/2 -translate-y-1/2 text-9xl top-1/2 left-1/2">
-          {short}
+        <span className="absolute text-center text-white transform -translate-x-1/2 -translate-y-1/2 text-6xl top-1/2 left-1/2">
+          {center}
         </span>
-        <div className="absolute bottom-0 left-0 text-4xl text-white">
+        <div className="p-2 absolute bottom-0 left-0 text-2xl text-white">
           {bottomLeft}
         </div>
-        <div className="absolute bottom-0 right-0 text-4xl text-white">
+        <div className="p-2 pr-5 absolute bottom-0 right-0 text-2xl text-white">
           {bottomRight}
         </div>
-        <div className="absolute top-0 bottom-0 left-0 text-4xl text-white">
-          {upperLeft}
+        <div className="p-2 pl-5 absolute top-0 bottom-0 left-0 text-4xl text-white">
+          <div className='text-2xl flex justify-center items-start flex-col'>
+            {upperLeft}
+          </div>
         </div>
-        <div className="absolute top-0 bottom-0 right-0 text-4xl text-white">
-          {upperRight}
+        <div className="absolute p-2 top-0 bottom-0 right-0 text-4xl text-white">
+          <div className=' pr-5 flex justify-center items-end flex-col'>
+            <span className='text-xl'>🏆<span className='text-2xl underline'>{Math.ceil(Math.random() * 10)} </span></span>
+            <span className='text-base'>immigrants destination</span>
+          </div>
         </div>
       </div>
-      <div className="divide-y divide">
-        <div className="py-3 text-center text-gray-600">
-          <span className="text-4xl">{title}</span>
+      <div className="p-4 flex text-2xl text-center">
+        <div className='gap-4 ml-auto mr-auto flex flex-wrap'>
+          {children}
         </div>
-        <div className=" text-2xl text-center">{children}</div>
       </div>
     </div>
   )
