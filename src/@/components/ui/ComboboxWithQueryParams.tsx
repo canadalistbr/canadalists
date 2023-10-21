@@ -16,24 +16,40 @@ import {
 } from "@/components/ui/popover"
 import { cn } from "@/lib/utils"
 import { Check, ChevronsUpDown, XCircle } from "lucide-react"
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { isEmpty } from "ramda"
 import * as React from "react"
-
+type ParamsProps = {
+  params: URLSearchParams
+  router: AppRouterInstance
+  pathname: string
+}
 export type SelectsType = {
   value: string
   label: string
 }
 type ComboboxProps = {
-  addQuery: (tag: string, value: string) => void
-  removeQuery: (tag: string) => void
+  addQuery?: (tag: string, value: string, paramsProps: ParamsProps) => void
+  removeQuery?: (tag: string, paramsProps: ParamsProps) => void
   selects: SelectsType[]
   selectName: string
 }
 
-export function Combobox(props: ComboboxProps) {
+export function ComboboxWithQueryParams(props: ComboboxProps) {
   const { addQuery, removeQuery, selects, selectName } = props
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState("")
+
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const params = new URLSearchParams(searchParams)
+  const paramsProps: ParamsProps = {
+    router,
+    params,
+    pathname
+  }
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -61,7 +77,7 @@ export function Combobox(props: ComboboxProps) {
               <CommandItem
                 key={value}
                 onSelect={(currentValue) => {
-                  addQuery(selectName, currentValue)
+                  addQuery?.(selectName, currentValue, paramsProps)
                   setValue(currentValue === value ? "" : currentValue)
                   setOpen(false)
                 }}
@@ -79,7 +95,7 @@ export function Combobox(props: ComboboxProps) {
               <CommandItem
                 onSelect={() => {
                   setValue("")
-                  removeQuery(selectName)
+                  removeQuery?.(selectName, paramsProps)
                   setOpen(false)
                 }}
                 className='flex gap-3'
