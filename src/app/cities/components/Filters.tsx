@@ -38,8 +38,8 @@ const provinces: SelectsType[] = [
     label: "Ontario",
   },
   {
-    value: "newfoundland and Labrador",
-    label: "Newfoundland and Labrador",
+    value: "new brunswick",
+    label: "New Brunswick",
   },
   {
     value: "nova Scotia",
@@ -50,7 +50,7 @@ const provinces: SelectsType[] = [
     label: "Prince Edward Island",
   },
   {
-    value: "newfoundland and Labrador",
+    value: "newfoundland and labrador",
     label: "Newfoundland and Labrador",
   },
   {
