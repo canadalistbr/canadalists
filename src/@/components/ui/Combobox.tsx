@@ -42,7 +42,7 @@ export function Combobox(props: ComboboxProps) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between border-gray-200 rounded-full"
+          className="w-auto p-5 justify-between border-gray-200 rounded-full"
         >
           {value
             ? selects.find((select) =>

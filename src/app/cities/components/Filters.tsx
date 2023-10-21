@@ -139,7 +139,7 @@ export function Filters() {
   function getStyles(tag: string, value: string) {
     const isTagFiltered = searchParams.get(tag)
     const variant = isTagFiltered ? 'secondary' : 'outline' as BadgeProps['variant']
-    const className = cn('p-2 cursor-pointer hover:bg-gray-100 transition-all duration-300', isTagFiltered && 'bg-slate-100 border-red-400 text-red-400')
+    const className = cn('p-2 px-6 cursor-pointer hover:bg-gray-100 transition-all duration-300', isTagFiltered && 'bg-slate-100 border-red-400 text-red-400')
     const onClick = !isTagFiltered ? () => addQueryString(tag, value) : () => removeQueryString(tag)
     const xCircle = isTagFiltered ? <XCircle size={15} /> : null
     return {
@@ -150,10 +150,11 @@ export function Filters() {
       isTagFiltered
     }
   }
+  const labelClassName = "cursor-pointer text-lg flex gap-2 items-center justify-center"
 
   return (
     // TODO: Add carousel for sm screen sizes
-    <div className="flex md:flex-wrap gap-4  ">
+    <div className="flex md:flex-wrap  items-center gap-4">
       {booleanTags.map(({ tag, label }) => {
         const { variant, className, onClick, xCircle } = getStyles(tag, 'true')
         return (
@@ -164,7 +165,7 @@ export function Filters() {
             onClick={onClick}
           >
             <div className="flex items-center gap-2">
-              <Label className="text-base cursor-pointer ">{label}</Label> {xCircle}
+              <Label className={labelClassName}>{label}</Label> {xCircle}
             </div>
           </Badge>
         )
@@ -178,7 +179,7 @@ export function Filters() {
           const selectedTag = isRadioButtonChecked(tag, label)
           return (
             <Badge
-              className={selectedTag ? className : 'p-2 hover:bg-gray-100 transition-all duration-300 '}
+              className={selectedTag ? className : 'p-2 px-4 hover:bg-gray-100 transition-all duration-300 '}
               variant={'outline'}
               key={label}
               onClick={() => {
@@ -197,7 +198,7 @@ export function Filters() {
               }}
             >
               <RadioGroupItem className="invisible" checked={checkedWinter[label]} value={label} id={label} />
-              <Label className="cursor-pointer text-base flex gap-2 items-center justify-center" htmlFor={label}>
+              <Label className={labelClassName} htmlFor={label}>
                 {Winter[label]} {selectedTag ? xCircle : undefined}
               </Label>
             </Badge>
@@ -213,7 +214,7 @@ export function Filters() {
           const selectedTag = params.get(tag) === label
           return (
             <Badge
-              className={selectedTag ? className : 'p-2  hover:bg-gray-100 transition-all duration-300'}
+              className={selectedTag ? className : 'p-2 px-4 hover:bg-gray-100 transition-all duration-300'}
               variant={'outline'}
               key={label}
               onClick={() => {
@@ -233,7 +234,7 @@ export function Filters() {
               }}
             >
               <RadioGroupItem className="invisible" checked={checkedSize[label]} value={label} id={label} />
-              <Label className="cursor-pointer text-base flex gap-2 items-center justify-center" htmlFor={label}>
+              <Label className={labelClassName} htmlFor={label}>
                 {CitySize[label]} {selectedTag ? xCircle : undefined}
               </Label>
             </Badge>
@@ -247,7 +248,7 @@ export function Filters() {
             className={className}
             onClick={onClick}
           >
-            <Label className="cursor-pointer flex gap-2 items-center justify-center">{languagesMap[filterLabel]} {label} {xCircle}</Label>
+            <Label className={labelClassName}>{languagesMap[filterLabel]} {label} {xCircle}</Label>
           </Badge>
         )
       })}
@@ -255,12 +256,14 @@ export function Filters() {
         selects={provinces}
         selectName="province"
         addQuery={addQueryString}
-        removeQuery={removeQueryString} />
+        removeQuery={removeQueryString}
+
+      />
       {hasFilters ?
-        <Badge className="cursor-pointer p-1 bg-slate-100 hover:bg-red-400 hover:text-white transition-all duration-500 border-red-400 text-red-400">
+        <Badge className="cursor-pointer  px-4 bg-slate-100 hover:bg-red-400 hover:text-white transition-all duration-500 border-red-400 text-red-400">
           <Link href={'/cities'}>
             <div className="p-1 cursor-pointer flex items-center gap-2">
-              <Label className="text-base cursor-pointer">Remove all filters</Label> <XCircle size={15} />
+              <Label className={labelClassName}>Remove all filters</Label> <XCircle size={15} />
             </div>
           </Link>
         </Badge>
