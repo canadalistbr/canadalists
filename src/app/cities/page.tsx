@@ -9,11 +9,14 @@ import MaxWidthWrapper from 'components/MaxWidthWrapper'
 import { Filter } from "lucide-react"
 import { CitiesList } from './components/CitiesList'
 import { Filters } from './components/Filters'
-async function Cities({ searchParams }: {
+
+export type CitiesProps = {
   searchParams: {
     [key: string]: string
   }
-}) {
+}
+
+async function Cities({ searchParams }: CitiesProps) {
 
   const cities = await getAllCities(searchParams)
 
