@@ -2,12 +2,16 @@
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+    './app/**/*.{js,ts,jsx,tsx}', // Note the addition of the `app` directory.
+    './pages/**/*.{js,ts,jsx,tsx}',
+    './components/**/*.{js,ts,jsx,tsx}',
+    // Or if using `src` directory:
+    './src/**/*.{js,ts,jsx,tsx}'
+  ],
   theme: {
+    debugScreens: {
+      position: ['bottom', 'left']
+    },
     container: {
       center: true,
       padding: "2rem",
@@ -16,6 +20,9 @@ module.exports = {
       },
     },
     extend: {
+      gridTemplateColumns: {
+        fluid: 'min(calc(1200px + 32px * 2))'
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -72,5 +79,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require('tailwindcss-debug-screens')]
 }
