@@ -9,10 +9,22 @@ export async function getCityBy(name: string): Promise<CityModel> {
     return res.data
 }
 
+export type SearchParamsType = {
+    [key: string]: string
+}
 
-// Move into a shared folder
-export async function getAllCities(): Promise<CityModel[]> {
-    const res = await axiosHttp.get('/api/cities')
+function getQueryString(searchParams?: SearchParamsType) {
+    const queryString = !searchParams ? '' : Object.keys(searchParams)
+        .map(key => `${key}=${searchParams[key]}`)
+        .join('&');
+
+    return queryString
+}
+
+export async function getAllCities(searchParams?: SearchParamsType): Promise<CityModel[]> {
+    const queryString = getQueryString(searchParams)
+
+    const res = await axiosHttp.get(`/api/cities?${queryString}`)
     if (!res.data) {
         throw Error('Something went Wrong')
     }
