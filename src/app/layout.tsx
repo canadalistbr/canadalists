@@ -1,4 +1,5 @@
 // These styles apply to every route in the application
+import { Nunito } from '@next/font/google'
 import '../globals.css'
 
 export const metadata = {
@@ -6,7 +7,6 @@ export const metadata = {
   description: 'Move to Canada'
 }
 
-import { Nunito } from '@next/font/google'
 
 const inter = Nunito({
   weight: '500',
@@ -22,7 +22,6 @@ export default function RootLayout({
     <html lang="en">
       <body className="debug-screens">
         <div className={inter.className}>{children}</div>
-        {/* <div className={inter.className}>{children}</div> */}
       </body>
     </html>
   )

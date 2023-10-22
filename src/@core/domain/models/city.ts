@@ -1,11 +1,14 @@
 import { CityOverView } from "./city-overview"
 import { Province } from "./province"
 
+export type Winter = 'Mild' | 'Cold' | 'Freezing'
+export type Language = 'Fr' | 'En'
+
 export type City = {
   id: string
   name: string
   slug: string
-  language: string[]
+  language: Language[]
   imageUrl: string
   costOfLiving: string
   overallScore: number
@@ -16,7 +19,7 @@ export type City = {
   population: number
   festivals: string
   bikeFriendly: boolean
-  winter: 'Mild' | 'Cold' | 'Frezing'
+  winter: Winter
   immigrationDestinationRank: number
 }
 
