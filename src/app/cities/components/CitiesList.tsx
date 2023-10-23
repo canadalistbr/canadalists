@@ -8,7 +8,6 @@ type CitiesListProps = {
 }
 
 function CitiesList({ cities }: CitiesListProps) {
-
     return (
         <div className="grid gap-4 grid-cols-[repeat(auto-fill,minmax(350px,1fr))]">
             {cities.map(city => {
@@ -24,6 +23,7 @@ function CitiesList({ cities }: CitiesListProps) {
                     population,
                     winter,
                     immigrationDestinationRank,
+                    costOverall,
                     ...restProps
                 } = city;
 
@@ -34,7 +34,7 @@ function CitiesList({ cities }: CitiesListProps) {
                 </div>;
                 const bottomLeft = getWinterSeverity(winter);
                 const bottomRight = getLanguages(language);
-                const topLeft = getCost(costOfLiving, overallScore);
+                const topLeft = getCost(costOfLiving, costOverall);
                 return (
                     <Link key={id} href={`/cities/${slug}`}>
                         <Card center={center} title={name} image={imageUrl} bottomLeft={bottomLeft} bottomRight={bottomRight} upperLeft={topLeft}>
