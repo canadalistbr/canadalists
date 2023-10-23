@@ -11,7 +11,7 @@ export enum Winter {
 }
 
 export enum Cost {
-  "Low" = "💸 Low",
-  "Medium" = "💸💸 Medium",
-  "High" = "💸💸💸 High"
+  "Low" = "💸😊 Cheap",
+  "Medium" = "💸😳 Medium",
+  "High" = "💸😨 Expansive"
 }
