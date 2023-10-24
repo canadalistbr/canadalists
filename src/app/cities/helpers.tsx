@@ -1,5 +1,6 @@
+import { Label } from "@/components/ui/label"
 import { TooltipComponent } from "@/components/ui/tooltip"
-import { Language } from "@core/domain/models"
+import { CostOverall, Language } from "@core/domain/models"
 import { Tag } from "components/Tag"
 import { isEmpty } from "ramda"
 import { CitySize, Cost, Winter } from "./__utils__"
@@ -13,24 +14,16 @@ export const languagesMap: Record<Language, string> = {
 }
 
 export function getLanguages(langs: Language[]) {
-  return <span>Language {langs.map((lang) => languagesMap[lang])}</span>
+  return <Label className="text-2xl font-bold">Language {langs.map((lang) => languagesMap[lang])}</Label>
 }
 
-export function getCost(costRange: string, score: number) {
-  let costOfLivingScore: string
-  if (score === 3) {
-    costOfLivingScore = Cost.High
-  } else if (score === 2) {
-    costOfLivingScore = Cost.Medium
-  } else {
-    costOfLivingScore = Cost.Low
-  }
-
+export function getCost(costRange: string, costOverall: CostOverall) {
+  const costOfLivingScore = Cost[costOverall]
   return (
-    <TooltipComponent content={<span className="text-black text-xl">Cost for 1 bedroom for 2 people in downtown </span>}>
-      <div className='flex flex-col items-start'>
-        <span>💰 {costRange}</span>
-        <span className="text-lg">{costOfLivingScore}</span>
+    <TooltipComponent content={<Label className="text-black">Cost of 1 bedroom for 2 people in downtown </Label>}>
+      <div className='flex flex-col items-start font-bold'>
+        <Label className="text-xl font-bold">💰 {costRange}</Label>
+        <Label className="text-xl">{costOfLivingScore}</Label>
       </div>
     </TooltipComponent>
   )
@@ -63,7 +56,7 @@ export function Tags(props: TagsProps) {
         {citySize}
       </Tag>
       {festivals ? (
-        <TooltipComponent content={<span className=" text-lg text-black">{festivals}</span>}>
+        <TooltipComponent content={<Label className=" text-lg text-black">{festivals}</Label>}>
           <Tag>
             🎉 Festivals city
           </Tag>

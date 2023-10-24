@@ -3,6 +3,7 @@ import { Province } from "./province"
 
 export type Winter = 'Mild' | 'Cold' | 'Freezing'
 export type Language = 'Fr' | 'En'
+export type CostOverall = 'High' | 'Medium' | 'Low'
 
 export type City = {
   id: string
@@ -21,6 +22,7 @@ export type City = {
   bikeFriendly: boolean
   winter: Winter
   immigrationDestinationRank: number
+  costOverall: CostOverall
 }
 
 
