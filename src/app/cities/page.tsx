@@ -8,6 +8,7 @@ import { getAllCities } from '@core/main/api/cities'
 import MaxWidthWrapper from 'components/MaxWidthWrapper'
 import { Filter } from "lucide-react"
 import { CitiesList } from './components/CitiesList'
+import { ComparisonButton } from "./components/ComparisonButton"
 import { Filters } from './components/Filters'
 
 export type CitiesProps = {
@@ -19,7 +20,6 @@ export type CitiesProps = {
 async function Cities({ searchParams }: CitiesProps) {
 
   const cities = await getAllCities(searchParams)
-
   return (
     <MaxWidthWrapper>
       <div className='flex flex-col gap-4'>
@@ -31,8 +31,9 @@ async function Cities({ searchParams }: CitiesProps) {
             </AccordionContent>
           </AccordionItem>
         </Accordion>
-        <CitiesList cities={cities}></CitiesList>
+        <CitiesList cities={cities} />
       </div>
+      <ComparisonButton />
     </MaxWidthWrapper>
   )
 }
