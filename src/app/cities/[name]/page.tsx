@@ -1,3 +1,4 @@
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { getAllCities, getCityBy } from '@core/main/api/cities'
 import { SideCard } from 'components/Card/Card'
 import { Info } from 'components/Info/Info'
@@ -35,23 +36,6 @@ async function CityPage({ params }: ProvinceType) {
         </Label>
     )
 
-    const tabs = [
-        {
-            name: 'Province',
-            label: scoresLabel,
-            content: <Info scores={scores} image={bannerUrl} alt="province_map" />
-        },
-        {
-            name: 'Cities',
-            label: null,
-            content: null
-        },
-        {
-            name: 'Immigration Programs',
-            label: null,
-            content: null
-        }
-    ]
 
     return (
         <MaxWidthWrapper>
@@ -96,7 +80,20 @@ async function CityPage({ params }: ProvinceType) {
                         </div>
                     </header>
                     <main className="bg-white rounded-t-3xl ">
-                        Tabs
+                        <Tabs defaultValue="scores" className="w-full]">
+                            <TabsList className='bg-red-200'>
+                                {/* TODO: add red color when selected */}
+                                <TabsTrigger value="scores">
+                                    🏅Scores
+                                </TabsTrigger>
+
+                                {/* FIXME: THIS IS JUST AN EXAMPLE */}
+                                <TabsTrigger value="immigration"> 🛂Immigration</TabsTrigger>
+                            </TabsList>
+                            <TabsContent value="scores">
+                                <Info scores={scores} image={bannerUrl} alt="province_map" />
+                            </TabsContent>
+                        </Tabs>
                     </main>
                 </section>
             </div>
