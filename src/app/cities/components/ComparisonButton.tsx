@@ -26,8 +26,9 @@ export function ComparisonButton() {
   const hasCitiesToCompare = !isEmpty(selectedCities)
   const isButtonDisabled = selectedCities.length === 1
 
-  return hasCitiesToCompare ? (
-    <Button className={`cursor-pointer fixed bottom-0 left-1/2 -translate-x-1/2 p-10 ${isButtonDisabled && 'opacity-50 cursor-not-allowed'} `}
+  return (
+    // FIXME: even disabled the button bubbles up the event to parent element and it navigates to /city
+    <Button className={`${isButtonDisabled && 'pointer-events-none'} cursor-pointer fixed bottom-full  ${hasCitiesToCompare && 'slide-out-to-bottom-0 bottom-0'} left-1/2 -translate-x-1/2 p-10 opacity-90 ${isButtonDisabled && 'opacity-50'} `}
       onClick={e => {
         e.stopPropagation()
         // TODO: implement open Modal logic
@@ -37,16 +38,15 @@ export function ComparisonButton() {
         alert('clicked button')
       }}
     >
-      <Label className={`cursor-pointer ${isButtonDisabled && 'cursor-not-allowed'} hover:underline text-3xl`}>
-        <div className="flex gap-2 items-center justify-center">
+      <div className="flex gap-2 items-center justify-center">
+        <Label className="cursor-pointer hover:underline text-3xl">
           {getLabel(selectedCities)}
-          {!isButtonDisabled ? <XCircle className={`${isButtonDisabled && 'pointer-events-none'}`} onClick={(e) => {
-            e.stopPropagation()
-            removeAllCities()
-          }} /> : null}
-
-        </div>
-      </Label>
+        </Label>
+        {!isButtonDisabled ? <XCircle className={`${isButtonDisabled && 'pointer-events-none'}`} onClick={(e) => {
+          e.stopPropagation()
+          removeAllCities()
+        }} /> : null}
+      </div>
     </Button>
-  ) : null
+  )
 }
