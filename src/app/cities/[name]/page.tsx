@@ -2,7 +2,6 @@ import { getAllCities, getCityBy } from '@core/main/api/cities'
 import { SideCard } from 'components/Card/Card'
 import { Info } from 'components/Info/Info'
 import MaxWidthWrapper from 'components/MaxWidthWrapper'
-import { Tabs } from 'components/Tabs'
 import Link from 'next/link'
 import { ReactNode } from 'react'
 import { assertNotEmpty, assertNotNull } from '../../../../utils/assertion'
@@ -97,7 +96,7 @@ async function CityPage({ params }: ProvinceType) {
                         </div>
                     </header>
                     <main className="bg-white rounded-t-3xl ">
-                        <Tabs tabs={tabs} />
+                        Tabs
                     </main>
                 </section>
             </div>
