@@ -51,6 +51,7 @@ export function Card({
         </div>
         <div className="absolute p-2 top-0 bottom-0 right-0 text-4xl text-white">
           <div className=' pr-5 flex justify-center items-end flex-col'>
+            {/* TODO: get this value from the server */}
             <span className='text-xl'>🏆<span className='text-2xl underline'>10</span></span>
             <span className='text-base'>immigrants destination</span>
           </div>
