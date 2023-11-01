@@ -1,5 +1,5 @@
 // These styles apply to every route in the application
-import { Nunito } from '@next/font/google'
+import { Nunito } from 'next/font/google'
 import '../globals.css'
 
 export const metadata = {
