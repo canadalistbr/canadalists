@@ -13,7 +13,7 @@ import { isEmpty } from "ramda";
 import React, { useState } from 'react';
 import { ComboboxWithQueryParams as ProvinceSelect, SelectsType } from "../../../@/components/ui/ComboboxWithQueryParams";
 import { languagesMap } from "../helpers";
-import { CitySize, Winter } from "../__utils__";
+import { CitySize, Cost, Winter } from "../__utils__";
 
 
 const provinces: SelectsType[] = [
@@ -59,7 +59,6 @@ const provinces: SelectsType[] = [
   },
 ]
 
-
 type BooleanTagsType = {
   tag: 'bikeFriendly' | 'nature' | 'festivals'
   label: "🚲 Bike Friendly" | "🌲 Nature" | "🎉 Festivals"
@@ -78,6 +77,16 @@ const winterTags: WinterTagsType[] = [
   { tag: 'winter', label: 'Cold' },
   { tag: 'winter', label: 'Freezing' },
   { tag: 'winter', label: 'Mild' },
+]
+
+type CostTagsType = {
+  tag: 'costOverall'
+  label: 'High' | 'Medium' | 'Low'
+}
+const costTags: CostTagsType[] = [
+  { tag: 'costOverall', label: 'Low' },
+  { tag: 'costOverall', label: 'Medium' },
+  { tag: 'costOverall', label: 'High' },
 ]
 
 type CitySizeTagsType = {
@@ -101,6 +110,7 @@ const languages: LanguagesType[] = [
 
 type ChekedWinterState = Record<WinterTagsType['label'], boolean>
 type ChekedSizeState = Record<CitySizeTagsType['label'], boolean>
+type ChekedCostState = Record<CostTagsType['label'], boolean>
 
 
 type ParamsProps = Partial<{
@@ -111,9 +121,11 @@ type ParamsProps = Partial<{
 }>
 
 function addQueryString(name: string, value: string, paramsProps: ParamsProps): void {
+  debugger
   const { params, pathname, router } = paramsProps
   params?.set(name, value)
-  router?.push(`${pathname}?${params?.toString()}`)
+  const queryParams = params?.toString()
+  router?.push(`${pathname}?${queryParams}`)
 }
 
 function removeQueryString(name: string, paramsProps: ParamsProps): void {
@@ -172,6 +184,14 @@ export function Filters() {
   }
   const [checkedSize, setCheckedSize] = useState<ChekedSizeState>(initialSizeCheckedState);
 
+
+  const initialCostCheckedState: ChekedCostState = {
+    Low: false,
+    Medium: false,
+    High: false,
+  }
+  const [checkedCost, setCheckedCost] = useState<ChekedCostState>(initialCostCheckedState);
+  debugger
 
   const labelClassName = "cursor-pointer text-lg flex gap-2 items-center justify-center"
 
@@ -259,6 +279,42 @@ export function Filters() {
               <RadioGroupItem className="invisible" checked={checkedSize[label]} value={label} id={label} />
               <Label className={labelClassName} htmlFor={label}>
                 {CitySize[label]} {selectedTag ? xCircle : undefined}
+              </Label>
+            </Badge>
+          )
+        })}
+      </RadioGroup>
+      <RadioGroup className="flex" onValueChange={(value: CostTagsType['label']) => {
+        addQueryString('cost', value, paramsProps)
+      }
+      }>
+        {costTags.map(({ tag, label }) => {
+          const { className, xCircle } = getStyles(tag, label, paramsProps)
+          const selectedTag = params.get(tag) === label
+          return (
+            <Badge
+              className={selectedTag ? className : 'p-2 px-4 hover:bg-gray-100 transition-all duration-300'}
+              variant={'outline'}
+              key={label}
+              onClick={() => {
+                const selectedTag = params.get('costOverall')
+                if (selectedTag === label) {
+                  setCheckedCost({
+                    ...initialCostCheckedState,
+                  })
+                  removeQueryString(tag, paramsProps)
+                } else {
+                  setCheckedCost({
+                    ...checkedCost,
+                    [label]: true
+                  })
+                  addQueryString(tag, label, paramsProps)
+                }
+              }}
+            >
+              <RadioGroupItem className="invisible" checked={checkedCost[label]} value={tag + label} id={label} />
+              <Label className={labelClassName} htmlFor={tag + label} >
+                {Cost[label]} {selectedTag ? xCircle : undefined}
               </Label>
             </Badge>
           )
