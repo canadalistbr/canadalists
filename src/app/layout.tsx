@@ -1,4 +1,5 @@
 // These styles apply to every route in the application
+import { ComparisonProvider } from 'context/ComparisonContext'
 import { Nunito } from 'next/font/google'
 import '../globals.css'
 
@@ -6,7 +7,6 @@ export const metadata = {
   title: 'Canada List',
   description: 'Move to Canada'
 }
-
 
 const inter = Nunito({
   weight: '500',
@@ -20,8 +20,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="debug-screens">
-        <div className={inter.className}>{children}</div>
+      <body className="debug-screens relative">
+        <ComparisonProvider>
+          <div className={inter.className}>{children}</div>
+        </ComparisonProvider>
       </body>
     </html>
   )

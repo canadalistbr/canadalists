@@ -6,7 +6,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 import { Language } from "@core/domain/models";
 import { XCircle } from "lucide-react";
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import Link from 'next/link';
 import { ReadonlyURLSearchParams, usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { isEmpty } from "ramda";

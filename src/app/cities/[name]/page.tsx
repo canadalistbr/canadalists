@@ -84,7 +84,7 @@ async function CityPage({ params }: ProvinceType) {
                     >
                         <div className='relative h-full w-full'>
                             {/* Center */}
-                            <span className="absolute text-black transform -translate-x-1/2 -translate-y-1/2 text-9xl top-1/2 left-1/2">
+                            <span className="absolute text-white transform -translate-x-1/2 -translate-y-1/2 text-9xl top-1/2 left-1/2">
                                 {currentCity.name}
                             </span>
                             {/* TODO: temporary - use an icon or somthing fancier */}

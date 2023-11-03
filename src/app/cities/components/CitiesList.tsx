@@ -1,13 +1,19 @@
+'use client'
+import { Separator } from "@/components/ui/separator";
 import { CityModel } from "@core/domain/models";
 import { Card } from "components/Card/Card";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { getCitySize, getCost, getLanguages, getWinterSeverity, Tags } from "../helpers";
+import { ComparisonSection } from "./CardComparisonSection";
 
 type CitiesListProps = {
     cities: CityModel[]
 }
 
 function CitiesList({ cities }: CitiesListProps) {
+
+    const router = useRouter()
+
     return (
         <div className="grid gap-4 grid-cols-[repeat(auto-fill,minmax(350px,1fr))]">
             {cities.map(city => {
@@ -36,11 +42,22 @@ function CitiesList({ cities }: CitiesListProps) {
                 const bottomRight = getLanguages(language);
                 const topLeft = getCost(costOfLiving, costOverall);
                 return (
-                    <Link key={id} href={`/cities/${slug}`}>
-                        <Card center={center} title={name} image={imageUrl} bottomLeft={bottomLeft} bottomRight={bottomRight} upperLeft={topLeft}>
-                            <Tags {...restProps} citySize={citySize} />
+                    <div className="cursor-pointer" onClick={() => router.push(`/cities/${slug}`)} key={id}>
+                        <Card
+                            center={center}
+                            title={name}
+                            image={imageUrl}
+                            bottomLeft={bottomLeft}
+                            bottomRight={bottomRight}
+                            upperLeft={topLeft}
+                        >
+                            <div className="flex flex-col gap-4">
+                                <Tags {...restProps} citySize={citySize} />
+                                <Separator />
+                                <ComparisonSection label={name} />
+                            </div>
                         </Card>
-                    </Link>);
+                    </div>);
             })}
         </div>
     )
