@@ -58,13 +58,15 @@ export function ComboboxWithQueryParams(props: ComboboxProps) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-auto p-5 justify-between border-gray-200 rounded-full"
+          className={`w-auto p-5 justify-between border-gray-200 rounded-full ${value && 'bg-red-500 text-white'}`}
         >
-          {value
-            ? selects.find((select) =>
-              select.value.toLocaleLowerCase() === value.toLocaleLowerCase()
-            )?.label
-            : `Select ${selectName}...`}
+          <Label className="text-lg">
+            {value
+              ? selects.find((select) =>
+                select.value.toLocaleLowerCase() === value.toLocaleLowerCase()
+              )?.label
+              : `Select ${selectName}...`}
+          </Label>
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>

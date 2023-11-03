@@ -143,7 +143,7 @@ function getStyles(tag: string, value: string, paramsProps: ParamsProps) {
   const { searchParams } = paramsProps
   const isTagFiltered = searchParams?.get(tag)
   const variant = isTagFiltered ? 'secondary' : 'outline' as BadgeProps['variant']
-  const className = cn('p-2 px-6 cursor-pointer hover:bg-gray-100 transition-all duration-300', isTagFiltered && 'bg-slate-100 border-red-400 text-red-400')
+  const className = cn('p-2 px-6  cursor-pointer hover:bg-gray-100 hover:text-red-600  hover:border-red-600 transition-all duration-300', isTagFiltered && 'border-gray-600  bg-red-500 text-white font-extrabold')
 
   const onClick = !isTagFiltered ? () => addQueryString(tag, value, paramsProps) : () => removeQueryString(tag, paramsProps)
   const xCircle = isTagFiltered ? <XCircle size={15} /> : null
@@ -191,7 +191,6 @@ export function Filters() {
     High: false,
   }
   const [checkedCost, setCheckedCost] = useState<ChekedCostState>(initialCostCheckedState);
-  debugger
 
   const labelClassName = "cursor-pointer text-lg flex gap-2 items-center justify-center"
 
@@ -339,7 +338,7 @@ export function Filters() {
 
       />
       {hasFilters ?
-        <Badge className="cursor-pointer  px-4 bg-slate-100 hover:bg-red-400 hover:text-white transition-all duration-500 border-red-400 text-red-400">
+        <Badge className="cursor-pointer  px-4 bg-slate-100 hover:bg-red-600 hover:text-white transition-all duration-500 border-red-600 text-red-600">
           <Link href={'/cities'}>
             <div className="p-1 cursor-pointer flex items-center gap-2">
               <Label className={labelClassName}>Remove all filters</Label> <XCircle size={15} />
