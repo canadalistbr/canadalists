@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label"
 import { getAllCities } from '@core/main/api/cities'
 import MaxWidthWrapper from 'components/MaxWidthWrapper'
 import { ListFilter } from "lucide-react"
+import { isEmpty } from "ramda"
 import { CitiesList } from './components/CitiesList'
 import { ComparisonButton } from "./components/ComparisonButton"
 import { Filters } from './components/Filters'
@@ -22,13 +23,14 @@ export type CitiesProps = {
 async function Cities({ searchParams }: CitiesProps) {
 
   const cities = await getAllCities(searchParams)
+  const hasFilters = !isEmpty(searchParams)
   return (
     <MaxWidthWrapper>
       <div className='flex flex-col gap-4'>
         <Accordion type="single" collapsible>
           <AccordionItem value="item-1">
-            <AccordionTrigger className="gap-1 hover:no-underline " expand={false}>
-              <Badge className="p-2 px-4 ">
+            <AccordionTrigger className="gap-1 hover:no-underline ml-auto " expand={false}>
+              <Badge className={`p-2 px-4 ${hasFilters && "bg-red-500"}`}>
                 <div className="flex gap-3 justify-center items-center">
                   <Label className="text-2xl font-bold" >
                     Filters

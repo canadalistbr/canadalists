@@ -121,7 +121,6 @@ type ParamsProps = Partial<{
 }>
 
 function addQueryString(name: string, value: string, paramsProps: ParamsProps): void {
-  debugger
   const { params, pathname, router } = paramsProps
   params?.set(name, value)
   const queryParams = params?.toString()
