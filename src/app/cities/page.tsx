@@ -8,7 +8,7 @@ import { getAllCities } from '@core/main/api/cities'
 import MaxWidthWrapper from 'components/MaxWidthWrapper'
 import { Filter } from "lucide-react"
 import { CitiesList } from './components/CitiesList'
-import { ComparisonButton } from "./components/ComparisonButton"
+import { ComparisonDialog } from "./components/ComparisonDialog"
 import { Filters } from './components/Filters'
 
 export type CitiesProps = {
@@ -33,7 +33,7 @@ async function Cities({ searchParams }: CitiesProps) {
         </Accordion>
         <CitiesList cities={cities} />
       </div>
-      <ComparisonButton />
+      <ComparisonDialog />
     </MaxWidthWrapper>
   )
 }

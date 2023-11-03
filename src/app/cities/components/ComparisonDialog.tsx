@@ -23,7 +23,7 @@ function getLabel(cities: string[]) {
   }
 }
 
-export function ComparisonButton() {
+export function ComparisonDialog() {
   const { selectedCities, removeAllCities } = useCompareCities()
   const hasCitiesToCompare = !isEmpty(selectedCities)
   const isButtonDisabled = selectedCities.length === 1
