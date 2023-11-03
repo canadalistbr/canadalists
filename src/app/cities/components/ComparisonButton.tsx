@@ -1,6 +1,8 @@
 'use client'
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
+import cn from "clsx";
 import { useCompareCities } from "context/ComparisonContext";
 import { XCircle } from "lucide-react";
 import { isEmpty } from "ramda";
@@ -28,25 +30,46 @@ export function ComparisonButton() {
 
 
   return hasCitiesToCompare ? (
-    <Button className={`cursor-pointer fixed bottom-0 left-1/2 -translate-x-1/2 p-10 ${isButtonDisabled && 'opacity-50 cursor-not-allowed'} `}
-      onClick={e => {
-        e.stopPropagation()
-        // TODO: implement open Modal logic
-        if (isButtonDisabled) {
-          return
-        }
-        alert('clicked button')
-      }}
-    >
-      <div className="flex gap-2 items-center justify-center">
-        <Label className={`cursor-pointer ${isButtonDisabled && 'cursor-not-allowed'} hover:underline text-3xl`}>          {getLabel(selectedCities)}
-        </Label>
-        {!isButtonDisabled ? <XCircle className={`${isButtonDisabled && 'pointer-events-none'}`} onClick={(e) => {
-          e.stopPropagation()
-          removeAllCities()
-        }} /> : null}
-      </div>
-    </Button>
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button
+          className={cn("cursor-pointer fixed bottom-0 left-1/2 -translate-x-1/2 p-10",
+            isButtonDisabled && 'opacity-50 pointer-events-none'
+          )}
+          disabled={isButtonDisabled}
+        >
+          <div className="flex gap-2 items-center justify-center">
+            <Label className={
+              cn('cursor-pointer hover:underline text-3xl',
+                isButtonDisabled && 'cursor-not-allowed hover:no-underline'
+              )
+            }>
+              {getLabel(selectedCities)}
+            </Label>
+            {!isButtonDisabled ? <XCircle className={`${isButtonDisabled && 'pointer-events-none'}`} onClick={(e) => {
+              e.stopPropagation()
+              removeAllCities()
+            }} /> : null}
+          </div>
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle>Share link</DialogTitle>
+          <DialogDescription>
+            Anyone who has this link will be able to view this.
+          </DialogDescription>
+        </DialogHeader>
+        <DialogFooter className="sm:justify-start">
+          <DialogClose asChild>
+            <Button type="button" variant="secondary">
+              Close
+            </Button>
+          </DialogClose>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+
   ) : null
 }
 
