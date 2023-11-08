@@ -1,4 +1,5 @@
 // These styles apply to every route in the application
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ComparisonProvider } from 'context/ComparisonContext';
 import { Nunito } from 'next/font/google';
 import { NextUIProviderWrapper } from 'providers/nextui-provider';
@@ -27,6 +28,7 @@ export default function RootLayout({
           <NextUIProviderWrapper>
             <QueryProvider>
               <div className={inter.className}>{children}</div>
+              <ReactQueryDevtools initialIsOpen />
             </QueryProvider>
           </NextUIProviderWrapper>
         </ComparisonProvider>
