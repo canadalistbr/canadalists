@@ -2,13 +2,13 @@
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { getCityByPromise } from "@core/main/api/cities";
-import { Button as NextButton, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/react";
+import { useDisclosure } from "@nextui-org/react";
 import { useQueries } from "@tanstack/react-query";
 import cn from "clsx";
 import { useCompareCities } from "context/ComparisonContext";
 import { XCircle } from "lucide-react";
 import { isEmpty } from "ramda";
-import { CityOverViewTable } from "./CityOverViewTable";
+import { ComparisonModal } from "./ComparisonModal";
 
 
 function getLabel(cities: string[]) {
@@ -24,7 +24,6 @@ export function ComparisonDialog() {
   const { selectedCities, removeAllCities } = useCompareCities()
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-
   const hasCitiesToCompare = !isEmpty(selectedCities)
   const isButtonDisabled = selectedCities.length === 1
 
@@ -33,7 +32,6 @@ export function ComparisonDialog() {
       return {
         queryKey: ['city', city],
         queryFn: () => getCityByPromise(city),
-
       }
     }),
   })
@@ -62,36 +60,12 @@ export function ComparisonDialog() {
             }} /> : null}
           </div>
         </Button> : null}
-      <Modal backdrop="blur" isOpen={isOpen} onOpenChange={onOpenChange}>
-        <ModalContent className="max-w-fit">
-          {(onClose) => (
-            <>
-              <ModalHeader className="flex flex-col gap-1">Compare these cities</ModalHeader>
-              <ModalBody className="flex-row justify-center">
-                {citiesToCompare.map(({ data, isLoading, isError }) => {
-                  // TODO: manager Errors and Loading properly
-                  isLoading && <div>...loading</div>
-                  isError && <div>...error</div>
-                  const city = data?.data
-                  return (
-                    <div key={city?.id} >
-                      <CityOverViewTable city={city} />
-                    </div>
-                  )
-                })}
-              </ModalBody>
-              <ModalFooter>
-                <NextButton color="danger" variant="light" onPress={onClose}>
-                  Close
-                </NextButton>
-                <NextButton color="primary" onPress={onClose}>
-                  Action
-                </NextButton>
-              </ModalFooter>
-            </>
-          )}
-        </ModalContent>
-      </Modal>
+      <ComparisonModal
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        citiesToCompare={citiesToCompare}
+      />
+
     </>
   );
 }

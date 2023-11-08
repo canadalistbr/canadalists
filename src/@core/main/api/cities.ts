@@ -1,7 +1,7 @@
 import { CityModel } from "@core/domain/models"
 import { axiosHttp } from "../http"
 
-type CityPromise = {
+export type CityPromise = {
     data: CityModel
 }
 
