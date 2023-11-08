@@ -1,7 +1,8 @@
 // These styles apply to every route in the application
-import { ComparisonProvider } from 'context/ComparisonContext'
-import { Nunito } from 'next/font/google'
-import '../globals.css'
+import { ComparisonProvider } from 'context/ComparisonContext';
+import { Nunito } from 'next/font/google';
+import { NextUIProviderWrapper } from 'providers/nextui-provider';
+import '../globals.css';
 
 export const metadata = {
   title: 'Canada List',
@@ -22,7 +23,9 @@ export default function RootLayout({
     <html lang="en">
       <body className="debug-screens relative">
         <ComparisonProvider>
-          <div className={inter.className}>{children}</div>
+          <NextUIProviderWrapper>
+            <div className={inter.className}>{children}</div>
+          </NextUIProviderWrapper>
         </ComparisonProvider>
       </body>
     </html>
