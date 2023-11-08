@@ -25,7 +25,7 @@ export type LabelWithEmojiProps = PropsWithChildren<{
 export function LabelWithEmoji(props: LabelWithEmojiProps) {
   const { emojiProps, children } = props
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 [&>*]:text-lg [&>*]:text-black ">
       <Emoji {...emojiProps} />
       <span>{children}</span>
     </div>
