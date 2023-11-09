@@ -1,42 +1,62 @@
-import { CityPromise } from "@core/main/api/cities"
+'use client'
+import { CityModel } from "@core/domain/models"
+import { getCityByPromise } from "@core/main/api/cities"
 import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/react"
-import { UseQueryResult } from "@tanstack/react-query"
+import { useQueries } from "@tanstack/react-query"
+import { useCompareCities } from "context/ComparisonContext"
+import { isUndefined } from "ramda-adjunct"
 import { CityOverViewTable } from "./CityOverViewTable"
 
 
 export type ComparisonModalProps = {
   isOpen: boolean
   onOpenChange: () => void
-  citiesToCompare: UseQueryResult<CityPromise, Error>[]
+  cities: CityModel[]
 }
 
 export function ComparisonModal(props: ComparisonModalProps) {
-  const { citiesToCompare, isOpen, onOpenChange } = props
+  const { isOpen, onOpenChange, cities } = props
+  const { selectedCities, replaceCityBy } = useCompareCities()
+
+  const allCitiesNames = cities.map(({ name }) => name)
+  const citiesToComparePromise = useQueries({
+    queries: selectedCities.map((city) => {
+      return {
+        queryKey: ['city', city],
+        queryFn: () => getCityByPromise(city),
+      }
+    }),
+  })
+
   return (
-    <Modal backdrop="blur" isOpen={isOpen} onOpenChange={onOpenChange}>
-      <ModalContent className="max-w-fit">
+    <Modal size="5xl" backdrop="blur" isOpen={isOpen} onOpenChange={onOpenChange}>
+      <ModalContent >
         {(onClose) => (
           <>
             <ModalHeader className="flex flex-col gap-1">Compare these cities</ModalHeader>
             <ModalBody className="flex-row justify-center">
-              {citiesToCompare.map(({ data, isLoading, isError }) => {
+              {citiesToComparePromise.map(({ data, isLoading, error }) => {
                 // TODO: manager Errors and Loading properly
-                isLoading && <div>...loading</div>
-                isError && <div>...error</div>
-                const city = data?.data
+                if (isLoading || isUndefined(data)) {
+                  return <h1>Loadings RIGHT HERE MATHERFYCK..........</h1>
+                }
+                if (error) {
+                  return <h1>ERROR HERE MATHERFYCK..........</h1>
+                }
+                const cityData = data.data
                 return (
-                  <div key={city?.id} >
-                    <CityOverViewTable city={city} />
-                  </div>
+                  <CityOverViewTable
+                    key={cityData.id}
+                    replaceCityBy={replaceCityBy}
+                    disabledCities={selectedCities}
+                    allCitiesNames={allCitiesNames}
+                    cityData={cityData} />
                 )
               })}
             </ModalBody>
             <ModalFooter>
               <Button color="danger" variant="light" onPress={onClose}>
                 Close
-              </Button>
-              <Button color="primary" onPress={onClose}>
-                Action
               </Button>
             </ModalFooter>
           </>
