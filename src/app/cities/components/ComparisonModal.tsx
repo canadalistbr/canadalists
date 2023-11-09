@@ -18,7 +18,16 @@ export function ComparisonModal(props: ComparisonModalProps) {
   const { isOpen, onOpenChange, cities } = props
   const { selectedCities, replaceCityBy } = useCompareCities()
 
-  const allCitiesNames = cities.map(({ name }) => name)
+  const allCitiesNames = cities.map(({ name }) => name).sort((a, b) => {
+    if (a > b) {
+      return 1
+    }
+    if (a < b) {
+      return -1
+    }
+    return 0
+  })
+
   const citiesToComparePromise = useQueries({
     queries: selectedCities.map((city) => {
       return {
@@ -28,12 +37,18 @@ export function ComparisonModal(props: ComparisonModalProps) {
     }),
   })
 
+  const [cityOne, cityTwo] = citiesToComparePromise
+
+  const cityOneName = cityOne?.data?.data.name
+  const cityTwoName = cityTwo?.data?.data.name
+
   return (
     <Modal size="5xl" backdrop="blur" isOpen={isOpen} onOpenChange={onOpenChange}>
       <ModalContent >
         {(onClose) => (
           <>
-            <ModalHeader className="flex flex-col gap-1">Compare these cities</ModalHeader>
+            {cityOneName && cityTwoName && <ModalHeader className="flex flex-col gap-1 text-2xl text-center">
+              Compare {cityOneName} with {cityTwoName}</ModalHeader>}
             <ModalBody className="flex-row justify-center">
               {citiesToComparePromise.map(({ data, isLoading, error }) => {
                 // TODO: manager Errors and Loading properly
