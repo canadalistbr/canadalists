@@ -4,4 +4,5 @@ export type CityScores = {
   score: number
   emoji: string
   overview_id: string
+  position: number
 }
