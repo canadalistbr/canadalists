@@ -1,18 +1,45 @@
 import { CityModel } from "@core/domain/models";
-import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@nextui-org/react";
+import { Select, SelectItem, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@nextui-org/react";
 import { LabelWithEmoji } from "components/Emoji";
 import { Progressbar } from "components/Progressbar";
+import { ChangeEvent } from "react";
 
 export type CityOverViewTableProps = {
-  city?: CityModel
+  cityData: CityModel
+  allCitiesNames: string[]
+  disabledCities: (string)[]
+  replaceCityBy: (cityToReplace: string, replacementCity: string) => void
 }
-export function CityOverViewTable({ city }: CityOverViewTableProps) {
-  const scores = city?.cityOverview?.scores ?? []
-  const name = city?.name
+export function CityOverViewTable(props: CityOverViewTableProps) {
+  const { cityData, allCitiesNames, replaceCityBy, disabledCities } = props
+
+  const scores = cityData.cityOverview?.scores ?? []
+  const currentSelectedCity = cityData.name
+
+  function handleChange(e: ChangeEvent<HTMLSelectElement>) {
+    const cityToBeReplaced = currentSelectedCity
+    const newlySelectedCity = e.target.value
+    replaceCityBy(cityToBeReplaced, newlySelectedCity)
+  }
+
   return (
-    <Table aria-label="City Scores Overview" className='' >
+    <Table aria-label="City Overview Table" >
       <TableHeader>
-        <TableColumn>{name}</TableColumn>
+        <TableColumn>
+          <Select
+            disabledKeys={disabledCities}
+            className="max-w-xs"
+            defaultSelectedKeys={[currentSelectedCity]}
+            onChange={handleChange}
+          >
+            {allCitiesNames.map((cityName) => (
+              <SelectItem
+                key={cityName} value={cityName}>
+                {cityName}
+              </SelectItem>
+            ))}
+          </Select>
+        </TableColumn>
         <TableColumn className="self-center">Score</TableColumn>
       </TableHeader>
       <TableBody className="flex-row">
