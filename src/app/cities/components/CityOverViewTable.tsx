@@ -23,6 +23,8 @@ export function CityOverViewTable(props: CityOverViewTableProps) {
     replaceCityBy(cityToBeReplaced, newlySelectedCity)
   }
 
+  const sortedScores = scores.sort((a, b) => b.position - a.position)
+
   return (
     <Table aria-label="City Overview Table" >
       <TableHeader>
@@ -47,7 +49,7 @@ export function CityOverViewTable(props: CityOverViewTableProps) {
         </TableColumn>
       </TableHeader>
       <TableBody className="flex-row">
-        {scores?.map(score => {
+        {sortedScores?.map(score => {
           return (
             <TableRow key={score.id}>
               <TableCell className="w-fit">
