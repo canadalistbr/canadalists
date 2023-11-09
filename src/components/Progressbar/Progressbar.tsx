@@ -26,7 +26,7 @@ const gradientConfigs: { [key: string]: GradientConfig } = {
 }
 
 function getGradient(progress: number) {
-  if (progress < 100 && progress > 80) {
+  if (progress <= 100 && progress > 80) {
     return gradientConfigs['excellent']
   }
   if (progress <= 80 && progress > 60) {
