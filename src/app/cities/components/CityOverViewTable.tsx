@@ -1,3 +1,4 @@
+import { Label } from "@/components/ui/label";
 import { CityModel } from "@core/domain/models";
 import { Select, SelectItem, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@nextui-org/react";
 import { LabelWithEmoji } from "components/Emoji";
@@ -25,7 +26,7 @@ export function CityOverViewTable(props: CityOverViewTableProps) {
   return (
     <Table aria-label="City Overview Table" >
       <TableHeader>
-        <TableColumn>
+        <TableColumn className="text-center">
           <Select
             disabledKeys={disabledCities}
             className="max-w-xs"
@@ -34,19 +35,22 @@ export function CityOverViewTable(props: CityOverViewTableProps) {
           >
             {allCitiesNames.map((cityName) => (
               <SelectItem
+                className="text-lg"
                 key={cityName} value={cityName}>
                 {cityName}
               </SelectItem>
             ))}
           </Select>
         </TableColumn>
-        <TableColumn className="self-center">Score</TableColumn>
+        <TableColumn className="text-center">
+          <Label className="text-base">Score</Label>
+        </TableColumn>
       </TableHeader>
       <TableBody className="flex-row">
         {scores?.map(score => {
           return (
             <TableRow key={score.id}>
-              <TableCell>
+              <TableCell className="w-fit">
                 <LabelWithEmoji emojiProps={{ symbol: score.emoji, label: 'score name' }} >
                   {score.name}
                 </LabelWithEmoji>
