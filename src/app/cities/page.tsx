@@ -33,7 +33,7 @@ async function Cities({ searchParams }: CitiesProps) {
         </Accordion>
         <CitiesList cities={cities} />
       </div>
-      <ComparisonDialog />
+      <ComparisonDialog cities={cities} />
     </MaxWidthWrapper>
   )
 }
