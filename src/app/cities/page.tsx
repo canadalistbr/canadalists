@@ -11,7 +11,7 @@ import MaxWidthWrapper from 'components/MaxWidthWrapper'
 import { ListFilter } from "lucide-react"
 import { isEmpty } from "ramda"
 import { CitiesList } from './components/CitiesList'
-import { ComparisonButton } from "./components/ComparisonButton"
+import { ComparisonDialog } from "./components/ComparisonDialog"
 import { Filters } from './components/Filters'
 
 export type CitiesProps = {
@@ -46,7 +46,7 @@ async function Cities({ searchParams }: CitiesProps) {
         </Accordion>
         <CitiesList cities={cities} />
       </div>
-      <ComparisonButton />
+      <ComparisonDialog cities={cities} />
     </MaxWidthWrapper>
   )
 }

@@ -1,19 +1,22 @@
 'use client'
+import { noop } from 'ramda-adjunct'
 import * as React from 'react'
-
 type ComparisonContextType = {
   selectedCities: string[]
   addCity: (name: string) => void
   removeCity: (name: string) => void
   removeAllCities: () => void
+  replaceCityBy: (cityToReplace: string, replacementCity: string) => void
   maxSelection: number
 }
 const ComparisonContext = React.createContext<ComparisonContextType>({
   selectedCities: [],
-  addCity: () => { },
-  removeCity: () => { },
-  removeAllCities: () => { },
-  maxSelection: 3
+  addCity: noop,
+  removeCity: noop,
+  removeAllCities: noop,
+  replaceCityBy: noop,
+  maxSelection: 2,
+
 })
 
 export type ComparisonProviderProps = React.PropsWithChildren<{}>
@@ -32,12 +35,22 @@ export function ComparisonProvider({ children }: ComparisonProviderProps) {
     setSelectedCitiesNames([])
   }
 
+  function replaceCityBy(cityToReplace: string, replacementCity: string) {
+    const updatedCities = [...selectedCities];
+    const indexToReplace = updatedCities.indexOf(cityToReplace);
+    if (indexToReplace !== -1) {
+      updatedCities[indexToReplace] = replacementCity;
+      setSelectedCitiesNames(updatedCities);
+    }
+  }
+
   return <ComparisonContext.Provider value={{
     selectedCities,
     addCity,
     removeCity,
     removeAllCities,
-    maxSelection: 3
+    replaceCityBy,
+    maxSelection: 2
   }}>
     {children}
   </ComparisonContext.Provider>

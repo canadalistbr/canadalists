@@ -1,7 +1,9 @@
 // These styles apply to every route in the application
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ComparisonProvider } from 'context/ComparisonContext';
 import { Nunito } from 'next/font/google';
 import { NextUIProviderWrapper } from 'providers/nextui-provider';
+import { QueryProvider } from 'services/TanStackQuery/QueryProvider';
 import '../globals.css';
 
 export const metadata = {
@@ -24,7 +26,10 @@ export default function RootLayout({
       <body className="debug-screens relative">
         <ComparisonProvider>
           <NextUIProviderWrapper>
-            <div className={inter.className}>{children}</div>
+            <QueryProvider>
+              <div className={inter.className}>{children}</div>
+              <ReactQueryDevtools initialIsOpen />
+            </QueryProvider>
           </NextUIProviderWrapper>
         </ComparisonProvider>
       </body>

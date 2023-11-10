@@ -1,6 +1,14 @@
 import { CityModel } from "@core/domain/models"
 import { axiosHttp } from "../http"
 
+export type CityPromise = {
+    data: CityModel
+}
+
+export async function getCityByPromise(name: string): Promise<CityPromise> {
+    return await axiosHttp.get(`/api/cities/${name}`)
+}
+
 export async function getCityBy(name: string): Promise<CityModel> {
     const res = await axiosHttp.get(`/api/cities/${name}`)
     if (!res.data) {
